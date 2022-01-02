@@ -1,0 +1,7 @@
+
+*.xml
+target/classes/.netbeans_automatic_build
+*.class
+*.jar
+*.lst
+target/test-classes/.netbeans_automatic_build

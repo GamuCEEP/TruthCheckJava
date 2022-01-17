@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-
-
-package domain.Utils;
-
-
-public class Timeline {
-    
-=======
 package domain.Utils;
 
 import domain.Interactions.Event;
@@ -74,8 +65,6 @@ public class Timeline {
         public Event getEvent() {
             return event;
         }
-    }
->>>>>>> Stashed changes
-    
+    }   
     
 }

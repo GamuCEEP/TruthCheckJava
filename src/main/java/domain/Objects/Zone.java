@@ -2,7 +2,6 @@
 package domain.Objects;
 
 import domain.Resource;
-<<<<<<< Updated upstream
 import domain.Utils.Timeline;
 
 public class Zone extends Resource{
@@ -16,11 +15,4 @@ public class Zone extends Resource{
         super(id, name, description);
         this.timeline = new Timeline();
     }
-=======
-
-public class Zone extends Resource{
-    
-    
->>>>>>> Stashed changes
-    
 }

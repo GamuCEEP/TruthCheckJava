@@ -1,6 +1,8 @@
 
 package domain.Interactions;
 
-public class Interaction {
-    
+import domain.Resource;
+
+public class Interaction extends Resource{
+        
 }

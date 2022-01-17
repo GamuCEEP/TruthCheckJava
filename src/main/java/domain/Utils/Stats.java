@@ -9,8 +9,6 @@ public class Stats {
     public Stats() {
         this.stats = new HashMap<>();
     }
-<<<<<<< Updated upstream
-=======
 
     public HashMap<String, Value> getStats() {
         return stats;
@@ -20,6 +18,4 @@ public class Stats {
         return stats.get(key);
     }
     
-    
->>>>>>> Stashed changes
 }

@@ -8,6 +8,4 @@ public class Stats {
     public Stats() {
         this.stats = new HashMap<>();
     }
-    
-    
 }

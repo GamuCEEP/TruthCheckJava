@@ -6,3 +6,4 @@ target/classes/.netbeans_automatic_build
 *.lst
 target/test-classes/.netbeans_automatic_build
 *.war
+*.properties

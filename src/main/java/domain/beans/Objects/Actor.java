@@ -1,11 +1,13 @@
-package domain.Objects;
+package domain.beans.Objects;
 
-import domain.Resource;
-import domain.Utils.Stats;
+import domain.beans.Resource;
+import domain.beans.Utils.Stats;
 
 public class Actor extends Resource {
 
-    private final Stats stats;
+    private Stats stats;
+    
+    public Actor(){}
 
     public Actor(int id, String name, String description, Stats stats) {
         super(id, name, description);
@@ -19,7 +21,9 @@ public class Actor extends Resource {
     public Stats getStats() {
         return stats;
     }
-    
-    
 
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
+    
 }

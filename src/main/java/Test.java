@@ -1,25 +1,21 @@
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Test {
 
-    public static void main(String[] args) {
-
-        HashMap<Integer, String> table = new HashMap<>();
+    public static void main(String[] args) {        
         
-        table.put(1, "Hola");
-        table.put(2, "Oscar");
-        table.put(1, "Adios");
+        JSONObject test = new JSONObject();
+        test.put("badRequests", 2);
+        test.accumulate("badRequests",3);
         
-        table.forEach((e,i) -> System.out.println(e + " = "+ i));
-        for(Integer index : table.keySet()){
-            
-            //System.out.println(table.get(1));
-            //System.out.println("*-"+index);
-        }
+        test.put("actors", new JSONArray());
+        test.getJSONArray("actors").put((new JSONObject()).put("id", 3));
+        test.getJSONArray("actors").put((new JSONObject()).put("id", 2));
         
-        
-        
+        System.out.println(test);
     }
 }

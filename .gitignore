@@ -7,3 +7,5 @@ target/classes/.netbeans_automatic_build
 target/test-classes/.netbeans_automatic_build
 *.war
 *.properties
+target/TruthCheckJava-1.0/WEB-INF/classes/.netbeans_automatic_build
+*.dpf

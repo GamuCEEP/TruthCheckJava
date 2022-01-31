@@ -11,11 +11,23 @@ public class Test {
         JSONObject test = new JSONObject();
         test.put("badRequests", 2);
         test.accumulate("badRequests",3);
+      
+        String[] ids = {"1","2","3","4"};
+        //test.put("actors", new JSONObject());
+        //Lo de dentro de serveActors
+        if(!test.has("actors")){
+            test.put("actors", new JSONObject());
+        }
         
-        test.put("actors", new JSONArray());
-        test.getJSONArray("actors").put((new JSONObject()).put("id", 3));
-        test.getJSONArray("actors").put((new JSONObject()).put("id", 2));
+        for(String id : ids){
+            test.getJSONObject("actors").accumulate(id, getActorJSON(id));
+        }
         
-        System.out.println(test);
+        
+        
+        System.out.println(test.toString(3));
+    }
+    static JSONObject getActorJSON(String id){
+        return new JSONObject().put("nombre", "recurso");
     }
 }

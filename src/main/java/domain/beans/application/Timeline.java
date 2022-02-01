@@ -1,6 +1,6 @@
-package domain.beans.Utils;
+package domain.beans.application;
 
-import domain.beans.Interactions.Event;
+import domain.beans.application.Event;
 import java.util.Map;
 
 

@@ -1,8 +1,5 @@
 
-package domain.beans.Objects;
-
-import domain.beans.Resource;
-import domain.beans.Utils.Timeline;
+package domain.beans.application;
 
 public class Zone extends Resource{
     

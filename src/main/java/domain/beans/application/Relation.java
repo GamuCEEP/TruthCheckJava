@@ -1,7 +1,5 @@
 
-package domain.beans.Interactions;
-
-import domain.beans.Resource;
+package domain.beans.application;
 
 public class Relation extends Resource{
 

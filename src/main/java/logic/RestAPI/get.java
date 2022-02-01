@@ -1,52 +1,40 @@
 package logic.RestAPI;
 
+import domain.beans.application.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.function.BiConsumer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import domain.beans.Objects.*;
-import domain.beans.Interactions.*;
 import exceptions.ResourceNotFoundException;
-import java.util.HashMap;
 import org.json.JSONObject;
+import data.dataAPI;
 
-@WebServlet(name = "Rest", urlPatterns = {"/rest"})
+
+/**
+ * Returns all the requested resources as a JSON 
+ */
+@WebServlet(name = "Rest", urlPatterns = {"/get"})
 public class get extends HttpServlet {
-
-  private Map<String, BiConsumer<JSONObject, String[]>> restHandler;
-
-  public get() {
-    restHandler = new HashMap<>();
-    restHandler.put("effect", this::serveEffect);
-    restHandler.put("event", this::serveEvent);
-    restHandler.put("interaction", this::serveInteraction);
-    restHandler.put("relation", this::serveRelation);
-    restHandler.put("actor", this::serveActor);
-    restHandler.put("item", this::serveItem);
-    restHandler.put("zone", this::serveZone);
-  }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    JSONObject requestedObjects = new JSONObject();
+    try (PrintWriter out = response.getWriter()) {
+      JSONObject requestedObjects = new JSONObject();
 
-    request.getParameterMap().forEach((resourceType, ids) -> {
-      if (!restHandler.containsKey(resourceType)) {
-        serveIncorrectRequest(requestedObjects, resourceType);
-        return;
-      }
-      restHandler.get(resourceType).accept(requestedObjects, ids);
-    });
-    response.setHeader("Content-Type", "application/json");
-    out.print(requestedObjects);
-    out.close();
+      request.getParameterMap().forEach((resourceType, ids) -> {
+        if (!ResourceType.has(resourceType)) {
+          serveIncorrectRequest(requestedObjects, resourceType);
+          return;
+        }
+        requestedObjects.put(resourceType + 's', serveResources(resourceType, ids));
+      });
+      response.setHeader("Content-Type", "application/json");
+      out.print(requestedObjects);
+    }
   }
 
   private void serveIncorrectRequest(JSONObject response, String badRequest) {
@@ -56,102 +44,20 @@ public class get extends HttpServlet {
   private String serveResourceNotFound() {
     return "ResourceNotFound";
   }
-  
-  private void serveActor(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
 
+  private JSONObject serveResources(String resourceType, String... ids) {
+    JSONObject response = new JSONObject();
     for (String id : ids) {
       try {
-        // TODO get the resource
+        //WARNING getResource is a mock implementation
+        Resource resource = dataAPI.getResource(resourceType, id);
+        JSONObject resourceJSON = new JSONObject(resource);
+
+        response.put(id, resourceJSON);
       } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
+        response.put(id, serveResourceNotFound());
       }
     }
-  }
-
-  private void serveItem(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
-  }
-
-  private void serveZone(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
-  }
-
-  private void serveEffect(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
-  }
-
-  private void serveEvent(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
-  }
-
-  private void serveInteraction(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
-  }
-
-  private void serveRelation(JSONObject response, String... ids) {
-    if (!response.has("actors")) {
-      response.put("actors", new JSONObject());
-    }
-
-    for (String id : ids) {
-      try {
-        // TODO get the resource
-      } catch (ResourceNotFoundException e) {
-        response.getJSONObject("actors").accumulate(id, serveResourceNotFound());
-      }
-    }
+    return response;
   }
 }

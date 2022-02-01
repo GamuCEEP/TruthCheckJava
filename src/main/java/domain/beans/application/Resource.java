@@ -1,4 +1,4 @@
-package domain.beans;
+package domain.beans.application;
 
 
 public abstract class Resource {

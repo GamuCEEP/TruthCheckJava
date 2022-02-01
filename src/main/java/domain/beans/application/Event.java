@@ -1,15 +1,16 @@
 
-package domain.beans.Interactions;
+package domain.beans.application;
 
-import domain.beans.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Event extends Resource{
-    
+    // TODO cambiar esto para que sea pasable a json
     private Map<Effect, Float> posibleEffects;
     
-    public Event(){}
+    public Event(){
+        posibleEffects = new HashMap<>();
+    }
     
     public Event(int id, String name, String description) {
         super(id, name, description);

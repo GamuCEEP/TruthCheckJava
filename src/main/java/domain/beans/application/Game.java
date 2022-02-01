@@ -1,6 +1,6 @@
 
 
-package domain.beans;
+package domain.beans.application;
 
 
 public class Game {

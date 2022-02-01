@@ -1,7 +1,5 @@
-package domain.beans.Utils;
+package domain.beans.application;
 
-import domain.beans.Objects.Zone;
-import domain.beans.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

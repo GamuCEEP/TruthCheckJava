@@ -1,34 +1,52 @@
-
 package domain.beans.application;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Event extends Resource{
-    // TODO cambiar esto para que sea pasable a json
-    private Map<Effect, Float> posibleEffects;
-    
-    public Event(){
-        posibleEffects = new HashMap<>();
-    }
-    
-    public Event(int id, String name, String description) {
-        super(id, name, description);
-        posibleEffects = new HashMap<>();
-    }
-    public Event(int id, String name, String description, Map<Effect, Float> posibleEffects) {
-        super(id, name, description);
-        this.posibleEffects = posibleEffects;
-    }
+public class Event extends Resource {
 
-    public Map<Effect, Float> getPosibleEffects() {
-        return posibleEffects;
-    }
+  private List<Effect> effects;
+  private int probability;
+  private int priority;
 
-    public void setPosibleEffects(Map<Effect, Float> posibleEffects) {
-        this.posibleEffects = posibleEffects;
-    }
-    
-    
-    
+  public Event() {
+    effects = new ArrayList<>();
+  }
+
+  public Event(int id, String name, String description) {
+    super(id, name, description);
+    effects = new ArrayList<>();
+  }
+
+  public Event(List<Effect> effects, int probability, int priority, int id, String name, String description) {
+    super(id, name, description);
+    this.effects = effects;
+    this.probability = probability;
+    this.priority = priority;
+  }
+
+  public List<Effect> getEffects() {
+    return effects;
+  }
+
+  public void setEffects(List<Effect> effects) {
+    this.effects = effects;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
+
+  public void setPriority(int priority) {
+    this.priority = priority;
+  }
+
+  public int getProbability() {
+    return probability;
+  }
+
+  public void setProbability(int probability) {
+    this.probability = probability;
+  }
+
 }

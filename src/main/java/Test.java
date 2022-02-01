@@ -11,29 +11,40 @@ import org.json.JSONObject;
 
 public class Test {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        Effect ef = new Effect(0, "Atraccion", "atrae cosas", "Resources.distance --");
-        
-        List efs = new ArrayList<Interaction>();
-        efs.add(ef);
-        Interaction inte = new Interaction(0, "Magnetismo", "Atrae objetos metalicos", "has metal", efs);
+    Effect ef = new Effect(0, "Atraccion", "atrae cosas", "Resources.distance --");
 
-        List intes = new ArrayList<Interaction>();
-        intes.add(inte);
+    List efs = new ArrayList<Interaction>();
+    efs.add(ef);
+    Interaction inte = new Interaction(0, "Magnetismo", "Atrae objetos metalicos", "has metal", efs);
 
-        Item i = new Item(0, "Espada", "Es un palo", intes);
+    List intes = new ArrayList<Interaction>();
+    intes.add(inte);
 
-        JSONObject test = new JSONObject();
-        test.accumulate("Items", i);
+    Item i = new Item(0, "Espada", "Es un palo", intes);
 
-        System.out.println(test.toString(3));
-        
-        
-        
-    }
+    JSONObject test = new JSONObject();
+    test.accumulate("Items", i);
+    List<List<Item>> lliisstt = new ArrayList<>();
 
-    static JSONObject getActorJSON(String id) {
-        return new JSONObject().put("nombre", "recurso");
-    }
+    List<Item> listItem = new ArrayList<>();
+
+    listItem.add(i);
+
+    lliisstt.add(listItem);
+    lliisstt.add(listItem);
+    lliisstt.add(listItem);
+
+    JSONObject lislist = new JSONObject();
+    lislist.accumulate("Timeline", lliisstt);
+
+    System.out.println(lislist.toString(1));
+    System.out.println("Hola");
+
+  }
+
+  static JSONObject getActorJSON(String id) {
+    return new JSONObject().put("nombre", "recurso");
+  }
 }

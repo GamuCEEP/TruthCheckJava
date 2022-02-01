@@ -11,15 +11,16 @@ public class Actor extends Resource {
         this.stats = new HashMap<>();
     }
 
+    public Actor(int id, String name, String description) {
+        super(id, name, description);
+        this.stats = new HashMap<>();
+    }
+    
     public Actor(int id, String name, String description, Map<String, String> stats) {
         super(id, name, description);
         this.stats = stats;
     }
 
-    public Actor(int id, String name, String description) {
-        super(id, name, description);
-        this.stats = new HashMap<>();
-    }
 
     public Map<String, String> getStats() {
         return stats;

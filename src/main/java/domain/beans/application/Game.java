@@ -5,5 +5,5 @@ package domain.beans.application;
 
 public class Game {
     
-    // TODO Hacer esta clase, de momento no ase falta
+  //TODO implement game so that it can be jsonified
 }

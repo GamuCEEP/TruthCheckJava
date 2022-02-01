@@ -22,7 +22,7 @@ public class post extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
-    /*TODO Implement the post behabiour
+    /*TODO Implement the resource post
         -The client sends a JSON with the resources to save
           -Structured like the JSON from GET method
           -Instead of id field it will have a user field

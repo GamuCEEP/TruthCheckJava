@@ -1,4 +1,4 @@
-package data.DAOs;
+package data.DAOs.application;
 
 
 public class RelationDAO {

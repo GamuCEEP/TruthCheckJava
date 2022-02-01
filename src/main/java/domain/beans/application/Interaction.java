@@ -14,7 +14,6 @@ public class Interaction extends Resource {
 
     public Interaction(int id, String name, String description) {
         super(id, name, description);
-        trigger = "";
         effects = new ArrayList<>();
     }
 

@@ -11,16 +11,17 @@ public class Item extends Resource {
         this.interactions = new ArrayList<>();
     }
 
-    public Item(int id, String name, String description, List<Interaction> interactions) {
-        super(id, name, description);
-        this.interactions = interactions;
-    }
 
     public Item(int id, String name, String description) {
         super(id, name, description);
         this.interactions = new ArrayList<>();
     }
 
+    public Item(int id, String name, String description, List<Interaction> interactions) {
+        super(id, name, description);
+        this.interactions = interactions;
+    }
+    
     public List<Interaction> getInteractions() {
         return interactions;
     }

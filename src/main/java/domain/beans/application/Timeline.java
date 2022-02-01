@@ -1,27 +1,22 @@
 package domain.beans.application;
 
-import domain.beans.application.Event;
-import java.util.Map;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Timeline {
-    
-    private Map<Event, Integer> events;
 
-    public Timeline() {}
+  private List<List<Event>> timeline;
 
-    public Timeline(Map<Event, Integer> events) {
-        this.events = events;
-    }
+  public Timeline() {
+    timeline = new ArrayList<>();
+  }
 
-    public Map<Event, Integer> getEvents() {
-        return events;
-    }
+  public List<List<Event>> getTimeline() {
+    return timeline;
+  }
 
-    public void setEvents(Map<Event, Integer> events) {
-        this.events = events;
-    }
-    
-    
+  public void setTimeline(List<List<Event>> timeline) {
+    this.timeline = timeline;
+  }
+
 }

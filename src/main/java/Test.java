@@ -8,43 +8,27 @@ import java.util.List;
 import java.util.Map;
 import logic.RestAPI.ResourceType;
 import org.json.JSONObject;
+import data.SQL.*;
+import java.sql.SQLException;
 
 public class Test {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException{
 
-    Effect ef = new Effect(0, "Atraccion", "atrae cosas", "Resources.distance --");
-
-    List efs = new ArrayList<Interaction>();
-    efs.add(ef);
-    Interaction inte = new Interaction(0, "Magnetismo", "Atrae objetos metalicos", "has metal", efs);
-
-    List intes = new ArrayList<Interaction>();
-    intes.add(inte);
-
-    Item i = new Item(0, "Espada", "Es un palo", intes);
-
-    JSONObject test = new JSONObject();
-    test.accumulate("Items", i);
-    List<List<Item>> lliisstt = new ArrayList<>();
-
-    List<Item> listItem = new ArrayList<>();
-
-    listItem.add(i);
-
-    lliisstt.add(listItem);
-    lliisstt.add(listItem);
-    lliisstt.add(listItem);
-
-    JSONObject lislist = new JSONObject();
-    lislist.accumulate("Timeline", lliisstt);
-
-    System.out.println(lislist.toString(1));
-    System.out.println("Hola");
+    Table t = new Table("test");
+    
+    t.addField("id", Table.FieldType.INT, true, true);
+    t.addField("nombre", Table.FieldType.VARCHAR);
+    t.addField("password", Table.FieldType.VARCHAR);
+    t.addField("master", Table.FieldType.INT, "t1(id)");
+    t.addField("patata", Table.FieldType.BOOLEAN);
+    
+    for(String a : t.toSQLString())
+      System.out.println(a);
+    
+    DBAPI sd = new DBAPI();
+    sd.createTable(t);
 
   }
 
-  static JSONObject getActorJSON(String id) {
-    return new JSONObject().put("nombre", "recurso");
-  }
 }

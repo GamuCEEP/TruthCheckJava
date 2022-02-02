@@ -11,7 +11,14 @@ public class dataAPI {
 
     // TODO Implement the class and its methods
     public static Resource getResource(String resourceType, String id) {
-    //--------------------------------------------Testing Code--------------------------------------------\\
+      //MOCK METHOD
+      return mock_getResource(resourceType, id);
+      
+      
+    }
+    
+    private static Resource mock_getResource(String resourceType, String id){
+      //--------------------------------------------Testing Code--------------------------------------------\\
     /**/Effect ef = new Effect(0, "Atraccion", "atrae cosas", "Resources.distance --");             
     /**/
     /**/List efs = new ArrayList<Interaction>();
@@ -25,6 +32,5 @@ public class dataAPI {
     /**/
     /**/return i;
     //--------------------------------------------Testing Code--------------------------------------------\\
-
     }
 }

@@ -10,10 +10,10 @@ public class SQLConnection {
   
   private SQLConnection(){ 
     //TODO AAAAAAAAAAAAAA NO SE COMO FUNCIONA :(
-    this.connection = DriverManager.getConnection("jdbc:mysql://localhost");
+    //this.connection = DriverManager.getConnection("jdbc:mysql://localhost");
   
   }
   
-  public 
+  //public 
 
 }

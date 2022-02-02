@@ -1,10 +1,10 @@
 
-*.xml
-target/classes/.netbeans_automatic_build
+
+nb-configuration.xml
 *.class
 *.jar
 *.lst
-target/test-classes/.netbeans_automatic_build
+target/**
 *.war
 *.properties
 target/TruthCheckJava-1.0/WEB-INF/classes/.netbeans_automatic_build

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
   
   private static Connection connection = null;
-  private static String DB_URL = "jdbc:mysql://localhost:3306/"
+  private static String DB_URL = "jdbc:mysql://root@localhost:3306/"
             + "TruthCheckJava?useSSL=false&useTimeZone=true&serverTimezone=UTC&"
             + "allowPublicKeyRetrieval=true";
   

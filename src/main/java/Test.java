@@ -13,21 +13,21 @@ import java.sql.SQLException;
 
 public class Test {
 
-  public static void main(String[] args) throws SQLException{
+  public static void main(String[] args) throws SQLException {
 
-    Table t = new Table("test");
-    
+    Table t = new Table("borrame");
+
     t.addField("id", Table.FieldType.INT, true, true);
     t.addField("nombre", Table.FieldType.VARCHAR);
     t.addField("password", Table.FieldType.VARCHAR);
     t.addField("master", Table.FieldType.INT, "t1(id)");
     t.addField("patata", Table.FieldType.BOOLEAN);
+
+    System.out.println(t.getCreateDefinition());
+    DBAPI a = new DBAPI();
     
-    for(String a : t.toSQLString())
-      System.out.println(a);
+    a.createTable(t);
     
-    DBAPI sd = new DBAPI();
-    sd.createTable(t);
 
   }
 

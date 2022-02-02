@@ -18,36 +18,32 @@ public class DBAPI {
   //FILTERS
   private final String FILTER = "WHERE ?";
 
-  private boolean executeQuery(String queryType, String... data) throws SQLException {
+  private void executeQuery(String queryType, String... data) throws SQLException {
     Connection con = ConnectionManager.getConnection();
 
-    PreparedStatement stm = con.prepareStatement(queryType);
+    String sql = buildQueryString(queryType, data);
 
-    for (int i = 0; i < data.length; i++) {
-      stm.setString(i, data[i]);
-    }
+    PreparedStatement stm = con.prepareStatement(sql);
 
-    return stm.execute();
+    stm.execute();
   }
+
+  private String buildQueryString(String queryType, String... params) {
+    StringBuilder sql = new StringBuilder(queryType);
+    for (String param : params) {
+      sql.replace(sql.indexOf("?"), sql.indexOf("?") + 1, param);
+    }
+    return sql.toString();
+  }
+
+  public void createTable(Table table) throws SQLException {
+    executeQuery(CREATE_TABLE, table.getName(), table.getCreateDefinition());
+  }
+
+  public void insert(Table table, String values) throws SQLException {
+    executeQuery(INSERT, table.getName(), values);
+  }
+  //TODO continue with CRUD operations
   
-  private boolean mock_executeQuery(String queryType, String... data){
-    StringBuilder sb = new StringBuilder();
-    
-    sb.append(queryType);
-    for(String a : data){
-      sb.replace(sb.indexOf("?"), sb.indexOf("?") + 1, a);
-    }
-    System.out.println(sb.toString());
-    return false;
-  }
-
-  public boolean createTable(Table table) throws SQLException {
-    return mock_executeQuery(CREATE_TABLE, table.toSQLString());
-  }
-
-  public boolean insert(String tableName, String data) throws SQLException {
-    Connection con = ConnectionManager.getConnection();
-    return false;
-  }
 
 }

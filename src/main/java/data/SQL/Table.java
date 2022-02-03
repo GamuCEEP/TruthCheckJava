@@ -7,68 +7,57 @@ import java.util.List;
 public class Table {
 
   private String name;
-  private List<TableField> fields;
+  private List<String> fields;
+  private List<String> primaryKeys;
 
   public Table(String tableName) {
     this.name = tableName;
     fields = new ArrayList<>();
+    primaryKeys = new ArrayList<>();
   }
-
-  public String getCreateDefinition() {
-    StringBuilder sb = new StringBuilder();
-
-    return formatValues(fields);
-  }
-
-  public String formatValues(Iterable<?> values) {
-
-    StringBuilder result = new StringBuilder();
-
-    for (Object value : values) {
-      if (!result.isEmpty()) {
-        result.append(',');
-      }
-      result.append(value.toString());
-    }
-
-    return result.toString();
-  }
+  
+  //TODO Organizar bien como funciona todo esto (dibujos)
 
   //<editor-fold defaultstate="collapsed" desc="Overloading of Field Creation">
-  public void addField(
+  public Table addField(
           String fieldName,
           FieldType type,
           boolean isAutoIncremental,
           boolean isPrimaryKey,
           String references
   ) {
-    fields.add(new TableField(fieldName, type, isAutoIncremental, isPrimaryKey,
-            references));
+
+    TableField field = new TableField(fieldName, type, isAutoIncremental,
+            isPrimaryKey, references);
+    fields.add(field.toString());
+    if(field.isPrimaryKey){
+      primaryKeys.add(field.fieldName);
+    }
+    return this;
   }
 
-  public void addField(
+  public Table addField(
           String fieldName,
           FieldType type,
           boolean isAutoIncremental,
           boolean isPrimaryKey
   ) {
-    addField(fieldName, type, isAutoIncremental, isPrimaryKey, "");
+    return addField(fieldName, type, isAutoIncremental, isPrimaryKey, "");
   }
 
-  public void addField(
+  public Table addField(
           String fieldName,
           FieldType type,
           String references
   ) {
-    fields.add(new TableField(fieldName, type, false, false,
-            references));
+    return addField(fieldName, type, false, false, references);
   }
 
-  public void addField(
+  public Table addField(
           String fieldName,
           FieldType type
   ) {
-    addField(fieldName, type, false, false, "");
+    return addField(fieldName, type, false, false, "");
   }
   //</editor-fold>
 
@@ -76,8 +65,8 @@ public class Table {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public List<String> getFields() {
+    return fields;
   }
 
   private class TableField {
@@ -103,7 +92,7 @@ public class Table {
       this.references = references;
     }
 
-    @Override
+    //@Override
     public String toString() {
       StringBuilder sb = new StringBuilder();
 
@@ -117,9 +106,6 @@ public class Table {
 
       if (isAutoIncremental) {
         sb.append("AUTO_INCREMENT").append(' ');
-      }
-      if (isPrimaryKey) {
-        sb.append("PRIMARY KEY").append(' ');
       }
       if (!references.isEmpty()) {
         sb.append(',');

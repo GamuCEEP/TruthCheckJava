@@ -23,7 +23,7 @@ public class Test {
     t.addField("master", Table.FieldType.INT, "t1(id)");
     t.addField("patata", Table.FieldType.BOOLEAN);
 
-    System.out.println(t.getCreateDefinition());
+    System.out.println(t.getFields());
     DBAPI a = new DBAPI();
     
     a.createTable(t);

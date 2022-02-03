@@ -39,29 +39,29 @@ public class DBAPI {
     return sql.toString();
   }
 
-  public static void createTable(Table table) throws SQLException {
+  public static void createTable(SQLAssistant table) throws SQLException {
     String createDefinition = formatListValues(table.getFields().toArray(
             new String[0]));
     executeQuery(CREATE_TABLE, table.getName(), createDefinition);
   }
 
-  public static ResultSet select(Table table, String filter) throws SQLException {
+  public static ResultSet select(SQLAssistant table, String filter) throws SQLException {
     return executeQuery(SELECT + FILTER, table.getName(), filter).getResultSet();
   }
 
-  public static ResultSet selectAll(Table table) throws SQLException {
+  public static ResultSet selectAll(SQLAssistant table) throws SQLException {
     return executeQuery(SELECT, table.getName()).getResultSet();
   }
 
-  public static void insert(Table table, String values) throws SQLException {
+  public static void insert(SQLAssistant table, String values) throws SQLException {
     executeQuery(INSERT, table.getName(), values);
   }
 
-  public static void update(Table table, String update, String filter) throws SQLException {
+  public static void update(SQLAssistant table, String update, String filter) throws SQLException {
     executeQuery(UPDATE + FILTER, table.getName(), update, filter);
   }
 
-  public static void delete(Table table, String filter) throws SQLException {
+  public static void delete(SQLAssistant table, String filter) throws SQLException {
     executeQuery(DELETE + FILTER, table.getName(), filter);
   }
 

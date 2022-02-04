@@ -13,7 +13,6 @@ public @interface TableField{
    * for example: list or map
    */
   boolean IsInvertedForeignKey() default false;
-  String TablePrimaryKey() default "";
   String Type();
   
 }

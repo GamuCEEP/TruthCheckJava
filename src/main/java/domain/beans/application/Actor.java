@@ -21,7 +21,7 @@ public class Actor extends Resource {
         super(id, name, description);
         this.stats = stats;
     }
-    @TableField(Type = "TEXT, TEXT", IsInvertedForeignKey = true, TablePrimaryKey = "id")
+    @TableField(Type = "TEXT, TEXT", IsInvertedForeignKey = true)
     public Map<String, String> getStats() {
         return stats;
     }

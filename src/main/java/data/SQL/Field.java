@@ -17,4 +17,24 @@ public class Field {
     this.foreignKey = foreignKey;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append(name).append(' ');
+    sb.append(type).append(' ');
+    if(isAutoIncremental)
+      sb.append("auto_increment").append(' ');
+    if(!foreignKey.isEmpty()){
+      sb.append(',');
+      sb.append("foreign key").append(' ');
+      sb.append("(").append(name).append(") ");
+      sb.append("references ").append(foreignKey);
+    }
+      
+    return sb.toString();
+  }
+  
+  
+
 }

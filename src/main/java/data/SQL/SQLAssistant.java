@@ -11,69 +11,93 @@ import java.util.List;
  */
 public class SQLAssistant {
 
-  public static String getCreateDefinition(Object bean) {
+  public static List<String> getCreateDefinitions(Object bean) {  
 
-    parseMethods(bean);
-
-    return "";
+    List<String> createDefinitions = new ArrayList<>();
+    for(Table table : parseMethods(bean)){
+      createDefinitions.add(table.toString());
+    }
+    return createDefinitions;
   }
 
   private static Table buildTable(List<Field> fields) {
-
+    System.out.println("Implementa esto monoooo");
+    //TODO hay que acabar esto jiji
     return null;
   }
 
-  private static Table buildAuxiliarTable(Object bean, Method method) {
+  private static Table buildAuxiliarTable(Table mainTable, Method method) {
 
     TableField fieldAnnotation = method.getAnnotation(TableField.class);
-    
-    List<String> primaryKeys = new ArrayList<>();
-    List<Field> fields = new ArrayList<>();
-    
-    String foreignKey = 
-            bean.getClass().getSimpleName().toLowerCase() + 
-            "(" + fieldAnnotation.TablePrimaryKey() + ")";
-    
-    fields.add(new Field(
-            bean.getClass().getSimpleName().toLowerCase(), 
-            FieldType.valueOf("INT"), 
-            true,
-            false,
-            foreignKey
-    ));
-    
-    
-    //TODO Ver como hacer la creacion de mapas y listas
-    // Posiblemente con un if mesirva por que solo voy a usar eso
-    //Si no intentar eliminar los mapas de la ecaucion
-    //aunque dudo que sea posible sin overengeneer it
-    for(String type : fieldAnnotation.Type().split(",")){
-      fields.add(new Field(
-            bean.getClass().getSimpleName().toLowerCase(), 
-            FieldType.valueOf(type.trim().toUpperCase()), 
-            true,
-            false,
-            foreignKey
-    ));
+
+    Table auxTable = new Table(method.getName().substring(3).toLowerCase());
+
+    if (fieldAnnotation.Type().split(",").length == 1) {
+      fillListAuxTable(mainTable, method, auxTable);
+    } else {
+      fillMapAuxTable(mainTable, method, auxTable);
     }
-    
-    
-    
-    
-    
-    return new Table(
-            method.getName().substring(3).toLowerCase(), 
-            primaryKeys,
-            fields
-    );
+
+    return auxTable;
   }
 
-  private static Field createField(String name, Method method) {
+  private static void fillMapAuxTable(Table mainTable, Method method,
+          Table auxTable) {
+    TableField fieldAnnotation = method.getAnnotation(TableField.class);
+    
+    fillAuxPrimaryFields(mainTable, auxTable);
+    
+    auxTable.primaryKeys.add("key");
+    auxTable.fields.add(new Field(
+            "key",
+            FieldType.valueOf(fieldAnnotation.Type().split(",")[0].trim().toUpperCase()),
+            true,
+            false,
+            ""
+    ));
+    auxTable.fields.add(new Field(
+            "value",
+            FieldType.valueOf(fieldAnnotation.Type().split(",")[1].trim().toUpperCase()),
+            false,
+            false,
+            ""
+    ));
+  }
 
+  private static void fillListAuxTable(Table mainTable, Method method,
+          Table auxTable) {
+
+    TableField fieldAnnotation = method.getAnnotation(TableField.class);
+
+    fillAuxPrimaryFields(mainTable, auxTable);
+
+    auxTable.fields.add(new Field(
+            "value",
+            FieldType.valueOf(fieldAnnotation.Type().trim().toUpperCase()),
+            false,
+            false,
+            ""
+    ));
+  }
+
+  private static void fillAuxPrimaryFields(Table mainTable, Table auxTable) {
+    for (String primaryKey : mainTable.primaryKeys) {
+      auxTable.fields.add(new Field(
+              mainTable.name + "_" + primaryKey,
+              mainTable.getField(primaryKey).type,
+              true,
+              false,
+              mainTable.name + "(" + primaryKey + ")"
+      ));
+      auxTable.primaryKeys.add(mainTable.name + "_" + primaryKey);
+    }
+  }
+
+  private static Field createField(Method method) {
     TableField fieldAnnotation = method.getAnnotation(TableField.class);
 
     return new Field(
-            name,
+            method.getName().substring(3).toLowerCase(),
             FieldType.valueOf(fieldAnnotation.Type().toUpperCase()),
             fieldAnnotation.IsPrimaryKey(),
             fieldAnnotation.IsAutoIncremental(),
@@ -86,22 +110,37 @@ public class SQLAssistant {
     List<Table> tables = new ArrayList<>();
     List<Field> fields = new ArrayList<>();
 
+    List<Method> methodsForAux = new ArrayList<>();
+
     for (Method method : bean.getClass().getMethods()) {
       TableField fieldAnnotation = method.getAnnotation(TableField.class);
       if (fieldAnnotation == null) {
         continue;
       }
       if (fieldAnnotation.IsInvertedForeignKey()) {
-        tables.add(buildAuxiliarTable(bean, method));
+        methodsForAux.add(method);
         continue;
       }
-      String fieldName = method.getName().substring(3).toLowerCase();
-      fields.add(createField(fieldName,method));
+      fields.add(createField(method));
     }
+    Table mainTable = buildTable(fields);
+    tables.add(mainTable);
 
-    tables.add(buildTable(fields));
+    for (Method m : methodsForAux) {
+      tables.add(buildAuxiliarTable(mainTable, m));
+    }
 
     return tables;
   }
 
+  public static String formatValueList(List<?> values) {
+    StringBuilder sb = new StringBuilder();
+    for (Object value : values) {
+      if (sb.length() != 0) {
+        sb.append(',');
+      }
+      sb.append(value.toString());
+    }
+    return sb.toString();
+  }
 }

@@ -17,7 +17,7 @@ public class Test {
   public static void main(String[] args) throws SQLException {
 
     
-    List<String> c = SQLAssistant.getCreateDefinitions(new Actor());
+    List<String> c = SQLAssistant.getCreateDefinitions(new Event());
 
     for(String e : c){
       System.out.println(e);

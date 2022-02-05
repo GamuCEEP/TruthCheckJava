@@ -21,10 +21,12 @@ public abstract class Resource {
   public int getId() {
     return id;
   }
+
   @TableField(Type = "TEXT")
   public String getName() {
     return name;
   }
+
   @TableField(Type = "TEXT")
   public String getDescription() {
     return description;

@@ -10,7 +10,7 @@ public class Timeline {
   public Timeline() {
     timeline = new ArrayList<>();
   }
-
+  //TODO mmm puta que hago con esto, una doble lista es como demasiado
   public List<List<Event>> getTimeline() {
     return timeline;
   }

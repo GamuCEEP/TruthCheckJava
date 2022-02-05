@@ -11,6 +11,8 @@ public class Table {
   
   public Table(String name){
     this.name = name;
+    this.primaryKeys = new ArrayList<>();
+    this.fields = new ArrayList<>();
   }
 
   public Table(String name, List<Field> fields) {
@@ -30,11 +32,25 @@ public class Table {
   }
   
   public void loadPrimaryKeys(){
+    primaryKeys.clear();
     for(Field field : fields){
       if(field.isPrimaryKey)
         primaryKeys.add(field.name);
     }
   }
+
+  public void setFields(List<Field> fields) {
+    this.fields = fields;
+    loadPrimaryKeys();
+  }
+
+  public String getName() {
+    return name;
+  }
+  
+  
+  
+  
 
   @Override
   public String toString() {

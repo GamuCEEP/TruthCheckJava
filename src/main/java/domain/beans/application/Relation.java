@@ -1,29 +1,35 @@
 package domain.beans.application;
 
+import Annotations.TableField;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Relation extends Resource {
 
-  private Effect effect;
+  private List<Effect> effects;
 
   public Relation() {
-    effect = null;
+    effects = null;
+    effects = new ArrayList<>();
   }
 
   public Relation(int id, String name, String description) {
     super(id, name, description);
-    effect = null;
+    effects = new ArrayList<>();
   }
 
-  public Relation(int id, String name, String description, Effect effect) {
+  public Relation(int id, String name, String description, List<Effect> effects) {
     super(id, name, description);
-    this.effect = effect;
+    this.effects = effects;
   }
 
-  public Effect getEffect() {
-    return effect;
+  @TableField(Type = "INT", IsInvertedForeignKey = true, ForeignKey = "effect(id)")
+  public List<Effect> getEffect() {
+    return effects;
   }
 
-  public void setEffect(Effect effect) {
-    this.effect = effect;
+  public void setEffect(List<Effect> effects) {
+    this.effects = effects;
   }
 
 }

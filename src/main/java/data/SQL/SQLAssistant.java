@@ -3,7 +3,6 @@ package data.SQL;
 import Annotations.TableField;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,12 +18,11 @@ public class SQLAssistant {
     }
     return createDefinitions;
   }
-
-  private static Table buildTable(List<Field> fields) {
-    System.out.println("Implementa esto monoooo");
-    //TODO hay que acabar esto jiji
-    return null;
+  
+  public static List<Table> getTables(Object bean){
+    return parseMethods(bean);
   }
+
 
   private static Table buildAuxiliarTable(Table mainTable, Method method) {
 
@@ -47,7 +45,7 @@ public class SQLAssistant {
     
     fillAuxPrimaryFields(mainTable, auxTable);
     
-    auxTable.primaryKeys.add("key");
+
     auxTable.fields.add(new Field(
             "key",
             FieldType.valueOf(fieldAnnotation.Type().split(",")[0].trim().toUpperCase()),
@@ -56,12 +54,13 @@ public class SQLAssistant {
             ""
     ));
     auxTable.fields.add(new Field(
-            "value",
+            "val",
             FieldType.valueOf(fieldAnnotation.Type().split(",")[1].trim().toUpperCase()),
             false,
             false,
-            ""
+            fieldAnnotation.ForeignKey()
     ));
+    auxTable.loadPrimaryKeys();
   }
 
   private static void fillListAuxTable(Table mainTable, Method method,
@@ -72,11 +71,11 @@ public class SQLAssistant {
     fillAuxPrimaryFields(mainTable, auxTable);
 
     auxTable.fields.add(new Field(
-            "value",
+            "val",
             FieldType.valueOf(fieldAnnotation.Type().trim().toUpperCase()),
             false,
             false,
-            ""
+            fieldAnnotation.ForeignKey()
     ));
   }
 
@@ -123,7 +122,9 @@ public class SQLAssistant {
       }
       fields.add(createField(method));
     }
-    Table mainTable = buildTable(fields);
+    
+    Table mainTable = new Table(bean.getClass().getSimpleName().toLowerCase());
+    mainTable.setFields(fields);
     tables.add(mainTable);
 
     for (Method m : methodsForAux) {

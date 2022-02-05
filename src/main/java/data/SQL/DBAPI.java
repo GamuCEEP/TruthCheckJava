@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DBAPI {
 
   //DB MANAGEMENT
-  private static final String CREATE_TABLE = "CREATE TABLE ? ( ? )";
+  private static final String CREATE_TABLE = "CREATE TABLE ?";
 
   //CRUD
   private static final String INSERT = "INSERT INTO ? VALUES( ? )";
@@ -39,53 +39,26 @@ public class DBAPI {
     return sql.toString();
   }
 
-  public static void createTable(SQLAssistant table) throws SQLException {
-    String createDefinition = formatListValues(table.getFields().toArray(
-            new String[0]));
-    executeQuery(CREATE_TABLE, table.getName(), createDefinition);
+  public static void createTable(Object bean) throws SQLException {
+    for(String def : SQLAssistant.getCreateDefinitions(bean))
+      executeQuery(CREATE_TABLE, def);
   }
 
-  public static ResultSet select(SQLAssistant table, String filter) throws SQLException {
-    return executeQuery(SELECT + FILTER, table.getName(), filter).getResultSet();
+  public static ResultSet select(Object bean, String filter) throws SQLException {
+    //TODO haz esto
+    return executeQuery(SELECT + FILTER, SQLAssistant.getTables(bean).get(0).getName());
   }
 
   public static ResultSet selectAll(SQLAssistant table) throws SQLException {
-    return executeQuery(SELECT, table.getName()).getResultSet();
   }
 
   public static void insert(SQLAssistant table, String values) throws SQLException {
-    executeQuery(INSERT, table.getName(), values);
   }
 
   public static void update(SQLAssistant table, String update, String filter) throws SQLException {
-    executeQuery(UPDATE + FILTER, table.getName(), update, filter);
   }
 
   public static void delete(SQLAssistant table, String filter) throws SQLException {
-    executeQuery(DELETE + FILTER, table.getName(), filter);
-  }
-
-  public static String formatListValues(String... values) {
-
-    StringBuilder result = new StringBuilder();
-
-    for (String value : values) {
-      if (result.length() != 0) {
-        result.append(',');
-      }
-      result.append(value);
-    }
-    return result.toString();
-  }
-
-  public static String formatFilter(String field, String... values) {
-    StringBuilder sb = new StringBuilder();
-
-    sb.append(field).append(" in (");
-    sb.append(formatListValues(values));
-    sb.append(")");
-
-    return sb.toString();
   }
 
 }

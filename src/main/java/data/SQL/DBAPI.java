@@ -20,7 +20,7 @@ public class DBAPI {
   private static final String FILTER = "WHERE ?";
 
   //MOCK
-  private static PreparedStatement executeQuery(String queryType, String... data) throws SQLException {
+  private static ResultSet executeQuery(String queryType, String... data) throws SQLException {
     Connection con = ConnectionManager.getConnection();
 
     String sql = buildQueryString(queryType, data);
@@ -28,7 +28,7 @@ public class DBAPI {
     PreparedStatement stm = con.prepareStatement(sql);
 
     stm.execute();
-    return stm;
+    return stm.getResultSet();
   }
 
   private static String buildQueryString(String queryType, String... params) {
@@ -45,14 +45,17 @@ public class DBAPI {
   }
 
   public static ResultSet select(Object bean, String filter) throws SQLException {
-    //TODO haz esto
-    return executeQuery(SELECT + FILTER, SQLAssistant.getTables(bean).get(0).getName());
+    return executeQuery(SELECT + FILTER, SQLAssistant.getTableName(bean));
   }
 
-  public static ResultSet selectAll(SQLAssistant table) throws SQLException {
+  public static ResultSet selectAll(Object bean) throws SQLException {
+    return executeQuery(SELECT, SQLAssistant.getTableName(bean));
   }
 
-  public static void insert(SQLAssistant table, String values) throws SQLException {
+  public static void insert(Object... beans) throws SQLException {
+    for(Object bean : beans){
+      
+    }
   }
 
   public static void update(SQLAssistant table, String update, String filter) throws SQLException {

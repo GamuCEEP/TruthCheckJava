@@ -3,6 +3,8 @@ package data.SQL;
 import Annotations.TableField;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,19 +12,33 @@ import java.util.List;
  */
 public class SQLAssistant {
 
-  public static List<String> getCreateDefinitions(Object bean) {  
+  public static List<String> getCreateDefinitions(Object bean) {
 
     List<String> createDefinitions = new ArrayList<>();
-    for(Table table : parseMethods(bean)){
+    for (Table table : parseMethods(bean)) {
       createDefinitions.add(table.toString());
     }
     return createDefinitions;
   }
-  
-  public static List<Table> getTables(Object bean){
+
+  public static List<Table> getTables(Object bean) {
     return parseMethods(bean);
   }
 
+  public static String getTableName(Object bean) {
+    return bean.getClass().getSimpleName().toLowerCase();
+  }
+
+  public static String getInsertValue(Object bean) {
+    StringBuilder sb = new StringBuilder("SET ");
+    
+    for(Method m : getMethods(bean))
+    {
+      System.out.println(m.getName());
+    }
+
+    return sb.toString();
+  }
 
   private static Table buildAuxiliarTable(Table mainTable, Method method) {
 
@@ -42,9 +58,8 @@ public class SQLAssistant {
   private static void fillMapAuxTable(Table mainTable, Method method,
           Table auxTable) {
     TableField fieldAnnotation = method.getAnnotation(TableField.class);
-    
+
     fillAuxPrimaryFields(mainTable, auxTable);
-    
 
     auxTable.fields.add(new Field(
             "key",
@@ -105,13 +120,29 @@ public class SQLAssistant {
 
   }
 
+  private static List<Method> getMethods(Object bean){
+    List<Method> methods =new ArrayList<>();
+    methods.addAll(Arrays.asList(bean.getClass().getMethods()));
+    
+    methods.removeIf( m -> {
+      TableField fieldAnnotation = m.getAnnotation(TableField.class);
+      return fieldAnnotation == null;
+    });
+    
+    methods.sort((m1, m2) -> {
+      return m1.getName().compareTo(m2.getName());
+    });
+    
+    return methods;
+  }
+  
   private static List<Table> parseMethods(Object bean) {
     List<Table> tables = new ArrayList<>();
     List<Field> fields = new ArrayList<>();
 
     List<Method> methodsForAux = new ArrayList<>();
 
-    for (Method method : bean.getClass().getMethods()) {
+    for (Method method : getMethods(bean)) {
       TableField fieldAnnotation = method.getAnnotation(TableField.class);
       if (fieldAnnotation == null) {
         continue;
@@ -122,8 +153,8 @@ public class SQLAssistant {
       }
       fields.add(createField(method));
     }
-    
-    Table mainTable = new Table(bean.getClass().getSimpleName().toLowerCase());
+
+    Table mainTable = new Table(getTableName(bean));
     mainTable.setFields(fields);
     tables.add(mainTable);
 

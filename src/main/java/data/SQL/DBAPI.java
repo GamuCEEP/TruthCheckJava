@@ -11,9 +11,9 @@ public class DBAPI {
   private static final String CREATE_TABLE = "CREATE TABLE ?";
 
   //CRUD
-  private static final String INSERT = "INSERT INTO ? VALUES( ? )";
+  private static final String INSERT = "INSERT INTO ? SET ?";
   private static final String SELECT = "SELECT * FROM ? ";
-  private static final String UPDATE = "UPDATE TABLE ? SET ? ";
+  private static final String UPDATE = "UPDATE ? SET ? ";
   private static final String DELETE = "DELETE FROM ? ";
 
   //FILTERS
@@ -40,8 +40,9 @@ public class DBAPI {
   }
 
   public static void createTable(Object bean) throws SQLException {
-    for(String def : SQLAssistant.getCreateDefinitions(bean))
+    for (String def : SQLAssistant.getCreateDefinitions(bean)) {
       executeQuery(CREATE_TABLE, def);
+    }
   }
 
   public static ResultSet select(Object bean, String filter) throws SQLException {
@@ -53,15 +54,31 @@ public class DBAPI {
   }
 
   public static void insert(Object... beans) throws SQLException {
-    for(Object bean : beans){
-      
+    for (Object bean : beans) {
+      mock_executeQuery(INSERT, SQLAssistant.getTableName(bean),
+              SQLAssistant.getInsertValue(bean));
     }
   }
 
-  public static void update(SQLAssistant table, String update, String filter) throws SQLException {
+  //MOCK METHOD
+  private static String mock_executeQuery(String queryType, String... data) throws SQLException {
+
+    System.out.println(buildQueryString(queryType, data));
+    return null;
   }
 
-  public static void delete(SQLAssistant table, String filter) throws SQLException {
+  public static void update(Object... updatedBeans) throws SQLException {
+    for (Object bean : updatedBeans) {
+      executeQuery(UPDATE + FILTER, SQLAssistant.getTableName(bean),
+              SQLAssistant.getInsertValue(bean), SQLAssistant.getFilter(bean));
+    }
+  }
+
+  public static void delete(Object... beans) throws SQLException {
+    for (Object bean : beans) {
+      System.out.println(buildQueryString(DELETE + FILTER,
+              SQLAssistant.getTableName(bean), SQLAssistant.getFilter(bean)));
+    }
   }
 
 }

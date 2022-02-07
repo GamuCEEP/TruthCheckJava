@@ -17,7 +17,6 @@ public class Zone extends Resource{
         super(id, name, description);
         this.timeline = new Timeline();
     }
-    //TODO mmm aaaaa malditas timelines y sus dobles listas
     @TableField(Type = "")
     public Timeline getTimeline() {
         return timeline;

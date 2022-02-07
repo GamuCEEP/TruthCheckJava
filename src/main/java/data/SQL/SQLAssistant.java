@@ -1,16 +1,35 @@
 package data.SQL;
 
 import Annotations.TableField;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Contains tools to transform between SQL and java Beans
  */
 public class SQLAssistant {
+  
+  /*TODO IMPORTANT STRUCTURAL
+    los campos de los bean que sean colecciones(list Map) deberian estar en otra clase:
+    
+      List<Item> inventario ---> Inventario inventario
+  
+    por lo que las relacion se invierte, en vez de la tabla pincipal cede su clave es la secundaria,
+    para ello la clave principal de las tablas secundarias esta compuesta por una id repetida para cada
+    elemento del grupo + el elemento del grupo, esencialmente son sets
+     id val
+    | 1|espada
+    | 1|escudo
+    | 1|casco
+    
+    no ideal pero facilita el desarrollo asi que...
+  */
 
   public static List<String> getCreateDefinitions(Object bean) {
 
@@ -30,14 +49,38 @@ public class SQLAssistant {
   }
 
   public static String getInsertValue(Object bean) {
-    StringBuilder sb = new StringBuilder("SET ");
-    
-    for(Method m : getMethods(bean))
-    {
-      System.out.println(m.getName());
-    }
+    StringBuilder sb = new StringBuilder();
 
+    for (Method m : getGetterMethods(bean)) {
+      String field = getFieldName(m);
+      if (!sb.toString().isEmpty()) {
+        sb.append(",");
+      }
+      try {
+        sb.append(field).append('=');
+        sb.append("'").append(m.invoke(bean)).append("'");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
     return sb.toString();
+  }
+
+  public static String getFilter(Object bean) {
+    List<Method> getId = getGetterMethods(bean);
+    getId.removeIf(m -> {
+      return !m.getName().equals("getId");
+    });
+    
+    try {
+      return "id='" + getId.get(0).invoke(bean)+"'";
+    } catch (Exception e) {}
+    
+    return null;
+  }
+
+  public static String getFieldName(Method method) {
+    return method.getName().substring(3).toLowerCase();
   }
 
   private static Table buildAuxiliarTable(Table mainTable, Method method) {
@@ -63,14 +106,16 @@ public class SQLAssistant {
 
     auxTable.fields.add(new Field(
             "key",
-            FieldType.valueOf(fieldAnnotation.Type().split(",")[0].trim().toUpperCase()),
+            FieldType.valueOf(
+                    fieldAnnotation.Type().split(",")[0].trim().toUpperCase()),
             true,
             false,
             ""
     ));
     auxTable.fields.add(new Field(
             "val",
-            FieldType.valueOf(fieldAnnotation.Type().split(",")[1].trim().toUpperCase()),
+            FieldType.valueOf(
+                    fieldAnnotation.Type().split(",")[1].trim().toUpperCase()),
             false,
             false,
             fieldAnnotation.ForeignKey()
@@ -111,7 +156,7 @@ public class SQLAssistant {
     TableField fieldAnnotation = method.getAnnotation(TableField.class);
 
     return new Field(
-            method.getName().substring(3).toLowerCase(),
+            getFieldName(method),
             FieldType.valueOf(fieldAnnotation.Type().toUpperCase()),
             fieldAnnotation.IsPrimaryKey(),
             fieldAnnotation.IsAutoIncremental(),
@@ -120,29 +165,41 @@ public class SQLAssistant {
 
   }
 
-  private static List<Method> getMethods(Object bean){
-    List<Method> methods =new ArrayList<>();
+  private static List<Method> getGetterMethods(Object bean) {
+    List<Method> methods = new ArrayList<>();
     methods.addAll(Arrays.asList(bean.getClass().getMethods()));
-    
-    methods.removeIf( m -> {
+
+    methods.removeIf(m -> {
       TableField fieldAnnotation = m.getAnnotation(TableField.class);
       return fieldAnnotation == null;
     });
-    
+
     methods.sort((m1, m2) -> {
       return m1.getName().compareTo(m2.getName());
     });
-    
+
     return methods;
   }
-  
+
+  private static List<Method> getSetterMethods(Object bean) {
+    List<Method> methods = new ArrayList<>();
+    methods.addAll(Arrays.asList(bean.getClass().getMethods()));
+    methods.removeIf(m -> {
+      return !m.getName().startsWith("set");
+    });
+    methods.sort((m1, m2) -> {
+      return m1.getName().compareTo(m2.getName());
+    });
+    return methods;
+  }
+
   private static List<Table> parseMethods(Object bean) {
     List<Table> tables = new ArrayList<>();
     List<Field> fields = new ArrayList<>();
 
     List<Method> methodsForAux = new ArrayList<>();
 
-    for (Method method : getMethods(bean)) {
+    for (Method method : getGetterMethods(bean)) {
       TableField fieldAnnotation = method.getAnnotation(TableField.class);
       if (fieldAnnotation == null) {
         continue;

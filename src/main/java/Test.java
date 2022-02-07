@@ -17,9 +17,13 @@ public class Test {
 
   public static void main(String[] args) throws SQLException {
     
-    User u = new User(0, "Pepe", "1234");
+    User u1 = new User();
+    u1.setId(394);
+    u1.setName("pepe");
+    u1.setPassword("12344");
     
-    System.out.println(SQLAssistant.getInsertValue(u));
+    // Ya esta casi acabada DBAPI creo que van a sobrar capas
+    DBAPI.delete(u1);
   }
 
 }

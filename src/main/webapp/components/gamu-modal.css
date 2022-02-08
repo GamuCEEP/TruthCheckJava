@@ -1,0 +1,46 @@
+
+
+gamu-modal form{
+  background-color: var(--color-main);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  width: 400px;
+  height: 300px;
+
+  padding: 20px;
+
+  font-size: 1.5em;
+  border-radius: 5px;
+
+}
+gamu-modal label, gamu-modal p{
+  margin: 20px 0;
+}
+gamu-modal form input{
+  width: 80%;
+  height: 30px;
+  margin: 10px auto;
+
+  background: none;
+  border:none;
+  border-bottom: 2px black dashed;
+
+  outline: none;
+  user-select: text;
+
+  font-size: inherit;
+}
+
+gamu-modal form input[type='submit']{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 200px;
+  border:none;
+  background-color: var(--color-dark);
+  border-radius: 5px;
+  color: white;
+}
+

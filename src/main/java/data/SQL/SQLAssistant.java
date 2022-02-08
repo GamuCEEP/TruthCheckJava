@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Contains tools to transform between SQL and java Beans
@@ -16,19 +14,42 @@ import java.util.logging.Logger;
 public class SQLAssistant {
   
   /*TODO IMPORTANT STRUCTURAL
-    los campos de los bean que sean colecciones(list Map) deberian estar en otra clase:
-    
-      List<Item> inventario ---> Inventario inventario
   
-    por lo que las relacion se invierte, en vez de la tabla pincipal cede su clave es la secundaria,
+  Las oeraciones pueden ser lentas ya que no se van a actualizar constantemente, solo cuando el usuario
+  acabe de editar datos en su lado
+      
+    las relaciones se invierten, en vez de la tabla pincipal cede su clave es la secundaria,
     para ello la clave principal de las tablas secundarias esta compuesta por una id repetida para cada
     elemento del grupo + el elemento del grupo, esencialmente son sets
      id val
     | 1|espada
     | 1|escudo
     | 1|casco
+  
+  para crear una tabla de un bean que contiene un conjunto se crea una tabla auxiliar que tiene una id
+  y los campos necesarios para el conjunto, 
+  -la tabla principal se queda con esa id, 
+  -al menos 1 de los campos de la tabla auxiliar será primary key
+  --> esto permite la posibilidad de reutilizar listas en los beans
+  
+  #Create
+  -> un bean con una lista de lugar a 2 tablas,
+    -la principal, con el nombre y las propiedades del bean
+    -una auxiliar con el nombre del campo y una primary key que actua de fk en la tabla principal
+  #Insert
+  -> se generan 2 o mas inserts para la tabla principal y cada una de las tablas auxiliares
+  #Select
+  -> se seleccionan los datos de la tabla principal, las referencias generan otra busqueda
+     que al ser una lista da varios resultados, todos ellos van en un conjunto en la propiedad del bean
+  #Update
+  -> Se generan 1 update, un delete, y varios insert querys 
+     -update para la tabla principal
+     -delete de la taux de todas las id
+     -inserts por cada elemento en la lista
+  #Delete
+  -> Una query para cada tabla, de la tabla principal se saca el filtro para las taux
     
-    no ideal pero facilita el desarrollo asi que...
+    
   */
 
   public static List<String> getCreateDefinitions(Object bean) {

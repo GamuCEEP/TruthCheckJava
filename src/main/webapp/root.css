@@ -1,0 +1,12 @@
+:root{
+  --color-main: #aa7539;
+  --color-bright: #ffd7aa;
+  --color-light: #d4a26a;
+  --color-dim: #804d15;
+  --color-dark: #552d00;
+}
+*{
+  box-sizing: border-box;
+  font-family:'Milonga';
+  user-select: none;
+}

@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class Relation extends Resource {
     this.effects = effects;
   }
 
-  @TableField(Type = "INT", IsInvertedForeignKey = true, ForeignKey = "effect(id)")
   public List<Effect> getEffect() {
     return effects;
   }

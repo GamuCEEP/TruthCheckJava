@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class Map extends Resource {
     this.zones = zones;
   }
 
-  @TableField(Type = "INT", IsInvertedForeignKey = true, ForeignKey = "zone(id)")
   public List<Zone> getZones() {
     return zones;
   }

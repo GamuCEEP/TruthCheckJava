@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 
 public class Effect extends Resource {
 
@@ -18,7 +17,6 @@ public class Effect extends Resource {
     this.code = code;
   }
 
-  @TableField(Type = "TEXT")
   public String getCode() {
     return code;
   }

@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +23,10 @@ public class Event extends Resource {
     this.priority = priority;
   }
 
-  @TableField(Type = "INT", IsInvertedForeignKey = true, ForeignKey = "effect(id)")
   public List<Effect> getEffects() {
     return effects;
   }
 
-  @TableField(Type = "INT")
   public int getPriority() {
     return priority;
   }

@@ -1,7 +1,6 @@
 
 package domain.beans.application;
 
-import Annotations.TableField;
 
 public class Zone extends Resource{
     
@@ -17,7 +16,6 @@ public class Zone extends Resource{
         super(id, name, description);
         this.timeline = new Timeline();
     }
-    @TableField(Type = "")
     public Timeline getTimeline() {
         return timeline;
     }

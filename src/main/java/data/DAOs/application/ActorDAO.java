@@ -1,7 +1,6 @@
 package data.DAOs.application;
 
 import data.SQL.DBAPI;
-import data.SQL.SQLAssistant;
 import data.SQL.Table;
 import domain.beans.application.Actor;
 import java.sql.ResultSet;

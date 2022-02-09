@@ -52,18 +52,6 @@ public class Table {
   
   
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    
-    sb.append(name).append('(');
-    sb.append(SQLAssistant.formatValueList(fields)).append(',');
-    sb.append("primary key (").append(SQLAssistant.formatValueList(primaryKeys));
-    sb.append(')');
-    sb.append(')');
-    
-    return sb.toString();
-  }
   
   
 

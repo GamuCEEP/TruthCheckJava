@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 
 public abstract class Resource {
 
@@ -17,17 +16,14 @@ public abstract class Resource {
     this.description = description;
   }
 
-  @TableField(Type = "INT", IsPrimaryKey = true, IsAutoIncremental = true)
   public int getId() {
     return id;
   }
 
-  @TableField(Type = "TEXT")
   public String getName() {
     return name;
   }
 
-  @TableField(Type = "TEXT")
   public String getDescription() {
     return description;
   }

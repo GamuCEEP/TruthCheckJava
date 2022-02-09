@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ public class Actor extends Resource {
     this.stats = stats;
   }
 
-  @TableField(Type = "TEXT, TEXT", IsInvertedForeignKey = true)
   public Map<String, String> getStats() {
     return stats;
   }

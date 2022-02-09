@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import Annotations.TableField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +17,10 @@ public class Timeline {
     this.timeline = timeline;
   }
 
-  @TableField(Type = "INT", IsInvertedForeignKey = true, ForeignKey = "event(id)")
   public List<Event> getTimeline() {
     return timeline;
   }
 
-  @TableField(Type = "INT", IsAutoIncremental = true, IsPrimaryKey = true)
   public int getId() {
     return id;
   }

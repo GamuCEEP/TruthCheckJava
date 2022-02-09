@@ -1,4 +1,0 @@
-
-
-const resourceTypes = getResourceTypes();
-

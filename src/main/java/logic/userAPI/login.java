@@ -39,13 +39,14 @@ public class login extends HttpServlet {
     
     if(user == null){
       JSONObject loginError = new JSONObject();
-      loginError.put("loginError", "User not found");
+      loginError.put("loginError", "UserNotFound");
       resp.getWriter().println(loginError.toString());
       return;//Redirect a login form
     }
     
     if(!user.getPassword().equals(password)){
-      JSONObject
+      JSONObject loginError = new JSONObject();
+      loginError.put("loginError", "IncorrectPassword");
     }
     req.getSession().setAttribute("userAccount", user);
     

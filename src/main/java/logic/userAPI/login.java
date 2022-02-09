@@ -48,6 +48,7 @@ public class login extends HttpServlet {
       JSONObject loginError = new JSONObject();
       loginError.put("loginError", "IncorrectPassword");
     }
+    
     req.getSession().setAttribute("userAccount", user);
     
     //Return to page where the login was done

@@ -2,7 +2,11 @@ package domain.beans.application;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.Entity;
+import lombok.Data;
 
+@Entity
+@Data
 public class Actor extends Resource {
 
   private Map<String, String> stats;
@@ -21,12 +25,5 @@ public class Actor extends Resource {
     this.stats = stats;
   }
 
-  public Map<String, String> getStats() {
-    return stats;
-  }
-
-  public void setStats(Map<String, String> stats) {
-    this.stats = stats;
-  }
 
 }

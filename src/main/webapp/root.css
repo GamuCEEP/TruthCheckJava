@@ -1,12 +1,35 @@
 :root{
-  --color-main: #aa7539;
-  --color-bright: #ffd7aa;
-  --color-light: #d4a26a;
-  --color-dim: #804d15;
-  --color-dark: #552d00;
+  --color-dark : 41,32,27;
+  --color-light: 241,220,177;
+  --color-dim  : 89,60,45;
+  --color-lit  : 171,131,82;
 }
 *{
   box-sizing: border-box;
-  font-family:'Milonga';
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   user-select: none;
+  font-size: 1em;
+  margin: 0;
+}
+
+button, input[type='submit']{
+  background-color: rgb(var(--color-dim));
+  border: none;
+  border-bottom: 2px rgba(var(--color-lit)) solid;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  user-select: none;
+  transition: 100ms transform ease, 100ms border ease;
+}
+button:hover, input[type='submit']:hover{
+  border-bottom: 3px rgba(var(--color-lit)) solid;
+  transform: translateY(-1px);
+}
+button:active, input[type='submit']:active{
+  border-bottom: 0px rgba(var(--color-lit)) solid;
+  transform: translateY(1px);
+}
+a{
+  text-decoration: none;
 }

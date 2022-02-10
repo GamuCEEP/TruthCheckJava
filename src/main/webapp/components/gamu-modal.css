@@ -1,31 +1,41 @@
 
 
 gamu-modal form{
-  background-color: var(--color-main);
+  background-color: rgba(var(--color-dark), 1);
+
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
+
   position: relative;
 
   width: 400px;
-  height: 300px;
+  height: max-content;
 
   padding: 20px;
 
-  font-size: 1.5em;
   border-radius: 5px;
 
 }
 gamu-modal label, gamu-modal p{
-  margin: 20px 0;
+  margin: 0 0 20px 0;
+  color: rgb(var(--color-light));
+  font-size: 1.5em;
+  text-align: center;
+  text-decoration: rgb(var(--color-lit)) underline 2px;
 }
 gamu-modal form input{
   width: 80%;
   height: 30px;
   margin: 10px auto;
+  padding: 10px 20px;
 
-  background: none;
+  grid-column: 1 / 3;
+
+  background-color: rgba(var(--color-light));
   border:none;
-  border-bottom: 2px black dashed;
+  border-radius: 5px 5px 20px 5px;
 
   outline: none;
   user-select: text;
@@ -33,14 +43,19 @@ gamu-modal form input{
   font-size: inherit;
 }
 
-gamu-modal form input[type='submit']{
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  width: 200px;
-  border:none;
-  background-color: var(--color-dark);
-  border-radius: 5px;
-  color: white;
+gamu-modal form div{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: max-content;
 }
-
+gamu-modal form input[type='submit']{
+  margin: 5px;
+  height: 40px;
+}
+gamu-modal form button{
+  display: block;
+  height: 40px;
+  margin: 40px auto 5px auto;
+  padding: 0 20px;
+}

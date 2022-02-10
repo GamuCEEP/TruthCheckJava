@@ -14,7 +14,7 @@ public class Test {
 
     u.insert(new User("Oscar", "Jiji"));
     u.insert(new User("Cami", "1234"));
-    u.insert(new User("Cami", "weff"));
+    u.insert(new User("iker", "weff"));
 
     for (User user : u.selectAll()) {
       System.out.println(user);

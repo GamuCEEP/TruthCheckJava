@@ -1,6 +1,10 @@
 package domain.beans.application;
 
+import javax.persistence.Entity;
+import lombok.Data;
 
+@Entity
+@Data
 public abstract class Resource {
 
   private int id;
@@ -15,29 +19,4 @@ public abstract class Resource {
     this.name = name;
     this.description = description;
   }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
 }

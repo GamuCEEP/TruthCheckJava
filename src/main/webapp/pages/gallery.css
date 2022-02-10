@@ -2,12 +2,81 @@
 
 body{
   display: grid;
-  grid-column: 1fr;
-  grid-template-rows: 100px 1fr 80px;
-  background-color: rgb(var(--color-dark));
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: 100px 1fr;
+
+  background-color: rgb(var(--color-dim));
   height: 100vh;
+  overflow: hidden;
 }
 
 header{
-  background-color: rgb(var(--color-dim));
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+
+  display: flex;
+  justify-content: space-between;
 }
+header #logo{
+  width: 80px;
+  height: 80px;
+  background-color: aquamarine;
+  margin: 10px;
+}
+header #searchBar{
+  margin: auto 0;
+}
+header #searchBar form{
+  display: flex;
+  flex-direction: row;
+}
+header #searchBar input{
+  display: block;
+  width: 200px;
+  height: 30px;
+  margin: 0;
+  padding: 0 20px;
+  border: none;
+  background-color: rgb(var(--color-dark));
+  color: white;
+  font-size: 1em;
+  
+  border-radius: 5px 0 0 5px;
+}
+header #searchBar input:focus{
+  outline: 2px rgb(var(--color-lit)) solid;
+}
+header #searchBar input[type='submit']{
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 0 5px 5px 0;
+  background-color: rgb(var(--color-lit));
+
+  background-image: url(../images/search.svg);
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+}
+header #userIcon{
+  width: 80px;
+  height: 80px;
+  background-color: red;
+  border-radius: 50%;
+  margin: 10px;
+
+}
+main{
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+
+  background-color: rgb(var(--color-dark));
+  border-radius: 0 5px 0 0 ;
+  overflow-y: auto;
+}
+aside{
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+

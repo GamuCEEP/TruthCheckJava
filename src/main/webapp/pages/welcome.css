@@ -1,6 +1,6 @@
 body{
   background-color: var(--color-main);
-  background-image: url('/src/main/webapp/images/background.bmp');
+  background-image: url('../images/background.bmp');
   background-repeat: no-repeat;
   background-origin: border-box;
   background-position: top right;

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
-
+  <script src="../root.js"></script>
 
 </head>
 
@@ -26,15 +26,30 @@
       <gamu-modal>
         <form action="">
           <label for="">Log In</label>
-          <input type="text" placeholder="Usuario">
-          <input type="password" placeholder="Contraseña">
+          <input type="text" name="user" placeholder="Usuario">
+          <span>
+            <input type="password" name="password" placeholder="Contraseña">
+            <input type="checkbox" hidden id="togglePasswordVisibility">
+            <label for="togglePasswordVisibility"></label>
+          </span>
+          <script>
+            ;(()=>{
+              window.addEventListener('load', ()=>{
+                const passwordInput = $('input[type="password"]')
+                const passwordToggle = $('#togglePasswordVisibility')
+                passwordToggle.addEventListener('change', ()=>{
+                  passwordInput.type = passwordToggle.checked ? 'text' : 'password'
+                })
+              })
+            })()
+          </script>
           <div>
             <input type="submit" value="Registrarse">
             <input type="submit" value="Entrar">
           </div>
-            <button type="submit" formaction="gallery.html">
-              Solo quiero ver
-            </button>
+          <button type="submit" formaction="gallery.html">
+            Solo quiero ver
+          </button>
         </form>
       </gamu-modal>
 

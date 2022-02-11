@@ -1,10 +1,6 @@
 package data.SQL;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
 
 public class ConnectionManager {
 
@@ -17,5 +13,4 @@ public class ConnectionManager {
   public static EntityManager getEM() {
     return em;
   }
-
 }

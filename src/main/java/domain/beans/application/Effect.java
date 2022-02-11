@@ -1,28 +1,14 @@
 package domain.beans.application;
 
+import javax.persistence.Entity;
+import lombok.*;
 
+
+@Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Entity
 public class Effect extends Resource {
 
   private String code;
-
-  public Effect() {
-  }
-
-  public Effect(int id, String name, String description) {
-    super(id, name, description);
-  }
-
-  public Effect(int id, String name, String description, String code) {
-    super(id, name, description);
-    this.code = code;
-  }
-
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
 }

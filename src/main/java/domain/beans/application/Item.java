@@ -2,31 +2,16 @@ package domain.beans.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+import lombok.*;
 
+@Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Entity
 public class Item extends Resource {
 
+  @OneToMany
+  @ElementCollection(fetch = FetchType.EAGER)
   private List<Interaction> interactions;
-
-  public Item() {
-    this.interactions = new ArrayList<>();
-  }
-
-  public Item(int id, String name, String description) {
-    super(id, name, description);
-    this.interactions = new ArrayList<>();
-  }
-
-  public Item(int id, String name, String description, List<Interaction> interactions) {
-    super(id, name, description);
-    this.interactions = interactions;
-  }
-  
-  public List<Interaction> getInteractions() {
-    return interactions;
-  }
-
-  public void setInteractions(List<Interaction> interactions) {
-    this.interactions = interactions;
-  }
-
 }

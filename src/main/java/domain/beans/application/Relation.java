@@ -2,32 +2,16 @@ package domain.beans.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+import lombok.*;
 
+@Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Entity
 public class Relation extends Resource {
 
+  @OneToMany
+  @ElementCollection(fetch = FetchType.EAGER)
   private List<Effect> effects;
-
-  public Relation() {
-    effects = null;
-    effects = new ArrayList<>();
-  }
-
-  public Relation(int id, String name, String description) {
-    super(id, name, description);
-    effects = new ArrayList<>();
-  }
-
-  public Relation(int id, String name, String description, List<Effect> effects) {
-    super(id, name, description);
-    this.effects = effects;
-  }
-
-  public List<Effect> getEffect() {
-    return effects;
-  }
-
-  public void setEffect(List<Effect> effects) {
-    this.effects = effects;
-  }
-
 }

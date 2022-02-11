@@ -9,6 +9,7 @@ public class User {
   
   
   @Id
+  private int id;
   private String name;
   /**
    * A hashed version of the password the user suplied

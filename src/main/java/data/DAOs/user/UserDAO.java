@@ -15,15 +15,20 @@ public class UserDAO {
     this.em = ConnectionManager.getEM();
   }
 
-  public User select(String name) {
-    return em.find(User.class, name);
+  public User find(int id) {
+    return em.find(User.class, id);
+  }
+  public User find(String name) {
+    List<User> users = em.createQuery("SELECT u FROM User u WHERE u.name = '"+name+"'").getResultList();
+    return users.get(0);
+    
   }
 
-  public List<User> selectAll() {
+  public List<User> findAll() {
     return em.createQuery("SELECT u FROM User u").getResultList();
   }
 
-  public void insert(User... users) {
+  public void persist(User... users) {
     em.getTransaction().begin();
     for (User user : users) {
       em.persist(user);
@@ -31,7 +36,7 @@ public class UserDAO {
     em.getTransaction().commit();
   }
 
-  public void update(User... updatedUsers) {
+  public void merge(User... updatedUsers) {
     em.getTransaction().begin();
     for (User user : updatedUsers) {
       em.merge(user);
@@ -39,7 +44,7 @@ public class UserDAO {
     em.getTransaction().commit();
   }
 
-  public void delete(User... users) {
+  public void remove(User... users) {
     em.getTransaction().begin();
     for (User user : users) {
       em.remove(user);

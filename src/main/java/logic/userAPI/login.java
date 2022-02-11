@@ -35,7 +35,7 @@ public class login extends HttpServlet {
     
     UserDAO uDAO = new UserDAO();
     
-    User user = uDAO.select(userName);
+    User user = uDAO.find(userName);
     
     if(user == null){
       JSONObject loginError = new JSONObject();
@@ -51,7 +51,7 @@ public class login extends HttpServlet {
     
     req.getSession().setAttribute("userAccount", user);
     
+    resp.getWriter().println("bienvenido "+ user.getName());
     //Return to page where the login was done
-  }
-  
+  }  
 }

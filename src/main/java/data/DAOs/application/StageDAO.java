@@ -1,50 +1,50 @@
 package data.DAOs.application;
 
 import data.SQL.ConnectionManager;
-import domain.beans.application.Actor;
+import domain.beans.application.Stage;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class ActorDAO {
+
+public class StageDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public ActorDAO() {
+  public StageDAO() {
     em = ConnectionManager.getEM();
   }
 
-  public Actor find(int name) {
-    return em.find(Actor.class, name);
+  public Stage find(int name) {
+    return em.find(Stage.class, name);
   }
 
   public List<?> findAll() {
-    return em.createQuery("SELECT u FROM Actor u").getResultList();
+    return em.createQuery("SELECT u FROM Stage u").getResultList();
   }
 
-  public void persist(Actor... elements) {
+  public void persist(Stage... elements) {
     em.getTransaction().begin();
-    for (Actor element : elements) {
+    for (Stage element : elements) {
       em.persist(element);
     }
     em.getTransaction().commit();
   }
 
-  public void merge(Actor... updatedElement) {
+  public void merge(Stage... updatedElement) {
     em.getTransaction().begin();
-    for (Actor element : updatedElement) {
+    for (Stage element : updatedElement) {
       em.merge(element);
     }
     em.getTransaction().commit();
   }
 
-  public void remove(Actor... elements) {
+  public void remove(Stage... elements) {
     em.getTransaction().begin();
-    for (Actor element : elements) {
+    for (Stage element : elements) {
       em.remove(element);
     }
     em.getTransaction().commit();
   }
-
 }

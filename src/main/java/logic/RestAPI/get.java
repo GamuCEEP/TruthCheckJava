@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import exceptions.ResourceNotFoundException;
 import org.json.JSONObject;
-import data.dataAPI;
 
 
 /**
@@ -48,15 +47,15 @@ public class get extends HttpServlet {
   private JSONObject serveResources(String resourceType, String... ids) {
     JSONObject response = new JSONObject();
     for (String id : ids) {
-      try {
-        //WARNING getResource is a mock implementation
-        Resource resource = dataAPI.getResource(resourceType, id);
-        JSONObject resourceJSON = new JSONObject(resource);
-
-        response.put(id, resourceJSON);
-      } catch (ResourceNotFoundException e) {
-        response.put(id, serveResourceNotFound());
-      }
+//      try {
+//        //WARNING getResource is a mock implementation
+//        Resource resource = dataAPI.getResource(resourceType, id);
+//        JSONObject resourceJSON = new JSONObject(resource);
+//
+//        response.put(id, resourceJSON);
+//      } catch (ResourceNotFoundException e) {
+//        response.put(id, serveResourceNotFound());
+//      }
     }
     return response;
   }

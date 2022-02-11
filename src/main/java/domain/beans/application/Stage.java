@@ -1,6 +1,5 @@
 package domain.beans.application;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -9,10 +8,9 @@ import lombok.*;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class Event extends Resource {
-
+public class Stage extends Resource {
+  
   @OneToMany
   @ElementCollection(fetch = FetchType.EAGER)
-  private List<Effect> effects;
-  private int priority;
+  private List<Event> timeline;
 }

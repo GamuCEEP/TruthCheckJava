@@ -1,4 +1,4 @@
-gamu-modal form{
+gamu-modal .modal{
   background-color: rgba(var(--color-dark), 1);
 
   margin: 0 auto;
@@ -15,7 +15,6 @@ gamu-modal form{
 
   border-radius: 5px;
   font-size: 1em;
-
 }
 gamu-modal label, gamu-modal p{
   margin: 0 0 20px 0;
@@ -24,7 +23,7 @@ gamu-modal label, gamu-modal p{
   text-align: center;
   text-decoration: rgb(var(--color-lit)) underline 2px;
 }
-gamu-modal form input{
+gamu-modal input{
   width: 300px;
   height: 30px;
   margin: 10px auto;
@@ -41,7 +40,7 @@ gamu-modal form input{
 
   font-size: inherit;
 }
-gamu-modal form label[for='togglePasswordVisibility']{
+gamu-modal label[for='togglePasswordVisibility']{
   display: block;
   position: absolute;
   right: 5px;
@@ -52,28 +51,28 @@ gamu-modal form label[for='togglePasswordVisibility']{
   background-image: url(../images/showPassword.svg);
   background-repeat:  no-repeat;
 }
-gamu-modal form input:checked+[for='togglePasswordVisibility']{
+gamu-modal input:checked+[for='togglePasswordVisibility']{
   background-image: url(../images/hidePassword.svg);
 }
-gamu-modal form span{
+gamu-modal span{
   position: relative;
   display: block;
   width: fit-content;
   margin: 0 auto;
 }
 
-gamu-modal form div{
+gamu-modal div{
   display: flex;
   flex-direction: row;
   width: 100%;
   height: max-content;
   position: relative;
 }
-gamu-modal form input[type='submit']{
+gamu-modal input[type='submit']{
   margin: 5px;
   height: 40px;
 }
-gamu-modal form button{
+gamu-modal button{
   display: block;
   height: 40px;
   margin: 40px auto 5px auto;

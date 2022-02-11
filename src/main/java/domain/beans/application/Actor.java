@@ -2,6 +2,7 @@ package domain.beans.application;
 
 import java.util.Map;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import lombok.*;
 
 @Data

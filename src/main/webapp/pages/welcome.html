@@ -24,8 +24,8 @@
 
     <nav>
       <gamu-modal>
-        <form action="" class="modal">
-          <label for="">Log In</label>
+        <form method="POST" class="modal">
+          <label>Log In</label>
           <input type="text" name="user" placeholder="Usuario">
           <span>
             <input type="password" name="password" placeholder="Contraseña">
@@ -44,8 +44,8 @@
             })()
           </script>
           <div>
-            <input type="submit" name="register" value="Registrarse">
-            <input type="submit" name="login" value="Entrar">
+            <input type="submit" formaction="/TruthCheckJava/register" value="Registrarse">
+            <input type="submit" formaction="/TruthCheckJava/login" value="Entrar">
           </div>
           <button type="submit" formaction="gallery.html">
             Solo quiero ver

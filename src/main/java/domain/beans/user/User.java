@@ -1,10 +1,12 @@
 package domain.beans.user;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 
 @Entity
 @Data
+@XmlRootElement
 public class User {
   
   

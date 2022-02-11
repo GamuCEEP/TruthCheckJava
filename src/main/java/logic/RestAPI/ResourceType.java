@@ -7,7 +7,7 @@ public enum ResourceType {
     // Objects
     actor,
     item,
-    zone,
+    stage,
     // Object collections
     map,
     // Base interaction

@@ -1,6 +1,7 @@
 package domain.beans.application;
 
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 import lombok.*;
 
 

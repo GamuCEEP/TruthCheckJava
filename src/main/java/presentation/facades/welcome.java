@@ -8,20 +8,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-@WebServlet(name = "welcomeFacade", urlPatterns = {"/welcome"})
+/**
+ *
+ * @author GamuD
+ */
+@WebServlet(name = "welcome", urlPatterns = {"/welcome"})
 public class welcome extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.getRequestDispatcher("pages/welcome.jsp").forward(req, resp);
+    defaultAction(req, resp);
+    System.out.println("Si llega");
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.getRequestDispatcher("pages/welcome.jsp").forward(req, resp);
+    defaultAction(req, resp);
+    System.out.println("Si llega");
   }
-  
-  
+  private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    req.getRequestDispatcher("/pages/welcome.jsp").forward(req, resp);
+  }
 }

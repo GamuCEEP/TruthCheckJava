@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - TruthCheck</title>
 
-  <link rel="stylesheet" href="../root.css">
-  <link rel="stylesheet" href="welcome.css">
-  <link rel="stylesheet" href="../components/gamu-modal.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/root.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/welcome.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/components/gamu-modal.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,9 +27,9 @@
       <gamu-modal>
         <form method="POST" class="modal">
           <label>Log In</label>
-          <input type="text" name="user" placeholder="Usuario">
+          <input type="text" required name="user" placeholder="Usuario">
           <span>
-            <input type="password" name="password" placeholder="Contraseña">
+            <input type="password" required name="password" placeholder="Contraseña">
             <input type="checkbox" hidden id="togglePasswordVisibility">
             <label for="togglePasswordVisibility"></label>
           </span>
@@ -47,7 +48,7 @@
             <input type="submit" formaction="/TruthCheckJava/register" value="Registrarse">
             <input type="submit" formaction="/TruthCheckJava/login" value="Entrar">
           </div>
-          <button type="submit" formaction="gallery.html">
+          <button type="submit" formaction="/TruthCheckJava/pages/gallery.jsp">
             Solo quiero ver
           </button>
         </form>

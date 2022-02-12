@@ -29,13 +29,17 @@ public class register extends HttpServlet {
     
     if(user != null){
       resp.setHeader("registerError", "UserAlreadyExists");
-      resp.sendRedirect("pages/welcome.html");
+      req.getRequestDispatcher("welcome").forward(req, resp);
       return;
     }
     
-    resp.sendRedirect("pages/home");
+    user = new User(userName, password);
     
-
+    uDAO.persist(user);
+    
+    req.getSession().setAttribute("userName", userName);
+    resp.sendRedirect("home");
+    
   } 
   
 }

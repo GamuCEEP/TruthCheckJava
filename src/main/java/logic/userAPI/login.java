@@ -1,4 +1,3 @@
-
 package logic.userAPI;
 
 import data.DAOs.user.UserDAO;
@@ -12,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import org.json.*;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
@@ -24,30 +24,29 @@ public class login extends HttpServlet {
         -user is seached by name and stored password(hashed) is compared to the given password(hashed)
         -If theres a match session variable user is set to username, an empty response is sent
         -If not, a JSON with tried user is sent
-    */
-    
+     */
+
     String userName = req.getParameter("user");
     String password = req.getParameter("password");
-    
+
     UserDAO uDAO = new UserDAO();
-    
+
     User user = uDAO.find(userName);
-    
-    if(user == null){
-      JSONObject loginError = new JSONObject();
-      loginError.put("loginError", "UserNotFound");
-      resp.getWriter().println(loginError.toString());
-      return;//Redirect a login form
+
+    if (user == null) {
+      resp.setHeader("loginError", "UserNotFound");
+      req.getRequestDispatcher("welcome").forward(req, resp);
+      return;
     }
-    
-    if(!user.getPassword().equals(password)){
-      JSONObject loginError = new JSONObject();
-      loginError.put("loginError", "IncorrectPassword");
+
+    if (!user.getPassword().equals(password)) {
+      resp.setHeader("loginError", "IncorrectPassword");
+      req.getRequestDispatcher("welcome").forward(req, resp);
+      return;
     }
-    
-    req.getSession().setAttribute("userAccount", user);
-    
-    resp.getWriter().println("bienvenido "+ user.getName());
-    //Return to page where the login was done
-  }  
+
+    req.getSession().setAttribute("userName", userName);
+    resp.addCookie(new Cookie("userName", userName));
+    req.getRequestDispatcher("home").forward(req, resp);
+  }
 }

@@ -20,6 +20,8 @@ public class UserDAO {
   }
   public User find(String name) {
     List<User> users = em.createQuery("SELECT u FROM User u WHERE u.name = '"+name+"'").getResultList();
+    if(users.isEmpty())
+      return null;
     return users.get(0);
     
   }

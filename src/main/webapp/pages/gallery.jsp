@@ -1,3 +1,11 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 
+    Document   : gallery.jsp
+    Created on : 12 feb 2022, 9:51:42
+    Author     : GamuD
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +32,9 @@
     </div>
     <div id="userIcon">
       <!-- Loged in/not logged in -->
+      <a href="<%= %>">
+        
+      </a>
     </div>
   </header>
   <main>

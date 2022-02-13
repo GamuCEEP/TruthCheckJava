@@ -18,13 +18,11 @@ public class welcome extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
-    System.out.println("Si llega");
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
-    System.out.println("Si llega");
   }
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.getRequestDispatcher("/pages/welcome.jsp").forward(req, resp);

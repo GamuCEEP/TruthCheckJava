@@ -1,50 +1,54 @@
 package data.DAOs.application;
 
-import data.SQL.ConnectionManager;
 import domain.beans.application.Map;
+import domain.beans.application.Resource;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-
-public class MapDAO {
+public class MapDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
   public MapDAO() {
-    em = ConnectionManager.getEM();
+    em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
+  @Override
   public Map find(int name) {
     return em.find(Map.class, name);
   }
 
-  public List<?> findAll() {
+  @Override
+  public List<Map> findAll() {
     return em.createQuery("SELECT u FROM Map u").getResultList();
   }
 
-  public void persist(Map... elements) {
+  @Override
+  public void persist(Resource resource) {
     em.getTransaction().begin();
-    for (Map element : elements) {
-      em.persist(element);
-    }
+    em.persist(resource);
     em.getTransaction().commit();
   }
 
-  public void merge(Map... updatedElement) {
+  @Override
+  public void merge(Resource resource) {
     em.getTransaction().begin();
-    for (Map element : updatedElement) {
-      em.merge(element);
-    }
+    em.merge(resource);
     em.getTransaction().commit();
   }
 
-  public void remove(Map... elements) {
+  @Override
+  public void remove(Resource resource) {
     em.getTransaction().begin();
-    for (Map element : elements) {
-      em.remove(element);
-    }
+    em.remove(resource);
     em.getTransaction().commit();
+  }
+
+  @Override
+  public List<? extends Resource> findText(String text) {
+    return em.createQuery("SELECT u FROM Map u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

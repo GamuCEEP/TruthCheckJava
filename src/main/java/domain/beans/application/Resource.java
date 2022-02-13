@@ -1,5 +1,6 @@
 package domain.beans.application;
 
+import domain.beans.user.User;
 import java.io.Serializable;
 import javax.persistence.*;
 import lombok.Data;
@@ -13,4 +14,9 @@ public abstract class Resource implements Serializable{
   private int id;
   private String name;
   private String description;
+  
+  @ManyToOne
+  private User holder;
+  @OneToOne
+  private User author;
 }

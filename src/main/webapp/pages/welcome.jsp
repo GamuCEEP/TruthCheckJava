@@ -8,15 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - TruthCheck</title>
 
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/root.css">
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/welcome.css">
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/components/gamu-modal.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/root.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/home.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/modal.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
-  <script src="../root.js"></script>
-
+  
+  <script src="<%= request.getContextPath() %>/pages/js/root.js"></script>
 </head>
 
 <body>
@@ -24,7 +24,6 @@
   <header>
 
     <nav>
-      <gamu-modal>
         <form method="POST" class="modal">
           <label>Log In</label>
           <input type="text" required name="user" placeholder="Usuario">
@@ -48,12 +47,10 @@
             <input type="submit" formaction="/TruthCheckJava/register" value="Registrarse">
             <input type="submit" formaction="/TruthCheckJava/login" value="Entrar">
           </div>
-          <button type="submit" formaction="/TruthCheckJava/pages/gallery.jsp">
+          <a href="/TruthCheckJava/gallery">
             Solo quiero ver
-          </button>
+          </a>
         </form>
-      </gamu-modal>
-
     </nav>
 
   </header>

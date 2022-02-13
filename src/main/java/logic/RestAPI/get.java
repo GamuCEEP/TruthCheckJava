@@ -11,11 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import exceptions.ResourceNotFoundException;
 import org.json.JSONObject;
 
-
 /**
- * Returns all the requested resources as a JSON 
+ * Returns all the requested resources as a JSON
  */
-@WebServlet(name = "Rest", urlPatterns = {"/get"})
+@WebServlet(name = "get", urlPatterns = {"/get"})
 public class get extends HttpServlet {
 
   @Override
@@ -24,20 +23,16 @@ public class get extends HttpServlet {
     try (PrintWriter out = response.getWriter()) {
       JSONObject requestedObjects = new JSONObject();
 
-      request.getParameterMap().forEach((resourceType, ids) -> {
-        if (!ResourceType.has(resourceType)) {
-          serveIncorrectRequest(requestedObjects, resourceType);
+      request.getParameterMap().forEach((resourceRequest, ids) -> {
+        if (!ResourceType.has(resourceRequest)) {
+          requestedObjects.accumulate("IncorrectRequests", resourceRequest);
           return;
         }
-        requestedObjects.put(resourceType + 's', serveResources(resourceType, ids));
+        requestedObjects.put(resourceRequest + 's', serveResources(resourceRequest, ids));
       });
-      response.setHeader("Content-Type", "application/json");
+      
       out.print(requestedObjects);
     }
-  }
-
-  private void serveIncorrectRequest(JSONObject response, String badRequest) {
-    response.accumulate("IncorrectRequests", badRequest);
   }
 
   private String serveResourceNotFound() {
@@ -47,15 +42,12 @@ public class get extends HttpServlet {
   private JSONObject serveResources(String resourceType, String... ids) {
     JSONObject response = new JSONObject();
     for (String id : ids) {
-//      try {
-//        //WARNING getResource is a mock implementation
-//        Resource resource = dataAPI.getResource(resourceType, id);
-//        JSONObject resourceJSON = new JSONObject(resource);
-//
-//        response.put(id, resourceJSON);
-//      } catch (ResourceNotFoundException e) {
-//        response.put(id, serveResourceNotFound());
-//      }
+      int parsedId = 0;
+      try {
+        parsedId = Integer.parseInt(id);
+      } catch (NumberFormatException e) {
+        
+      }
     }
     return response;
   }

@@ -1,58 +1,88 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- 
-    Document   : gallery.jsp
-    Created on : 12 feb 2022, 9:51:42
-    Author     : GamuD
---%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeria - TruthCheck</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - TruthCheck</title>
 
-  <link rel="stylesheet" href="../root.css">
-  <link rel="stylesheet" href="gallery.css">
-</head>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/root.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/retractil.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/gallery.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/modal.css">
+  </head>
 
-<body>
-  <header>
-    <div id="logo">
-      ~TC~
+  <body>
+    <header>
+      <div id="logo">
+        ~TC~
+      </div>
+      <div id="searchBar">
+        <form action="">
+          <input type="text" placeholder="Buscar">
+          <input type="submit" value="">
+        </form>
+      </div>
+      <div id="userIcon">
+        <!-- Loged in/not logged in -->
+        <a href="">
+
+        </a>
+      </div>
+    </header>
+    <main>
+
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <footer>
+
+      </footer>
+    </main>
+
+    <div style="position: relative;">
+
+      <input type="checkbox" class="retractil-toggler" id="aside-toggle">
+      <label for="aside-toggle"></label>
+      <aside class="retractil">
+        <form method="GET">
+
+          <c:forEach var="type" items="${ResourceTypes}">
+            <button formaction="/TruthCheckJava/gallery" name="${type.toString()}">
+              ${type.getWebText()}
+            </button>
+          </c:forEach>
+
+        </form>
+      </aside>
     </div>
-    <div id="searchBar">
-      <form action="">
-        <input type="text" placeholder="Buscar">
-        <input type="submit" value="">
-      </form>
-    </div>
-    <div id="userIcon">
-      <!-- Loged in/not logged in -->
-      <a href="<%= %>">
-        
-      </a>
-    </div>
-  </header>
-  <main>
 
-    <footer>
+    <script>
+      ${resources.toString()}
+    </script>
 
-    </footer>
-  </main>
-  <aside>
-    
-  </aside>
-  <script>
-    ;(()=>{
-
-    })()
-  </script>
-  
-
-</body>
+  </body>
 
 </html>

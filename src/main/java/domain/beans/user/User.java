@@ -1,12 +1,13 @@
 package domain.beans.user;
 
+import domain.beans.application.Resource;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 
 @Entity
 @Data
-@XmlRootElement
 public class User {
   
   
@@ -18,6 +19,9 @@ public class User {
    * A hashed version of the password the user suplied
    */
   private String password;
+  
+  @OneToMany(mappedBy = "holder")
+  private List<Resource> library;
 
   public User() {
   }

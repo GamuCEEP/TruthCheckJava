@@ -1,0 +1,50 @@
+.retractil{
+  transition: 250ms width linear;
+  transform-origin: right;
+}
+.retractil-toggler:checked ~ .retractil{
+  width: 0;
+}
+.retractil-toggler + label{
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  
+  transition: 250ms transform ease;
+}
+.retractil-toggler + label::after{
+  content: '';
+  display: block;
+  width: 60%;
+  height: 100%;
+  transform: rotate(90deg);
+  background-image: url(/TruthCheckJava/images/arrow.svg);
+  background-repeat: no-repeat;
+  transition: inherit;
+}
+.retractil-toggler + label::before{
+  display: block;
+  position: absolute;
+  left: -10px;
+  content: '';
+  width: 150%;
+  height: 100%;
+  background-color: black;
+  border-radius: 0 15px 15px 0;
+  transition: inherit;
+}
+.retractil-toggler:checked + label::after{
+  transform: translate(-200%) rotate(-90deg);
+}
+.retractil-toggler:checked + label::before{
+  transform: translate(-100%) scale(-1);
+}
+.retractil-toggler{
+  display: none;
+}
+.retractil-toggler:checked{
+  transform: translateX(-100%);
+}

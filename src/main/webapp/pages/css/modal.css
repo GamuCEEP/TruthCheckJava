@@ -1,4 +1,4 @@
-gamu-modal .modal{
+.modal{
   background-color: rgba(var(--color-dark), 1);
 
   margin: 0 auto;
@@ -16,14 +16,14 @@ gamu-modal .modal{
   border-radius: 5px;
   font-size: 1em;
 }
-gamu-modal label, gamu-modal p{
+.modal label, .modal p{
   margin: 0 0 20px 0;
   color: rgb(var(--color-light));
   font-size: 1.8em;
   text-align: center;
   text-decoration: rgb(var(--color-lit)) underline 2px;
 }
-gamu-modal input{
+.modal input{
   width: 300px;
   height: 30px;
   margin: 10px auto;
@@ -40,7 +40,7 @@ gamu-modal input{
 
   font-size: inherit;
 }
-gamu-modal label[for='togglePasswordVisibility']{
+.modal label[for='togglePasswordVisibility']{
   display: block;
   position: absolute;
   right: 5px;
@@ -48,39 +48,44 @@ gamu-modal label[for='togglePasswordVisibility']{
 
   width: 30px;
   height: 30px;
-  background-image: url(../images/showPassword.svg);
+  background-image: url(/TruthCheckJava/images/showPassword.svg);
   background-repeat:  no-repeat;
 }
-gamu-modal input:checked+[for='togglePasswordVisibility']{
-  background-image: url(../images/hidePassword.svg);
+.modal input:checked+[for='togglePasswordVisibility']{
+  background-image: url(/TruthCheckJava/images/hidePassword.svg);
 }
-gamu-modal span{
+.modal span{
   position: relative;
   display: block;
   width: fit-content;
   margin: 0 auto;
 }
 
-gamu-modal div{
+.modal div{
   display: flex;
   flex-direction: row;
   width: 100%;
   height: max-content;
   position: relative;
 }
-gamu-modal input[type='submit']{
+.modal input[type='submit']{
   margin: 5px;
   height: 40px;
 }
-gamu-modal button{
+.modal button, .modal a{
   display: block;
   height: 40px;
-  margin: 40px auto 5px auto;
+  margin: 20px auto 5px auto;
   padding: 0 20px;
   font-size: 1em;
 }
+.modal a{
+  text-decoration: none;
+  text-align: center;
+  padding-top: 3%;
+}
 
-gamu-modal button, gamu-modal input[type='submit']{
+.modal button, .modal a, .modal input[type='submit']{
   background-color: rgb(var(--color-dim));
   border: none;
   border-bottom: 2px rgba(var(--color-lit)) solid;
@@ -90,11 +95,11 @@ gamu-modal button, gamu-modal input[type='submit']{
   user-select: none;
   transition: 100ms transform ease, 100ms border ease;
 }
-gamu-modal button:hover, gamu-modal input[type='submit']:hover{
+.modal button:hover, .modal a:hover, .modal input[type='submit']:hover{
   border-bottom: 3px rgba(var(--color-lit)) solid;
   transform: translateY(-1px);
 }
-gamu-modal button:active, gamu-modal input[type='submit']:active{
+.modal button:active,.modal a:active, .modal input[type='submit']:active{
   border-bottom: 0px rgba(var(--color-lit)) solid;
   transform: translateY(1px);
 }

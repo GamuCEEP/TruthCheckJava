@@ -1,9 +1,9 @@
 package data.DAOs.user;
 
-import data.SQL.ConnectionManager;
 import domain.beans.user.User;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 public class UserDAO {
@@ -12,7 +12,7 @@ public class UserDAO {
   EntityManager em;
 
   public UserDAO() {
-    this.em = ConnectionManager.getEM();
+    em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   public User find(int id) {

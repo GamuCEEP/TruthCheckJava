@@ -1,50 +1,54 @@
 package data.DAOs.application;
 
-import data.SQL.ConnectionManager;
 import domain.beans.application.Relation;
+import domain.beans.application.Resource;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-
-public class RelationDAO {
+public class RelationDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
   public RelationDAO() {
-    em = ConnectionManager.getEM();
+    em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
+  @Override
   public Relation find(int name) {
     return em.find(Relation.class, name);
   }
 
-  public List<?> findAll() {
+  @Override
+  public List<Relation> findAll() {
     return em.createQuery("SELECT u FROM Relation u").getResultList();
   }
 
-  public void persist(Relation... elements) {
+  @Override
+  public void persist(Resource resource) {
     em.getTransaction().begin();
-    for (Relation element : elements) {
-      em.persist(element);
-    }
+    em.persist(resource);
     em.getTransaction().commit();
   }
 
-  public void merge(Relation... updatedElement) {
+  @Override
+  public void merge(Resource resource) {
     em.getTransaction().begin();
-    for (Relation element : updatedElement) {
-      em.merge(element);
-    }
+    em.merge(resource);
     em.getTransaction().commit();
   }
 
-  public void remove(Relation... elements) {
+  @Override
+  public void remove(Resource resource) {
     em.getTransaction().begin();
-    for (Relation element : elements) {
-      em.remove(element);
-    }
+    em.remove(resource);
     em.getTransaction().commit();
+  }
+
+  @Override
+  public List<? extends Resource> findText(String text) {
+    return em.createQuery("SELECT u FROM Relation u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

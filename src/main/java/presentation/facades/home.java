@@ -1,4 +1,3 @@
-
 package presentation.facades;
 
 import java.io.IOException;
@@ -14,9 +13,9 @@ import org.json.JSONObject;
  *
  * @author GamuD
  */
-@WebServlet(name="home", urlPatterns={"/home"})
+@WebServlet(name = "home", urlPatterns = {"/home"})
 public class home extends HttpServlet {
-   
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
@@ -26,14 +25,19 @@ public class home extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
   }
+
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.getRequestDispatcher("/pages/home.jsp").include(req, resp);
-    
+
     Object userNameAttr = req.getSession().getAttribute("userName");
-    String userName = (userNameAttr != null ? userNameAttr.toString() : "");
-    
-    req.setAttribute("message",new JSONObject("userName", userName));
-    req.getRequestDispatcher("/talk/talk.jsp").include(req, resp);
-   
+
+    if (userNameAttr == null) {
+      req.getRequestDispatcher("/pages/welcome.jsp").include(req, resp);
+      return;
+    }
+
+    String userName = userNameAttr.toString();
+
+    req.setAttribute("userName", userName);
+    req.getRequestDispatcher("/pages/home.jsp").include(req, resp);
   }
 }

@@ -1,51 +1,54 @@
 package data.DAOs.application;
 
-import data.SQL.ConnectionManager;
 import domain.beans.application.Effect;
-import domain.beans.application.Effect;
+import domain.beans.application.Resource;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+public class EffectDAO implements IResourceDAO {
 
-public class EffectDAO {
- 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
   public EffectDAO() {
-    em = ConnectionManager.getEM();
+    em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
+  @Override
   public Effect find(int name) {
     return em.find(Effect.class, name);
   }
 
-  public List<?> findAll() {
+  @Override
+  public List<Effect> findAll() {
     return em.createQuery("SELECT u FROM Effect u").getResultList();
   }
 
-  public void persist(Effect... elements) {
+  @Override
+  public void persist(Resource resource) {
     em.getTransaction().begin();
-    for (Effect element : elements) {
-      em.persist(element);
-    }
+    em.persist(resource);
     em.getTransaction().commit();
   }
 
-  public void merge(Effect... updatedElement) {
+  @Override
+  public void merge(Resource resource) {
     em.getTransaction().begin();
-    for (Effect element : updatedElement) {
-      em.merge(element);
-    }
+    em.merge(resource);
     em.getTransaction().commit();
   }
 
-  public void remove(Effect... elements) {
+  @Override
+  public void remove(Resource resource) {
     em.getTransaction().begin();
-    for (Effect element : elements) {
-      em.remove(element);
-    }
+    em.remove(resource);
     em.getTransaction().commit();
+  }
+
+  @Override
+  public List<? extends Resource> findText(String text) {
+    return em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

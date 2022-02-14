@@ -2,24 +2,24 @@ package data.DAOs.user;
 
 import domain.beans.user.User;
 import java.util.List;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+@Stateless
+@LocalBean
 public class UserDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public UserDAO() {
-    em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
-  }
-
   public User find(int id) {
     return em.find(User.class, id);
   }
   public User find(String name) {
-    List<User> users = em.createQuery("SELECT u FROM User u WHERE u.name = '"+name+"'").getResultList();
+    List<User> users = em.createQuery("SELECT u FROM User u WHERE u.name = :name").setParameter("name",name).getResultList();
     if(users.isEmpty())
       return null;
     return users.get(0);

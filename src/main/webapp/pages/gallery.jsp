@@ -11,16 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria - TruthCheck</title>
 
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/root.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/retractil.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/gallery.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/modal.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/root.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/retractil.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/gallery.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/modal.css">
   </head>
 
   <body>
     <header>
       <div id="logo">
-        ~TC~
+        <a href="/TruthCheckJava/home">
+          <img src="/TruthCheckJava/images/logoTC.png" alt="~TC~" width="80">
+        </a>
       </div>
       <div id="searchBar">
         <form action="">

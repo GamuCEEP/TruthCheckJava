@@ -1,21 +1,23 @@
 package service.application;
 
 import data.application.EffectDAO;
-import domain.application.Effect;
+import domain.application.*;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class EffectService {
+public class EffectService  implements ResourceService{
 
   @Inject
   private EffectDAO dao;
 
+  @Override
   public Effect find(int id) {
     return dao.find(id);
   }
 
+  @Override
   public List<Effect> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
@@ -24,19 +26,23 @@ public class EffectService {
     return dao.findText(text);
   }
 
+  @Override
   public List<Effect> findAll() {
     return dao.findAll();
   }
 
-  public void persist(Effect resource) {
-    dao.persist(resource);
+  @Override
+  public void persist(Resource resource) {
+    dao.persist((Effect)resource);
   }
 
-  public void merge(Effect resource) {
-    dao.merge(resource);
+  @Override
+  public void merge(Resource resource) {
+    dao.merge((Effect)resource);
   }
 
-  public void remove(Effect resource) {
-    dao.remove(resource);
+  @Override
+  public void remove(Resource resource) {
+    dao.remove((Effect)resource);
   }
 }

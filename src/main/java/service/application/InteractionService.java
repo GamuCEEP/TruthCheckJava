@@ -1,21 +1,23 @@
 package service.application;
 
 import data.application.InteractionDAO;
-import domain.application.Interaction;
+import domain.application.*;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class InteractionService {
+public class InteractionService implements ResourceService {
 
   @Inject
   private InteractionDAO dao;
 
+  @Override
   public Interaction find(int id) {
     return dao.find(id);
   }
 
+  @Override
   public List<Interaction> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
@@ -24,19 +26,23 @@ public class InteractionService {
     return dao.findText(text);
   }
 
+  @Override
   public List<Interaction> findAll() {
     return dao.findAll();
   }
 
-  public void persist(Interaction resource) {
-    dao.persist(resource);
+  @Override
+  public void persist(Resource resource) {
+    dao.persist((Interaction)resource);
   }
 
-  public void merge(Interaction resource) {
-    dao.merge(resource);
+  @Override
+  public void merge(Resource resource) {
+    dao.merge((Interaction)resource);
   }
 
-  public void remove(Interaction resource) {
-    dao.remove(resource);
+  @Override
+  public void remove(Resource resource) {
+    dao.remove((Interaction)resource);
   }
 }

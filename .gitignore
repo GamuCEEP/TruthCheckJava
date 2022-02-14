@@ -9,3 +9,4 @@ target/**
 *.properties
 target/TruthCheckJava-1.0/WEB-INF/classes/.netbeans_automatic_build
 *.dpf
+/target/

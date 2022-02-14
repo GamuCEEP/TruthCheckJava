@@ -1,21 +1,24 @@
 package service.application;
 
 import data.application.StageDAO;
+import domain.application.Resource;
 import domain.application.Stage;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class StageService {
+public class StageService implements ResourceService {
 
   @Inject
   private StageDAO dao;
   
+  @Override
   public Stage find(int id) {
     return dao.find(id);
   }
   
+  @Override
   public List<Stage> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
@@ -23,19 +26,23 @@ public class StageService {
     return dao.findText(text);
   }
   
+  @Override
   public List<Stage> findAll() {
     return dao.findAll();
   }
   
-  public void persist(Stage resource) {
-    dao.persist(resource);
+  @Override
+  public void persist(Resource resource) {
+    dao.persist((Stage)resource);
   }
   
-  public void merge(Stage resource) {
-    dao.merge(resource);
+  @Override
+  public void merge(Resource resource) {
+    dao.merge((Stage)resource);
   }
   
-  public void remove(Stage resource) {
-    dao.remove(resource);
+  @Override
+  public void remove(Resource resource) {
+    dao.remove((Stage)resource);
   }
 }

@@ -8,7 +8,7 @@ import lombok.*;
 
 @Data
 @Entity
-public class Item implements Serializable {
+public class Item implements Serializable, Resource {
 
   @Id
   @GeneratedValue

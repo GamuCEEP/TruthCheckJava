@@ -12,8 +12,9 @@
     <class>logic.Effect</class>
     <class>logic.Relation</class>
     <shared-cache-mode>ALL</shared-cache-mode>
-    
     <jta-data-source>jdbc/TCJ</jta-data-source>
-    
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
   </persistence-unit>
 </persistence>

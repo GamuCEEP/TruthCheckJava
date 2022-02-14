@@ -1,7 +1,5 @@
-
 package presentation.facades;
 
-import data.DAOs.application.DAOManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,11 +12,12 @@ import logic.RestAPI.ResourceType;
 import domain.beans.application.Resource;
 import java.util.ArrayList;
 import org.json.JSONObject;
+import service.application.IResourceService;
+import service.application.ResourceServiceAgregator;
 
-
-@WebServlet(name="gallery", urlPatterns={"/gallery"})
+@WebServlet(name = "gallery", urlPatterns = {"/gallery"})
 public class gallery extends HttpServlet {
-   
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
@@ -28,20 +27,15 @@ public class gallery extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     defaultAction(req, resp);
   }
+
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    
+
     List<Resource> resources = new ArrayList<>();
-    
-    for(ResourceType type : ResourceType.values()){
-      String[] ids =  req.getParameterValues(type.name());
-      List<? extends Resource> foundResources = DAOManager.getDAO(type).findAll();
-      if(foundResources != null)
-        resources.addAll(foundResources);
-    }
-    
-    
+
+    List<? extends Resource> foundResources = new ResourceServiceAgregator().findAll();
+
     req.setAttribute("resources", new JSONObject(resources));
-    
+
     req.setAttribute("ResourceTypes", ResourceType.values());
     req.getRequestDispatcher("/pages/gallery.jsp").forward(req, resp);
   }

@@ -1,11 +1,12 @@
-package data.DAOs.application;
+package service.application;
 
+import data.DAOs.application.*;
 import domain.beans.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Local;
 
-
-public interface IResourceDAO {
+@Local
+public interface IResourceService {
 
   public Resource find(int id);
   public List<? extends Resource> findText(String text);

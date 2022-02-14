@@ -3,10 +3,12 @@ package data.DAOs.application;
 import domain.beans.application.Relation;
 import domain.beans.application.Resource;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class RelationDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
@@ -48,7 +50,7 @@ public class RelationDAO implements IResourceDAO {
   }
 
   @Override
-  public List<? extends Resource> findText(String text) {
+  public List<Relation> findText(String text) {
     return em.createQuery("SELECT u FROM Relation u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

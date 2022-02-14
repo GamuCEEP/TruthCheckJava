@@ -3,10 +3,12 @@ package data.DAOs.application;
 import domain.beans.application.Effect;
 import domain.beans.application.Resource;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 public class EffectDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
@@ -48,7 +50,7 @@ public class EffectDAO implements IResourceDAO {
   }
 
   @Override
-  public List<? extends Resource> findText(String text) {
+  public List<Effect> findText(String text) {
     return em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

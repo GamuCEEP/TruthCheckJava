@@ -1,6 +1,7 @@
 package domain.beans.user;
 
 import domain.beans.application.Resource;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class User {
+public class User implements Serializable {
   
   
   @Id

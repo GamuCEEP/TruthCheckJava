@@ -25,7 +25,6 @@ public class welcome extends HttpServlet {
     defaultAction(req, resp);
   }
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    System.out.println("Bienvenido");
     
     req.getRequestDispatcher("/pages/welcome.jsp").forward(req, resp);
   }

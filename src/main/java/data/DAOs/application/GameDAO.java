@@ -2,10 +2,13 @@ package data.DAOs.application;
 
 import domain.beans.application.Resource;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import domain.beans.application.Game;
 
+@Stateless
 public class GameDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
@@ -17,13 +20,13 @@ public class GameDAO implements IResourceDAO {
   }
 
   @Override
-  public Resource find(int id) {
+  public Game find(int id) {
     assert false;
     return null;
   }
 
   @Override
-  public List<? extends Resource> findAll() {
+  public List<Game> findAll() {
     assert false;
     return null;
   }
@@ -44,7 +47,7 @@ public class GameDAO implements IResourceDAO {
   }
 
   @Override
-  public List<? extends Resource> findText(String text) {
+  public List<Game> findText(String text) {
     return em.createQuery("SELECT u FROM Game u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 

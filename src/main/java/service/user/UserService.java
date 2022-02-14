@@ -1,7 +1,7 @@
 package service.user;
 
-import data.DAOs.user.UserDAO;
-import domain.beans.user.User;
+import data.user.UserDAO;
+import domain.user.User;
 import java.util.List;
 import javax.inject.Inject;
 

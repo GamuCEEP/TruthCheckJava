@@ -1,45 +1,41 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Item;
-import domain.beans.application.Resource;
+import data.application.ItemDAO;
+import domain.application.Item;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class ItemService implements IResourceDAO {
+public class ItemService  {
 
  @Inject
   private ItemDAO dao;
-  
- @Override
+ 
   public Item find(int id) {
     return dao.find(id);
   }
-
-  @Override
+  
   public List<Item> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
     return dao.findText(text);
   }
-
-  @Override
+  
   public List<Item> findAll() {
     return dao.findAll();
   }
-
-  @Override
-  public void persist(Resource resource) {
+  
+  public void persist(Item resource) {
     dao.persist(resource);
   }
-
-  @Override
-  public void merge(Resource resource) {
+  
+  public void merge(Item resource) {
     dao.merge(resource);
   }
-
-  @Override
-  public void remove(Resource resource) {
+  
+  public void remove(Item resource) {
     dao.remove(resource);
   }
 }

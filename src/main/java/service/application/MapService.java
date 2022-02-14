@@ -1,45 +1,41 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Map;
-import domain.beans.application.Resource;
+import data.application.MapDAO;
+import domain.application.Map;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class MapService implements IResourceDAO {
+public class MapService {
 
   @Inject
   private MapDAO dao;
   
-  @Override
   public Map find(int id) {
     return dao.find(id);
   }
-
-  @Override
+  
   public List<Map> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
     return dao.findText(text);
   }
-
-  @Override
+  
   public List<Map> findAll() {
     return dao.findAll();
   }
-
-  @Override
-  public void persist(Resource resource) {
+  
+  public void persist(Map resource) {
     dao.persist(resource);
   }
-
-  @Override
-  public void merge(Resource resource) {
+  
+  public void merge(Map resource) {
     dao.merge(resource);
   }
-
-  @Override
-  public void remove(Resource resource) {
+  
+  public void remove(Map resource) {
     dao.remove(resource);
   }
 }

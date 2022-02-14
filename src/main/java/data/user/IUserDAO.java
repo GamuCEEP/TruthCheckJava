@@ -1,6 +1,6 @@
-package data.DAOs.user;
+package data.user;
 
-import domain.beans.user.User;
+import domain.user.User;
 import java.util.List;
 import javax.ejb.Stateless;
 

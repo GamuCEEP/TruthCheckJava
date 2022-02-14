@@ -1,45 +1,41 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Resource;
-import domain.beans.application.Relation;
+import data.application.RelationDAO;
+import domain.application.Relation;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class RelationService implements IResourceDAO {
+public class RelationService {
 
   @Inject
   private RelationDAO dao;
-
-  @Override
+  
   public Relation find(int id) {
     return dao.find(id);
   }
-
-  @Override
+  
   public List<Relation> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
     return dao.findText(text);
   }
-
-  @Override
+  
   public List<Relation> findAll() {
     return dao.findAll();
   }
-
-  @Override
-  public void persist(Resource resource) {
+  
+  public void persist(Relation resource) {
     dao.persist(resource);
   }
-
-  @Override
-  public void merge(Resource resource) {
+  
+  public void merge(Relation resource) {
     dao.merge(resource);
   }
-
-  @Override
-  public void remove(Resource resource) {
+  
+  public void remove(Relation resource) {
     dao.remove(resource);
   }
 

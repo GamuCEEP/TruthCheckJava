@@ -1,45 +1,42 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Interaction;
-import domain.beans.application.Resource;
+import data.application.InteractionDAO;
+import domain.application.Interaction;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class InteractionService implements IResourceDAO {
+public class InteractionService {
 
   @Inject
   private InteractionDAO dao;
- @Override
+
   public Interaction find(int id) {
     return dao.find(id);
   }
 
-  @Override
   public List<Interaction> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
+
     return dao.findText(text);
   }
 
-  @Override
   public List<Interaction> findAll() {
     return dao.findAll();
   }
 
-  @Override
-  public void persist(Resource resource) {
+  public void persist(Interaction resource) {
     dao.persist(resource);
   }
 
-  @Override
-  public void merge(Resource resource) {
+  public void merge(Interaction resource) {
     dao.merge(resource);
   }
 
-  @Override
-  public void remove(Resource resource) {
+  public void remove(Interaction resource) {
     dao.remove(resource);
   }
 }
-

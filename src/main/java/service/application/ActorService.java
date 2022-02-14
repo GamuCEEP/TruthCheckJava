@@ -1,45 +1,41 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Actor;
-import domain.beans.application.Resource;
+import data.application.ActorDAO;
+import domain.application.Actor;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class ActorService implements IResourceDAO {
+public class ActorService {
 
   @Inject
   private ActorDAO dao;
 
-  @Override
   public Actor find(int id) {
     return dao.find(id);
   }
 
-  @Override
   public List<Actor> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
     return dao.findText(text);
   }
 
-  @Override
   public List<Actor> findAll() {
     return dao.findAll();
   }
 
-  @Override
-  public void persist(Resource resource) {
+  public void persist(Actor resource) {
     dao.persist(resource);
   }
 
-  @Override
-  public void merge(Resource resource) {
+  public void merge(Actor resource) {
     dao.merge(resource);
   }
 
-  @Override
-  public void remove(Resource resource) {
+  public void remove(Actor resource) {
     dao.remove(resource);
   }
 }

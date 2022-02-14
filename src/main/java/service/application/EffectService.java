@@ -1,45 +1,42 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Effect;
-import domain.beans.application.Resource;
+import data.application.EffectDAO;
+import domain.application.Effect;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class EffectService implements IResourceDAO {
+public class EffectService {
 
   @Inject
   private EffectDAO dao;
 
- @Override
   public Effect find(int id) {
     return dao.find(id);
   }
 
-  @Override
   public List<Effect> findText(String text) {
+    if (text.isEmpty()) {
+      return findAll();
+    }
+
     return dao.findText(text);
   }
 
-  @Override
   public List<Effect> findAll() {
     return dao.findAll();
   }
 
-  @Override
-  public void persist(Resource resource) {
+  public void persist(Effect resource) {
     dao.persist(resource);
   }
 
-  @Override
-  public void merge(Resource resource) {
+  public void merge(Effect resource) {
     dao.merge(resource);
   }
 
-  @Override
-  public void remove(Resource resource) {
+  public void remove(Effect resource) {
     dao.remove(resource);
   }
 }

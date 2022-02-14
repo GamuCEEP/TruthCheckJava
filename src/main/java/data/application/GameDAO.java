@@ -1,12 +1,12 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Resource;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import domain.beans.application.Game;
+import domain.application.Game;
 
 @Stateless
 public class GameDAO implements IResourceDAO {

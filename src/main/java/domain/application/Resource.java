@@ -1,6 +1,6 @@
-package domain.beans.application;
+package domain.application;
 
-import domain.beans.user.User;
+import domain.user.User;
 import java.io.Serializable;
 import javax.persistence.*;
 import lombok.Data;

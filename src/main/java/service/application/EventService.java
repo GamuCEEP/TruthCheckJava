@@ -1,8 +1,9 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Event;
-import domain.beans.application.Resource;
+import data.application.IResourceDAO;
+import data.application.EventDAO;
+import domain.application.Event;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

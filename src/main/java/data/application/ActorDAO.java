@@ -1,7 +1,7 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Resource;
-import domain.beans.application.Stage;
+import domain.application.Actor;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,23 +9,23 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class StageDAO implements IResourceDAO {
+public class ActorDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public StageDAO() {
+  public ActorDAO() {
     em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   @Override
-  public Stage find(int name) {
-    return em.find(Stage.class, name);
+  public Actor find(int name) {
+    return em.find(Actor.class, name);
   }
 
   @Override
-  public List<Stage> findAll() {
-    return em.createQuery("SELECT u FROM Stage u").getResultList();
+  public List<Actor> findAll() {
+    return em.createQuery("SELECT u FROM Actor u").getResultList();
   }
 
   @Override
@@ -50,7 +50,8 @@ public class StageDAO implements IResourceDAO {
   }
 
   @Override
-  public List<Stage> findText(String text) {
-    return em.createQuery("SELECT u FROM Stage u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
+  public List<Actor> findText(String text) {
+    return em.createQuery("SELECT u FROM Actor u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
+
 }

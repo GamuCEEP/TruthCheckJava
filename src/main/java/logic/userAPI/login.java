@@ -1,7 +1,7 @@
 package logic.userAPI;
 
-import data.DAOs.user.UserDAO;
-import domain.beans.user.User;
+import data.user.UserDAO;
+import domain.user.User;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;

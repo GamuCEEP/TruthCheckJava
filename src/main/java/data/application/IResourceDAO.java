@@ -1,6 +1,6 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Resource;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 

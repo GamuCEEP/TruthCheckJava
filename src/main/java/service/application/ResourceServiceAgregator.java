@@ -2,7 +2,7 @@ package service.application;
 
 import java.util.List;
 import javax.inject.Inject;
-import domain.beans.application.Resource;
+import domain.application.Resource;
 import java.util.ArrayList;
 
 public class ResourceServiceAgregator {

@@ -1,7 +1,7 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Item;
-import domain.beans.application.Resource;
+import domain.application.Map;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,23 +9,23 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class ItemDAO implements IResourceDAO {
+public class MapDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public ItemDAO() {
+  public MapDAO() {
     em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   @Override
-  public Item find(int name) {
-    return em.find(Item.class, name);
+  public Map find(int name) {
+    return em.find(Map.class, name);
   }
 
   @Override
-  public List<Item> findAll() {
-    return em.createQuery("SELECT u FROM Item u").getResultList();
+  public List<Map> findAll() {
+    return em.createQuery("SELECT u FROM Map u").getResultList();
   }
 
   @Override
@@ -50,7 +50,7 @@ public class ItemDAO implements IResourceDAO {
   }
 
   @Override
-  public List<Item> findText(String text) {
-    return em.createQuery("SELECT u FROM Item u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
+  public List<Map> findText(String text) {
+    return em.createQuery("SELECT u FROM Map u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

@@ -1,4 +1,4 @@
-package domain.beans.application;
+package domain.application;
 
 import java.util.List;
 import javax.persistence.*;

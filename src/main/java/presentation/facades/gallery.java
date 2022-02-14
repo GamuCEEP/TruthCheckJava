@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import logic.RestAPI.ResourceType;
-import domain.beans.application.Resource;
+import domain.application.Resource;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import service.application.IResourceService;

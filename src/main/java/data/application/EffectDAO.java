@@ -1,7 +1,7 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Event;
-import domain.beans.application.Resource;
+import domain.application.Effect;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,23 +9,23 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class EventDAO implements IResourceDAO {
+public class EffectDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public EventDAO() {
+  public EffectDAO() {
     em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   @Override
-  public Event find(int name) {
-    return em.find(Event.class, name);
+  public Effect find(int name) {
+    return em.find(Effect.class, name);
   }
 
   @Override
-  public List<Event> findAll() {
-    return em.createQuery("SELECT u FROM Event u").getResultList();
+  public List<Effect> findAll() {
+    return em.createQuery("SELECT u FROM Effect u").getResultList();
   }
 
   @Override
@@ -48,8 +48,9 @@ public class EventDAO implements IResourceDAO {
     em.remove(resource);
     em.getTransaction().commit();
   }
-    @Override
-  public List<Event> findText(String text) {
-    return em.createQuery("SELECT u FROM Event u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
+
+  @Override
+  public List<Effect> findText(String text) {
+    return em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

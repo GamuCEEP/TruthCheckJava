@@ -1,4 +1,4 @@
-package domain.beans.application;
+package domain.application;
 
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;

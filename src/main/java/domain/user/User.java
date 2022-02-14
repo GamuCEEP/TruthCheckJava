@@ -1,6 +1,7 @@
-package domain.beans.user;
+package domain.user;
 
-import domain.beans.application.Resource;
+import domain.application.Resource;
+import domain.application.Resource;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;

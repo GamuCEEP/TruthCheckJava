@@ -1,7 +1,6 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Resource;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Local;
 

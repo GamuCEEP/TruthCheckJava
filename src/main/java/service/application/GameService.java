@@ -1,8 +1,9 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Resource;
-import domain.beans.application.Game;
+import data.application.GameDAO;
+import data.application.IResourceDAO;
+import domain.application.Resource;
+import domain.application.Game;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

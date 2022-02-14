@@ -1,8 +1,9 @@
 package service.application;
 
-import data.DAOs.application.*;
-import domain.beans.application.Effect;
-import domain.beans.application.Resource;
+import data.application.EffectDAO;
+import data.application.IResourceDAO;
+import domain.application.Effect;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package domain.beans.application;
+package domain.application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import lombok.*;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class Relation extends Resource {
+public class Map extends Resource {
 
   @OneToMany
   @ElementCollection(fetch = FetchType.EAGER)
-  private List<Effect> effects;
+  private List<Stage> zones;
 
 }

@@ -1,7 +1,7 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Map;
-import domain.beans.application.Resource;
+import domain.application.Event;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,23 +9,23 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class MapDAO implements IResourceDAO {
+public class EventDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public MapDAO() {
+  public EventDAO() {
     em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   @Override
-  public Map find(int name) {
-    return em.find(Map.class, name);
+  public Event find(int name) {
+    return em.find(Event.class, name);
   }
 
   @Override
-  public List<Map> findAll() {
-    return em.createQuery("SELECT u FROM Map u").getResultList();
+  public List<Event> findAll() {
+    return em.createQuery("SELECT u FROM Event u").getResultList();
   }
 
   @Override
@@ -48,9 +48,8 @@ public class MapDAO implements IResourceDAO {
     em.remove(resource);
     em.getTransaction().commit();
   }
-
-  @Override
-  public List<Map> findText(String text) {
-    return em.createQuery("SELECT u FROM Map u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
+    @Override
+  public List<Event> findText(String text) {
+    return em.createQuery("SELECT u FROM Event u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

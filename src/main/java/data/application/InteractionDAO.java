@@ -1,7 +1,7 @@
-package data.DAOs.application;
+package data.application;
 
-import domain.beans.application.Relation;
-import domain.beans.application.Resource;
+import domain.application.Interaction;
+import domain.application.Resource;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,23 +9,23 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class RelationDAO implements IResourceDAO {
+public class InteractionDAO implements IResourceDAO {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   EntityManager em;
 
-  public RelationDAO() {
+  public InteractionDAO() {
     em = Persistence.createEntityManagerFactory("TruthCheckJava").createEntityManager();
   }
 
   @Override
-  public Relation find(int name) {
-    return em.find(Relation.class, name);
+  public Interaction find(int name) {
+    return em.find(Interaction.class, name);
   }
 
   @Override
-  public List<Relation> findAll() {
-    return em.createQuery("SELECT u FROM Relation u").getResultList();
+  public List<Interaction> findAll() {
+    return em.createQuery("SELECT u FROM Interaction u").getResultList();
   }
 
   @Override
@@ -50,7 +50,7 @@ public class RelationDAO implements IResourceDAO {
   }
 
   @Override
-  public List<Relation> findText(String text) {
-    return em.createQuery("SELECT u FROM Relation u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
+  public List<Interaction> findText(String text) {
+    return em.createQuery("SELECT u FROM Interaction u WHERE u.name LIKE '%" + text + "%' OR u.description LIKE '%" + text + "%'").getResultList();
   }
 }

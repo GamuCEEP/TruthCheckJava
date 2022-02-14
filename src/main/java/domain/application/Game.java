@@ -1,6 +1,6 @@
 
 
-package domain.beans.application;
+package domain.application;
 
 
 public class Game extends Resource{

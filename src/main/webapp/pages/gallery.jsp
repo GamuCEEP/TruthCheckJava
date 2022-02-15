@@ -21,7 +21,7 @@
     <header>
       <div id="logo">
         <a href="/TruthCheckJava/home">
-          <img src="/TruthCheckJava/images/logoTC.png" alt="~TC~" width="80">
+          <img src="/TruthCheckJava/images/logo.png" alt="~TC~" width="80">
         </a>
       </div>
       <div id="searchBar">
@@ -35,6 +35,7 @@
         <a href="">
 
         </a>
+        
       </div>
     </header>
     <main>

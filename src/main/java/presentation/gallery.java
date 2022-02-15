@@ -1,12 +1,6 @@
 package presentation;
 
-import service.application.ActorService;
-import service.application.RelationService;
-import service.application.ItemService;
-import service.application.MapService;
-import service.application.InteractionService;
-import service.application.StageService;
-import service.application.EffectService;
+import service.application.*;
 import domain.application.*;
 import java.io.IOException;
 import logic.RestAPI.ResourceType;

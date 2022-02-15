@@ -23,7 +23,7 @@
     <gamu-modal>
       <form class="modal" method="POST">
         <label id="welcome" >Bienvenido ${userName}</label>
-        <button type="submit" formaction="[biblioteca]">Mi biblioteca</button>
+        <button type="submit" formaction="/TruthCheckJava/library">Mi biblioteca</button>
         <button type="submit" formaction="/TruthCheckJava/gallery">Creaciones de la comunidad</button>
         <button type="submit" formaction="[partida]">Crear una partida</button>
         <button type="submit" formaction="/TruthCheckJava/logout">Cerrar sesi&oacute;n</button>

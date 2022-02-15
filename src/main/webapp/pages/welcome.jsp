@@ -63,6 +63,25 @@
       <h2>The Role Play Assistant</h2>
     </div>
   </main>
+  
+  <script>
+    ;(()=>{
+      
+      const UserAlreadyExists = $('#UserAlreadyExists')
+      
+      const UserNotFound = $('#UserNotFound')
+      const IncorrectPassword = $('#IncorrectPassword')
+      
+      const error = ${error} ;
+      
+      error.style = 'display: inline'
+      
+      
+      
+      
+      
+    })()    
+  </script>
 </body>
 
 </html>

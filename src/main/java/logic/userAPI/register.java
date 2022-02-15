@@ -27,7 +27,7 @@ public class register extends HttpServlet {
     User user = userService.find(userName);
 
     if (user != null) {
-      resp.setHeader("registerError", "UserAlreadyExists");
+      req.setAttribute("error", "UserAlreadyExists");
       req.getRequestDispatcher("welcome").forward(req, resp);
       return;
     }

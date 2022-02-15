@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
-/**
- *
- * @author GamuD
- */
+
 @WebServlet(name = "home", urlPatterns = {"/home"})
 public class home extends HttpServlet {
 

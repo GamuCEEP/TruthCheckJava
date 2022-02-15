@@ -37,19 +37,18 @@ public class login extends HttpServlet {
     User user = uDAO.find(userName);
 
     if (user == null) {
-      resp.setHeader("loginError", "UserNotFound");
+      req.setAttribute("error", "UserNotFound");
       req.getRequestDispatcher("welcome").forward(req, resp);
       return;
     }
 
     if (!user.getPassword().equals(password)) {
-      resp.setHeader("loginError", "IncorrectPassword");
+      req.setAttribute("error", "IncorrectPassword");
       req.getRequestDispatcher("welcome").forward(req, resp);
       return;
     }
 
     req.getSession().setAttribute("userName", userName);
-    resp.addCookie(new Cookie("userName", userName));
     req.getRequestDispatcher("home").forward(req, resp);
   }
 }

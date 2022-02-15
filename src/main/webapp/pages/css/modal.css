@@ -103,16 +103,17 @@
   border-bottom: 0px rgba(var(--color-lit)) solid;
   transform: translateY(1px);
 }
-
-.modal.error{
+.modal .error{
   display: none;
   color: red;
   font-size: .8em;
   text-decoration: none;
   text-align: left;
+  margin: 0;
   margin-left: 60px;
+  
 }
-.modal.error::after{
-  display: inherit;
+.modal .error::before{
   content: '*';
 }
+

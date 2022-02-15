@@ -27,11 +27,14 @@
         <form method="POST" class="modal">
           <label>Log In</label>
           <input type="text" required name="user" placeholder="Usuario">
+          <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
+          <p class="error" id="UserNotFound">El usuario no existe</p>
           <span>
             <input type="password" required name="password" placeholder="Contraseña">
             <input type="checkbox" hidden id="togglePasswordVisibility">
             <label for="togglePasswordVisibility"></label>
           </span>
+          <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
           <script>
             ;(()=>{
               window.addEventListener('load', ()=>{
@@ -60,9 +63,6 @@
       <h2>The Role Play Assistant</h2>
     </div>
   </main>
-
-
-
 </body>
 
 </html>

@@ -1,48 +1,24 @@
 package service.application;
 
-import data.application.StageDAO;
 import domain.application.Resource;
 import domain.application.Stage;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class StageService implements ResourceService {
+import javax.ejb.Local;
 
-  @Inject
-  private StageDAO dao;
+@Local
+public interface StageService {
+
+  Stage find(int id);
+
+  List<Stage> findAll();
+
+  List<Stage> findText(String text);
+
+  void merge(Resource resource);
+
+  void persist(Resource resource);
+
+  void remove(Resource resource);
   
-  @Override
-  public Stage find(int id) {
-    return dao.find(id);
-  }
-  
-  @Override
-  public List<Stage> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
-    return dao.findText(text);
-  }
-  
-  @Override
-  public List<Stage> findAll() {
-    return dao.findAll();
-  }
-  
-  @Override
-  public void persist(Resource resource) {
-    dao.persist((Stage)resource);
-  }
-  
-  @Override
-  public void merge(Resource resource) {
-    dao.merge((Stage)resource);
-  }
-  
-  @Override
-  public void remove(Resource resource) {
-    dao.remove((Stage)resource);
-  }
 }

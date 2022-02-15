@@ -1,42 +1,22 @@
 package data.application;
 
 import domain.application.Event;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.ejb.Local;
 
-@Stateless
-public class EventDAO {
+@Local
+public interface EventDAO {
 
-  @PersistenceContext(unitName = "TruthCheckJava")
-  EntityManager em;
+  Event find(int name);
 
-  public Event find(int name) {
-    return em.find(Event.class, name);
-  }
+  List<Event> findAll();
 
-  public List<Event> findAll() {
-    List<Event> events = em.createQuery("SELECT u FROM Event u").getResultList();
-    return events != null ? events : new ArrayList<>();
-  }
+  List<Event> findText(String text);
 
-  public void persist(Event resource) {
-    em.persist(resource);
-  }
+  void merge(Event resource);
 
-  public void merge(Event resource) {
-    em.merge(resource);
-  }
+  void persist(Event resource);
 
-  public void remove(Event resource) {
-    em.remove(resource);
-  }
-
-  public List<Event> findText(String text) {
-    List<Event> events = em.createQuery("SELECT u FROM Event u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
-            .setParameter("text", text)
-            .getResultList();
-    return events != null ? events : new ArrayList<>();
-  }
+  void remove(Event resource);
+  
 }

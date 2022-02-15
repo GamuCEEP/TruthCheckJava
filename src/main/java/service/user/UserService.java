@@ -1,36 +1,23 @@
 package service.user;
 
-import data.user.UserDAO;
 import domain.user.User;
 import java.util.List;
-import javax.inject.Inject;
 
-public class UserService {
+import javax.ejb.Local;
 
-  @Inject
-  UserDAO DAO;
+@Local
+public interface UserService {
 
-  public User find(int id) {
-    return DAO.find(id);
-  }
+  User find(int id);
 
-  public User find(String text) {
-    return DAO.find(text);
-  }
+  User find(String text);
 
-  public List<User> findAll() {
-    return DAO.findAll();
-  }
+  List<User> findAll();
 
-  public void persist(User resource) {
-    DAO.persist(resource);
-  }
+  void merge(User resource);
 
-  public void merge(User resource) {
-    DAO.merge(resource);
-  }
+  void persist(User resource);
 
-  public void remove(User resource) {
-    DAO.remove(resource);
-  }
+  void remove(User resource);
+  
 }

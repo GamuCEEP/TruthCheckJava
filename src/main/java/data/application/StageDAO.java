@@ -1,43 +1,22 @@
 package data.application;
 
 import domain.application.Stage;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.ejb.Local;
 
-@Stateless
-public class StageDAO {
+@Local
+public interface StageDAO {
 
-  @PersistenceContext(unitName = "TruthCheckJava")
-  EntityManager em;
+  Stage find(int name);
 
-  public Stage find(int name) {
-    return em.find(Stage.class, name);
-  }
+  List<Stage> findAll();
 
-  public List<Stage> findAll() {
-    List<Stage> stages = em.createQuery("SELECT u FROM Stage u").getResultList();
-    return stages != null ? stages : new ArrayList<>();
-  }
+  List<Stage> findText(String text);
 
-  public void persist(Stage resource) {
-    em.persist(resource);
-  }
+  void merge(Stage resource);
 
-  public void merge(Stage resource) {
-    em.merge(resource);
-  }
+  void persist(Stage resource);
 
-  public void remove(Stage resource) {
-    em.remove(resource);
-  }
-
-  public List<Stage> findText(String text) {
-    List<Stage> stages = em.createQuery("SELECT u FROM Stage u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
-            .setParameter("text", text)
-            .getResultList();
-    return stages != null ? stages : new ArrayList<>();
-
-  }
+  void remove(Stage resource);
+  
 }

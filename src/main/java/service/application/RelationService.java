@@ -1,45 +1,24 @@
 package service.application;
 
-import data.application.RelationDAO;
-import domain.application.*;
+import domain.application.Relation;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class RelationService implements ResourceService {
+import javax.ejb.Local;
 
-  @Inject
-  private RelationDAO dao;
+@Local
+public interface RelationService {
 
-  @Override
-  public Relation find(int id) {
-    return dao.find(id);
-  }
+  Relation find(int id);
 
-  @Override
-  public List<Relation> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
-    return dao.findText(text);
-  }
+  List<Relation> findAll();
 
-  @Override
-  public List<Relation> findAll() {
-    return dao.findAll();
-  }
+  List<Relation> findText(String text);
 
-  public void persist(Resource resource) {
-    dao.persist((Relation) resource);
-  }
+  void merge(Resource resource);
 
-  public void merge(Resource resource) {
-    dao.merge((Relation) resource);
-  }
+  void persist(Resource resource);
 
-  public void remove(Resource resource) {
-    dao.remove((Relation) resource);
-  }
-
+  void remove(Resource resource);
+  
 }

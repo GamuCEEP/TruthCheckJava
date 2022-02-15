@@ -1,47 +1,23 @@
 package service.application;
 
-import data.application.ActorDAO;
-import domain.application.*;
+import domain.application.Actor;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import javax.ejb.Local;
 
-@Stateless
-public class ActorService implements ResourceService{
+@Local
+public interface ActorService {
 
-  @Inject
-  private ActorDAO dao;
+  Actor find(int id);
 
-  @Override
-  public Actor find(int id) {
-    return dao.find(id);
-  }
+  List<Actor> findAll();
 
-  @Override
-  public List<Actor> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
-    return dao.findText(text);
-  }
+  List<Actor> findText(String text);
 
-  @Override
-  public List<Actor> findAll() {
-    return dao.findAll();
-  }
+  void merge(Resource resource);
 
-  @Override
-  public void persist(Resource resource) {
-    dao.persist((Actor)resource);
-  }
+  void persist(Resource resource);
 
-  @Override
-  public void merge(Resource resource) {
-    dao.merge((Actor)resource);
-  }
-
-  @Override
-  public void remove(Resource resource) {
-    dao.remove((Actor)resource);
-  }
+  void remove(Resource resource);
+  
 }

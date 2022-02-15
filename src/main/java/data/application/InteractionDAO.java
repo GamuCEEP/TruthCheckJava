@@ -1,43 +1,22 @@
 package data.application;
 
 import domain.application.Interaction;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.ejb.Local;
 
-@Stateless
-public class InteractionDAO {
+@Local
+public interface InteractionDAO {
 
-  @PersistenceContext(unitName = "TruthCheckJava")
-  EntityManager em;
+  Interaction find(int name);
 
-  public Interaction find(int name) {
-    return em.find(Interaction.class, name);
-  }
+  List<Interaction> findAll();
 
-  public List<Interaction> findAll() {
-    List<Interaction> interactions = em.createQuery("SELECT u FROM Interaction u").getResultList();
-    return interactions != null ? interactions : new ArrayList<>();
-  }
+  List<Interaction> findText(String text);
 
-  public void persist(Interaction resource) {
-    em.persist(resource);
-  }
+  void merge(Interaction resource);
 
-  public void merge(Interaction resource) {
-    em.merge(resource);
-  }
+  void persist(Interaction resource);
 
-  public void remove(Interaction resource) {
-    em.remove(resource);
-  }
-
-  public List<Interaction> findText(String text) {
-    List<Interaction> interactions = em.createQuery("SELECT u FROM Interaction u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
-            .setParameter("text", text)
-            .getResultList();
-    return interactions != null ? interactions : new ArrayList<>();
-
-  }
+  void remove(Interaction resource);
+  
 }

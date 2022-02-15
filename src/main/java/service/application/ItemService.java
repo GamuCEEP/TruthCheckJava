@@ -1,45 +1,24 @@
 package service.application;
 
-import data.application.ItemDAO;
-import domain.application.*;
+import domain.application.Item;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class ItemService   implements ResourceService{
+import javax.ejb.Local;
 
- @Inject
-  private ItemDAO dao;
- 
- @Override
-  public Item find(int id) {
-    return dao.find(id);
-  }
+@Local
+public interface ItemService {
+
+  Item find(int id);
+
+  List<Item> findAll();
+
+  List<Item> findText(String text);
+
+  void merge(Resource resource);
+
+  void persist(Resource resource);
+
+  void remove(Resource resource);
   
- @Override
-  public List<Item> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
-    return dao.findText(text);
-  }
-  
- @Override
-  public List<Item> findAll() {
-    return dao.findAll();
-  }
-  
-  public void persist(Resource resource) {
-    dao.persist((Item)resource);
-  }
-  
-  public void merge(Resource resource) {
-    dao.merge((Item)resource);
-  }
-  
-  public void remove(Resource resource) {
-    dao.remove((Item)resource);
-  }
 }
-

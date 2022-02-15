@@ -1,44 +1,24 @@
 package service.application;
 
-import data.application.MapDAO;
-import domain.application.*;
+import domain.application.Map;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class MapService implements ResourceService {
+import javax.ejb.Local;
 
-  @Inject
-  private MapDAO dao;
+@Local
+public interface MapService {
 
-  @Override
-  public Map find(int id) {
-    return dao.find(id);
-  }
+  Map find(int id);
 
-  @Override
-  public List<Map> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
-    return dao.findText(text);
-  }
+  List<Map> findAll();
 
-  @Override
-  public List<Map> findAll() {
-    return dao.findAll();
-  }
+  List<Map> findText(String text);
 
-  public void persist(Resource resource) {
-    dao.persist((Map) resource);
-  }
+  void merge(Resource resource);
 
-  public void merge(Resource resource) {
-    dao.merge((Map) resource);
-  }
+  void persist(Resource resource);
 
-  public void remove(Resource resource) {
-    dao.remove((Map) resource);
-  }
+  void remove(Resource resource);
+  
 }

@@ -1,38 +1,44 @@
 package presentation;
 
+import service.application.ActorService;
+import service.application.RelationService;
+import service.application.ItemService;
+import service.application.MapService;
+import service.application.InteractionService;
+import service.application.StageService;
+import service.application.EffectService;
 import domain.application.*;
-import service.application.*;
 import java.io.IOException;
 import logic.RestAPI.ResourceType;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import org.json.JSONObject;
+import service.application.EventService;
 
 @WebServlet(name = "gallery", urlPatterns = {"/gallery"})
 public class gallery extends HttpServlet {
 
-//  @Inject
-//  ActorService actorService;
-//  @Inject
-//  EffectService effectService;
-//  @Inject
-//  InteractionService interactionService;
-//  @Inject
-//  ItemService itemService;
-//  @Inject
-//  MapService mapService;
-//  @Inject
-//  EventService eventService;
-//  @Inject
-//  RelationService relationService;
-//  @Inject
-//  StageService stageService;
+  @Inject
+  ActorService actorService;
+  @Inject
+  EffectService effectService;
+  @Inject
+  InteractionService interactionService;
+  @Inject
+  ItemService itemService;
+  @Inject
+  MapService mapService;
+  @Inject
+  EventService eventService;
+  @Inject
+  RelationService relationService;
+  @Inject
+  StageService stageService;
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,24 +65,24 @@ public class gallery extends HttpServlet {
     List<Relation> relationLibrary;
     List<Stage> stageLibrary;
 
-//    actorLibrary = actorService.findText(filter);
-//    effectLibrary = effectService.findText(filter);
-//    eventLibrary = eventService.findText(filter);
-//    interactionLibrary = interactionService.findText(filter);
-//    itemLibrary = itemService.findText(filter);
-//    mapLibrary = mapService.findText(filter);
-//    relationLibrary = relationService.findText(filter);
-//    stageLibrary = stageService.findText(filter);
+    actorLibrary = actorService.findText(filter);
+    effectLibrary = effectService.findText(filter);
+    eventLibrary = eventService.findText(filter);
+    interactionLibrary = interactionService.findText(filter);
+    itemLibrary = itemService.findText(filter);
+    mapLibrary = mapService.findText(filter);
+    relationLibrary = relationService.findText(filter);
+    stageLibrary = stageService.findText(filter);
 
-//    resources.addAll(actorLibrary);
-//    resources.addAll(effectLibrary);
-//    resources.addAll(eventLibrary);
-//    resources.addAll(interactionLibrary);
-//    resources.addAll(itemLibrary);
-//    resources.addAll(mapLibrary);
-//    resources.addAll(relationLibrary);
-//    resources.addAll(stageLibrary);
-//    resources.addAll(actorLibrary);
+    resources.addAll(actorLibrary);
+    resources.addAll(effectLibrary);
+    resources.addAll(eventLibrary);
+    resources.addAll(interactionLibrary);
+    resources.addAll(itemLibrary);
+    resources.addAll(mapLibrary);
+    resources.addAll(relationLibrary);
+    resources.addAll(stageLibrary);
+    resources.addAll(actorLibrary);
 
     req.setAttribute("resources", new JSONObject(resources));
 

@@ -1,49 +1,24 @@
 package service.application;
 
-import data.application.EventDAO;
-import domain.application.*;
+import domain.application.Event;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class EventService  implements ResourceService{
+import javax.ejb.Local;
 
-  @Inject
-  private EventDAO dao;
+@Local
+public interface EventService {
 
-  @Override
-  public Event find(int id) {
-    return dao.find(id);
-  }
+  Event find(int id);
 
-  @Override
-  public List<Event> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
+  List<Event> findAll();
 
-    return dao.findText(text);
-  }
+  List<Event> findText(String text);
 
-  @Override
-  public List<Event> findAll() {
-    return dao.findAll();
-  }
+  void merge(Resource resource);
 
-  @Override
-  public void persist(Resource resource) {
-    dao.persist((Event)resource);
-  }
+  void persist(Resource resource);
 
-  @Override
-  public void merge(Resource resource) {
-    dao.merge((Event)resource);
-  }
-
-  @Override
-  public void remove(Resource resource) {
-    dao.remove((Event)resource);
-  }
-
+  void remove(Resource resource);
+  
 }

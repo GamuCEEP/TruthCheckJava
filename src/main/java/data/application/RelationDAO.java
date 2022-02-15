@@ -1,43 +1,22 @@
 package data.application;
 
 import domain.application.Relation;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.ejb.Local;
 
-@Stateless
-public class RelationDAO {
+@Local
+public interface RelationDAO {
 
-  @PersistenceContext(unitName = "TruthCheckJava")
-  EntityManager em;
+  Relation find(int name);
 
-  public Relation find(int name) {
-    return em.find(Relation.class, name);
-  }
+  List<Relation> findAll();
 
-  public List<Relation> findAll() {
-    List<Relation> relations = em.createQuery("SELECT u FROM Relation u").getResultList();
-    return relations != null ? relations : new ArrayList<>();
-  }
+  List<Relation> findText(String text);
 
-  public void persist(Relation resource) {
-    em.persist(resource);
-  }
+  void merge(Relation resource);
 
-  public void merge(Relation resource) {
-    em.merge(resource);
-  }
+  void persist(Relation resource);
 
-  public void remove(Relation resource) {
-    em.remove(resource);
-  }
-
-  public List<Relation> findText(String text) {
-    List<Relation> relations = em.createQuery("SELECT u FROM Relation u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
-            .setParameter("text", text)
-            .getResultList();
-    return relations != null ? relations : new ArrayList<>();
-
-  }
+  void remove(Relation resource);
+  
 }

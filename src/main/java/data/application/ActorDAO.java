@@ -1,43 +1,22 @@
 package data.application;
 
 import domain.application.Actor;
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.ejb.Local;
 
-@Stateless
-public class ActorDAO {
+@Local
+public interface ActorDAO {
 
-  @PersistenceContext(unitName = "TruthCheckJava")
-  EntityManager em;
+  Actor find(int name);
 
-  public Actor find(int name) {
-    return em.find(Actor.class, name);
-  }
+  List<Actor> findAll();
 
-  public List<Actor> findAll() {
-    List<Actor> actors = em.createQuery("SELECT u FROM Actor u").getResultList();
-    return actors != null ? actors : new ArrayList<>();
-  }
+  List<Actor> findText(String text);
 
-  public void persist(Actor resource) {
-    em.persist(resource);
-  }
+  void merge(Actor resource);
 
-  public void merge(Actor resource) {
-    em.merge(resource);
-  }
+  void persist(Actor resource);
 
-  public void remove(Actor resource) {
-    em.remove(resource);
-  }
-
-  public List<Actor> findText(String text) {
-    List<Actor> actors = em.createQuery("SELECT u FROM Actor u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
-            .setParameter("text", text)
-            .getResultList();
-    return actors != null ? actors : new ArrayList<>();
-  }
+  void remove(Actor resource);
 
 }

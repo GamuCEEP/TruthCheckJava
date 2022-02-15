@@ -1,48 +1,24 @@
 package service.application;
 
-import data.application.EffectDAO;
-import domain.application.*;
+import domain.application.Effect;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class EffectService  implements ResourceService{
+import javax.ejb.Local;
 
-  @Inject
-  private EffectDAO dao;
+@Local
+public interface EffectService {
 
-  @Override
-  public Effect find(int id) {
-    return dao.find(id);
-  }
+  Effect find(int id);
 
-  @Override
-  public List<Effect> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
+  List<Effect> findAll();
 
-    return dao.findText(text);
-  }
+  List<Effect> findText(String text);
 
-  @Override
-  public List<Effect> findAll() {
-    return dao.findAll();
-  }
+  void merge(Resource resource);
 
-  @Override
-  public void persist(Resource resource) {
-    dao.persist((Effect)resource);
-  }
+  void persist(Resource resource);
 
-  @Override
-  public void merge(Resource resource) {
-    dao.merge((Effect)resource);
-  }
-
-  @Override
-  public void remove(Resource resource) {
-    dao.remove((Effect)resource);
-  }
+  void remove(Resource resource);
+  
 }

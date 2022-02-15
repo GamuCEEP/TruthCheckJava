@@ -1,6 +1,5 @@
 package logic.userAPI;
 
-import data.user.UserDAO;
 import domain.user.User;
 import java.io.PrintWriter;
 import java.io.IOException;

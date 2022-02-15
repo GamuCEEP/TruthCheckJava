@@ -1,48 +1,24 @@
 package service.application;
 
-import data.application.InteractionDAO;
-import domain.application.*;
+import domain.application.Interaction;
+import domain.application.Resource;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-@Stateless
-public class InteractionService implements ResourceService {
+import javax.ejb.Local;
 
-  @Inject
-  private InteractionDAO dao;
+@Local
+public interface InteractionService {
 
-  @Override
-  public Interaction find(int id) {
-    return dao.find(id);
-  }
+  Interaction find(int id);
 
-  @Override
-  public List<Interaction> findText(String text) {
-    if (text.isEmpty()) {
-      return findAll();
-    }
+  List<Interaction> findAll();
 
-    return dao.findText(text);
-  }
+  List<Interaction> findText(String text);
 
-  @Override
-  public List<Interaction> findAll() {
-    return dao.findAll();
-  }
+  void merge(Resource resource);
 
-  @Override
-  public void persist(Resource resource) {
-    dao.persist((Interaction)resource);
-  }
+  void persist(Resource resource);
 
-  @Override
-  public void merge(Resource resource) {
-    dao.merge((Interaction)resource);
-  }
-
-  @Override
-  public void remove(Resource resource) {
-    dao.remove((Interaction)resource);
-  }
+  void remove(Resource resource);
+  
 }

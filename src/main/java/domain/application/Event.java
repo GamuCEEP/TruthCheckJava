@@ -3,6 +3,7 @@ package domain.application;
 import domain.user.User;
 import java.io.Serializable;
 import java.util.List;
+import javax.ejb.LocalBean;
 import javax.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ public class Event implements Serializable, Resource {
   private String name;
   private String description;
 
-  @OneToMany
+  @ManyToMany
   @ElementCollection(fetch = FetchType.EAGER)
   private List<Effect> effects;
   private int priority;

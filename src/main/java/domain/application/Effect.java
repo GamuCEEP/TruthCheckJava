@@ -19,6 +19,9 @@ public class Effect implements Serializable, Resource {
   private String code;
 
   @ManyToMany
+  private List<Event> Events;
+
+  @ManyToMany
   List<User> users;
 
 }

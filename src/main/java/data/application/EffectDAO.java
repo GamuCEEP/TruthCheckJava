@@ -1,6 +1,7 @@
 package data.application;
 
 import domain.application.Effect;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class EffectDAO {
   }
   
   public List<Effect> findAll() {
-    return em.createQuery("SELECT u FROM Effect u").getResultList();
+    List<Effect> effects = em.createQuery("SELECT u FROM Effect u").getResultList();
+    return effects != null ? effects : new ArrayList<>();
   }
   
   public void persist(Effect resource) {
@@ -32,8 +34,9 @@ public class EffectDAO {
   }
   
   public List<Effect> findText(String text) {
-    return em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
+    List<Effect> effects = em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
+    return effects != null ? effects : new ArrayList<>();
   }
 }

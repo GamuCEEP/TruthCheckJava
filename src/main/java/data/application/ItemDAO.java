@@ -1,6 +1,7 @@
 package data.application;
 
 import domain.application.Item;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class ItemDAO {
   }
 
   public List<Item> findAll() {
-    return em.createQuery("SELECT u FROM Item u").getResultList();
+    List<Item> items = em.createQuery("SELECT u FROM Item u").getResultList();
+    return items != null ? items : new ArrayList<>();
   }
 
   public void persist(Item resource) {
@@ -32,8 +34,9 @@ public class ItemDAO {
   }
 
   public List<Item> findText(String text) {
-    return em.createQuery("SELECT u FROM Item u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
+    List<Item> items = em.createQuery("SELECT u FROM Item u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
+    return items != null ? items : new ArrayList<>();
   }
 }

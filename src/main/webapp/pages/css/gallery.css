@@ -5,7 +5,11 @@ body{
   grid-template-columns: 1fr auto;
   grid-template-rows: 100px 1fr;
 
-  background-color: rgb(var(--color-dark));
+  background-color: var(--color-main);
+  background-image: url(/TruthCheckJava/images/background.bmp);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-position: top right;
   height: 100vh;
   overflow: hidden;
 }
@@ -60,12 +64,25 @@ header #searchBar input[type='submit']{
   background-position: 2px 3px;
 }
 header #userIcon{
-  width: 80px;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.3em;
+  width: max-content;
+  max-width: 280px;
   height: 80px;
-  background-color: red;
-  border-radius: 50%;
-  margin: 10px;
-
+  margin: 3px 30px;
+}
+header #userIcon img{
+  object-fit: cover;
+}
+header #userIcon p{
+  margin: 20px 0;
+  display: inline-block;
+  width: max-content;
+  max-width: 200px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  font-size: 20px;
 }
 main{
   grid-column: 1 / 2;
@@ -78,22 +95,17 @@ main{
   padding: 20px;
   margin-top: 20px;
 
-  background-color: rgb(var(--color-dark));
   border-radius: 0 5px 0 0 ;
   overflow-y: auto;
 }
-main div{
-  width: 300px;
-  height: 300px;
-  margin: 10px;
-  background-color: bisque;
-}
+
 
 footer{
   display: block;
   width: 100%;
   height: 60px;
-  background-color: aqua;
+  background-color: rgb(var(--color-dim));
+  border-radius: 0 0 15px 15px;
 }
 aside{
   width: 400px;

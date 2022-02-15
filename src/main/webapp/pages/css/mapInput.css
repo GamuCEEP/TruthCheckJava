@@ -1,0 +1,38 @@
+.mapInput {
+  border: 2px rgb(var(--color-dim)) solid;
+  border-radius: 5px;
+
+}
+
+.mapInput .controls {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+.mapInput .inputs{
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+.mapInput .inputs input:nth-child(2n-1){
+  margin-bottom: 0;
+  border-radius: 5px 15px 0 0;
+  text-decoration: 2px rgb(var(--color-light)) underline;
+  width: 60%;
+  margin: 0 14px;
+  justify-self: left;
+  background-color: inherit;
+  color: rgb(var(--color-light));
+}
+.mapInput .inputs input{
+  border-radius: 0 5px 20px 5px;
+  width: 90%;
+  margin-top: 0;
+}
+.mapInput .controls button {
+  margin: 5px;
+  font-size: 1.5em;
+  padding: 0 15px;
+}
+

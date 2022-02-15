@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="TruthCheckJava" transaction-type="JTA">
-    <class>logic.ActorStats</class>
-    <class>logic.User</class>
-    <class>logic.Item</class>
-    <class>logic.Interaction</class>
-    <class>logic.Map</class>
-    <class>logic.Stage</class>
-    <class>logic.Event</class>
-    <class>logic.Actor</class>
-    <class>logic.Effect</class>
-    <class>logic.Relation</class>
     <shared-cache-mode>ALL</shared-cache-mode>
     <jta-data-source>jdbc/TCJ</jta-data-source>
+    <class>domain.application.Actor</class>
+    <class>domain.application.Effect</class>
+    <class>domain.application.Event</class>
+    <class>domain.application.Interaction</class>
+    <class>domain.application.Item</class>
+    <class>domain.application.Map</class>
+    <class>domain.application.Relation</class>
+    <class>domain.application.Stage</class>
+    <class>domain.user.User</class>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

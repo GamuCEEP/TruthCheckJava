@@ -1,14 +1,6 @@
 package presentation;
 
-import domain.application.Actor;
-import domain.application.Effect;
-import domain.application.Event;
-import domain.application.Interaction;
-import domain.application.Item;
-import domain.application.Map;
-import domain.application.Relation;
-import domain.application.Resource;
-import domain.application.Stage;
+import domain.application.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.inject.Inject;
@@ -78,13 +70,13 @@ public class library extends HttpServlet {
     resources.addAll(stageLibrary);
     resources.addAll(actorLibrary);
 
-    String filter = req.getParameter("filter") != null ? req.getParameter("filter") : "";
+//    String filter = req.getParameter("filter") != null ? req.getParameter("filter") : "";
+//
+//    resources.removeIf((res) -> {
+//      return false;
+//    });
 
-    resources.removeIf((res) -> {
-      return true;
-    });
-
-    req.setAttribute("resources", new JSONObject(resources));
+    req.setAttribute("resources", resources);
 
     req.setAttribute("ResourceTypes", ResourceType.values());
     req.getRequestDispatcher("/pages/gallery.jsp").forward(req, resp);

@@ -3,6 +3,7 @@ package service.application;
 import domain.application.Event;
 import domain.application.Resource;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -11,9 +12,9 @@ public interface EventService {
 
   Event find(int id);
 
-  List<Event> findAll();
+  Set<Event> findAll();
 
-  List<Event> findText(String text);
+  Set<Event> findText(String text);
 
   void merge(Resource resource);
 

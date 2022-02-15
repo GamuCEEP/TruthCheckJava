@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.StageDAO;
+import java.util.Set;
 
 @Stateless
 public class StageServiceImp implements StageService {
@@ -19,7 +20,7 @@ public class StageServiceImp implements StageService {
   }
   
   @Override
-  public List<Stage> findText(String text) {
+  public Set<Stage> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -27,7 +28,7 @@ public class StageServiceImp implements StageService {
   }
   
   @Override
-  public List<Stage> findAll() {
+  public Set<Stage> findAll() {
     return dao.findAll();
   }
   

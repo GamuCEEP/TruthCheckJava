@@ -7,20 +7,17 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Item extends Resource  {
 
-  @Id
-  @GeneratedValue
-  private int id;
-  private String name;
-  private String description;
+  
 
   @OneToMany
   @ElementCollection(fetch = FetchType.EAGER)
   private List<Interaction> interactions;
 
-  @ManyToMany
-  List<User> users;
+  
 
 }

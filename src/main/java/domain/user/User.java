@@ -36,6 +36,23 @@ public class User implements Serializable {
   private List<Relation> relationLibrary;
   @ManyToMany
   private List<Stage> stageLibrary;
+  
+  @ManyToMany
+  private List<Actor> createdActors;
+  @ManyToMany
+  private List<Effect> createdEffects;
+  @ManyToMany
+  private List<Event> createdEvents;
+  @ManyToMany
+  private List<Interaction> createdInteractions;
+  @ManyToMany
+  private List<Item> createdItems;
+  @ManyToMany
+  private List<Map> createdMaps;
+  @ManyToMany
+  private List<Relation> createdRelations;
+  @ManyToMany
+  private List<Stage> createdStages;
 
   public User() {
   }

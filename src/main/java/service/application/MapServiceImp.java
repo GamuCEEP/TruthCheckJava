@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.MapDAO;
+import java.util.Set;
 
 @Stateless
 public class MapServiceImp implements MapService {
@@ -18,7 +19,7 @@ public class MapServiceImp implements MapService {
   }
 
   @Override
-  public List<Map> findText(String text) {
+  public Set<Map> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -26,7 +27,7 @@ public class MapServiceImp implements MapService {
   }
 
   @Override
-  public List<Map> findAll() {
+  public Set<Map> findAll() {
     return dao.findAll();
   }
 

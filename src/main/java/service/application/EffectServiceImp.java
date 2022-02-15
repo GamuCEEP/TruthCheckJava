@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.EffectDAO;
+import java.util.Set;
 
 @Stateless
 public class EffectServiceImp  implements EffectService{
@@ -18,7 +19,7 @@ public class EffectServiceImp  implements EffectService{
   }
 
   @Override
-  public List<Effect> findText(String text) {
+  public Set<Effect> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -27,7 +28,7 @@ public class EffectServiceImp  implements EffectService{
   }
 
   @Override
-  public List<Effect> findAll() {
+  public Set<Effect> findAll() {
     return dao.findAll();
   }
 

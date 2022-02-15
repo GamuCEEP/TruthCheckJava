@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Effect;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class EffectDAOImp implements EffectDAO {
   }
   
   @Override
-  public List<Effect> findAll() {
+  public Set<Effect> findAll() {
     List<Effect> effects = em.createQuery("SELECT u FROM Effect u").getResultList();
-    return effects != null ? effects : new ArrayList<>();
+    List<Effect> result = effects != null ? effects : new ArrayList<>();
+    return new HashSet<>(result);
   }
   
   @Override
@@ -39,10 +42,11 @@ public class EffectDAOImp implements EffectDAO {
   }
   
   @Override
-  public List<Effect> findText(String text) {
+  public Set<Effect> findText(String text) {
     List<Effect> effects = em.createQuery("SELECT u FROM Effect u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return effects != null ? effects : new ArrayList<>();
+    List<Effect> result = effects != null ? effects : new ArrayList<>();
+    return new HashSet<>(result);
   }
 }

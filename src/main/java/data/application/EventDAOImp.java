@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Event;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class EventDAOImp implements EventDAO {
   }
 
   @Override
-  public List<Event> findAll() {
+  public Set<Event> findAll() {
     List<Event> events = em.createQuery("SELECT u FROM Event u").getResultList();
-    return events != null ? events : new ArrayList<>();
+    List<Event> result = events != null ? events : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,10 +42,11 @@ public class EventDAOImp implements EventDAO {
   }
 
   @Override
-  public List<Event> findText(String text) {
+  public Set<Event> findText(String text) {
     List<Event> events = em.createQuery("SELECT u FROM Event u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return events != null ? events : new ArrayList<>();
+    List<Event> result = events != null ? events : new ArrayList<>();
+    return new HashSet<>(result);
   }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.RelationDAO;
+import java.util.Set;
 
 @Stateless
 public class RelationServiceImp implements RelationService {
@@ -18,7 +19,7 @@ public class RelationServiceImp implements RelationService {
   }
 
   @Override
-  public List<Relation> findText(String text) {
+  public Set<Relation> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -26,7 +27,7 @@ public class RelationServiceImp implements RelationService {
   }
 
   @Override
-  public List<Relation> findAll() {
+  public Set<Relation> findAll() {
     return dao.findAll();
   }
 

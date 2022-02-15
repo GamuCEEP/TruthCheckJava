@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Relation;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class RelationDAOImp implements RelationDAO {
   }
 
   @Override
-  public List<Relation> findAll() {
+  public Set<Relation> findAll() {
     List<Relation> relations = em.createQuery("SELECT u FROM Relation u").getResultList();
-    return relations != null ? relations : new ArrayList<>();
+    List<Relation> result =  relations != null ? relations : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,11 +42,12 @@ public class RelationDAOImp implements RelationDAO {
   }
 
   @Override
-  public List<Relation> findText(String text) {
+  public Set<Relation> findText(String text) {
     List<Relation> relations = em.createQuery("SELECT u FROM Relation u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return relations != null ? relations : new ArrayList<>();
+    List<Relation> result =  relations != null ? relations : new ArrayList<>();
+    return new HashSet<>(result);
 
   }
 }

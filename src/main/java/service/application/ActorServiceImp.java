@@ -5,9 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.ActorDAO;
+import java.util.Set;
 
 @Stateless
-public class ActorServiceImp implements ActorService{
+public class ActorServiceImp implements ActorService {
 
   @Inject
   private ActorDAO dao;
@@ -18,7 +19,7 @@ public class ActorServiceImp implements ActorService{
   }
 
   @Override
-  public List<Actor> findText(String text) {
+  public Set<Actor> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -26,22 +27,22 @@ public class ActorServiceImp implements ActorService{
   }
 
   @Override
-  public List<Actor> findAll() {
+  public Set<Actor> findAll() {
     return dao.findAll();
   }
 
   @Override
   public void persist(Resource resource) {
-    dao.persist((Actor)resource);
+    dao.persist((Actor) resource);
   }
 
   @Override
   public void merge(Resource resource) {
-    dao.merge((Actor)resource);
+    dao.merge((Actor) resource);
   }
 
   @Override
   public void remove(Resource resource) {
-    dao.remove((Actor)resource);
+    dao.remove((Actor) resource);
   }
 }

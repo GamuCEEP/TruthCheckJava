@@ -3,6 +3,7 @@ package service.application;
 import domain.application.Map;
 import domain.application.Resource;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -11,9 +12,9 @@ public interface MapService {
 
   Map find(int id);
 
-  List<Map> findAll();
+  Set<Map> findAll();
 
-  List<Map> findText(String text);
+  Set<Map> findText(String text);
 
   void merge(Resource resource);
 

@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Stage;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class StageDAOImp implements StageDAO {
   }
 
   @Override
-  public List<Stage> findAll() {
+  public Set<Stage> findAll() {
     List<Stage> stages = em.createQuery("SELECT u FROM Stage u").getResultList();
-    return stages != null ? stages : new ArrayList<>();
+    List<Stage> result =  stages != null ? stages : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,11 +42,12 @@ public class StageDAOImp implements StageDAO {
   }
 
   @Override
-  public List<Stage> findText(String text) {
+  public Set<Stage> findText(String text) {
     List<Stage> stages = em.createQuery("SELECT u FROM Stage u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return stages != null ? stages : new ArrayList<>();
+    List<Stage> result =  stages != null ? stages : new ArrayList<>();
+    return new HashSet<>(result);
 
   }
 }

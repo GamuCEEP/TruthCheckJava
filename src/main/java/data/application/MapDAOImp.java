@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Map;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class MapDAOImp implements MapDAO {
   }
 
   @Override
-  public List<Map> findAll() {
+  public Set<Map> findAll() {
     List<Map> maps = em.createQuery("SELECT u FROM Map u").getResultList();
-    return maps != null ? maps : new ArrayList<>();
+    List<Map> result = maps != null ? maps : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,11 +42,12 @@ public class MapDAOImp implements MapDAO {
   }
 
   @Override
-  public List<Map> findText(String text) {
+  public Set<Map> findText(String text) {
     List<Map> maps = em.createQuery("SELECT u FROM Map u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return maps != null ? maps : new ArrayList<>();
+    List<Map> result = maps != null ? maps : new ArrayList<>();
+    return new HashSet<>(result);
 
   }
 }

@@ -22,6 +22,8 @@
   font-size: 1.8em;
   text-align: center;
   text-decoration: rgb(var(--color-lit)) underline 2px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .modal input{
   width: 300px;

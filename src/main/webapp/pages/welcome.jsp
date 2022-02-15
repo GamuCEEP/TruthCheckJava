@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - TruthCheck</title>
+  <link rel="icon" href="<%= request.getContextPath()%>/images/logo.png"/>
 
   <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/root.css">
   <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/home.css">
@@ -72,7 +73,9 @@
       const UserNotFound = $('#UserNotFound')
       const IncorrectPassword = $('#IncorrectPassword')
       
-      const error = ${error} ;
+      const error = ${error} 
+      
+      1
       
       error.style = 'display: inline'
       

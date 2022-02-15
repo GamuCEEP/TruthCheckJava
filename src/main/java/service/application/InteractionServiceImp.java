@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.InteractionDAO;
+import java.util.Set;
 
 @Stateless
 public class InteractionServiceImp implements InteractionService {
@@ -18,7 +19,7 @@ public class InteractionServiceImp implements InteractionService {
   }
 
   @Override
-  public List<Interaction> findText(String text) {
+  public Set<Interaction> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -27,7 +28,7 @@ public class InteractionServiceImp implements InteractionService {
   }
 
   @Override
-  public List<Interaction> findAll() {
+  public Set<Interaction> findAll() {
     return dao.findAll();
   }
 

@@ -3,6 +3,7 @@ package service.application;
 import domain.application.Interaction;
 import domain.application.Resource;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -11,9 +12,9 @@ public interface InteractionService {
 
   Interaction find(int id);
 
-  List<Interaction> findAll();
+  Set<Interaction> findAll();
 
-  List<Interaction> findText(String text);
+  Set<Interaction> findText(String text);
 
   void merge(Resource resource);
 

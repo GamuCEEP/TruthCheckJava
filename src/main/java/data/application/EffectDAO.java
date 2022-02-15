@@ -2,6 +2,7 @@ package data.application;
 
 import domain.application.Effect;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 @Local
@@ -9,9 +10,9 @@ public interface EffectDAO {
 
   Effect find(int name);
 
-  List<Effect> findAll();
+  Set<Effect> findAll();
 
-  List<Effect> findText(String text);
+  Set<Effect> findText(String text);
 
   void merge(Effect resource);
 

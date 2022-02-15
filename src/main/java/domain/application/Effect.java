@@ -7,21 +7,17 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Effect extends Resource {
 
-  @Id
-  @GeneratedValue
-  private int id;
-  private String name;
-  private String description;
+  
 
   private String code;
 
   @ManyToMany
   private List<Event> Events;
 
-  @ManyToMany
-  List<User> users;
 
 }

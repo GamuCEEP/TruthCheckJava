@@ -2,6 +2,7 @@ package data.application;
 
 import domain.application.Actor;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 @Local
@@ -9,9 +10,9 @@ public interface ActorDAO {
 
   Actor find(int name);
 
-  List<Actor> findAll();
+  Set<Actor> findAll();
 
-  List<Actor> findText(String text);
+  Set<Actor> findText(String text);
 
   void merge(Actor resource);
 

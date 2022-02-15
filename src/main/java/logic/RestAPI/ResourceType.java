@@ -14,8 +14,8 @@ public enum ResourceType {
   relation("Relaciones"),
   event("Eventos"),
   // Playables
-  game("Partidas");
-
+  //game("Partidas");
+;
   private String webText;
 
   public String getWebText() {

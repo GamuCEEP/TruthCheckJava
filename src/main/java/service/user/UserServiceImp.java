@@ -3,6 +3,7 @@ package service.user;
 import data.user.UserDAO;
 import domain.user.User;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ public class UserServiceImp implements UserService {
   }
 
   @Override
-  public List<User> findAll() {
+  public Set<User> findAll() {
     return DAO.findAll();
   }
 

@@ -6,7 +6,9 @@ import java.io.IOException;
 import logic.RestAPI.ResourceType;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,16 +50,16 @@ public class gallery extends HttpServlet {
 
     String filter = req.getParameter("filter") != null ? req.getParameter("filter") : "";
 
-    List<Resource> resources = new ArrayList<>();
+    Set<Resource> resources = new HashSet<>();
 
-    List<Actor> actorLibrary;
-    List<Effect> effectLibrary;
-    List<Event> eventLibrary;
-    List<Interaction> interactionLibrary;
-    List<Item> itemLibrary;
-    List<Map> mapLibrary;
-    List<Relation> relationLibrary;
-    List<Stage> stageLibrary;
+    Set<Actor> actorLibrary;
+    Set<Effect> effectLibrary;
+    Set<Event> eventLibrary;
+    Set<Interaction> interactionLibrary;
+    Set<Item> itemLibrary;
+    Set<Map> mapLibrary;
+    Set<Relation> relationLibrary;
+    Set<Stage> stageLibrary;
 
     actorLibrary = actorService.findText(filter);
     effectLibrary = effectService.findText(filter);
@@ -77,8 +79,14 @@ public class gallery extends HttpServlet {
     resources.addAll(relationLibrary);
     resources.addAll(stageLibrary);
     resources.addAll(actorLibrary);
+    
+    Set<JSONObject> jsonResources = new HashSet<>();
+ 
+    resources.forEach(e->{
+      jsonResources.add(new JSONObject(e));
+    });
 
-    req.setAttribute("resources", new JSONObject(resources));
+    req.setAttribute("resources", resources);
 
     req.setAttribute("ResourceTypes", ResourceType.values());
     req.getRequestDispatcher("/pages/gallery.jsp").forward(req, resp);

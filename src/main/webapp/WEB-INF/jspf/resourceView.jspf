@@ -1,0 +1,14 @@
+<%@page import="org.json.JSONObject"%>
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="resourceView">
+
+  <div>
+    <p>${resource.getName()}</p>
+    <p>${resource.getDescription()}</p>
+    
+    <p>${resource.getAuthor()[0]}</p>
+  </div>
+
+  <button>+</button>
+</div>

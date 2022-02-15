@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TruthCheck - The Role-Play Assistant</title>
+  <link rel="icon" href="<%= request.getContextPath()%>/images/logo.png"/>
   
   <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/root.css">
   <link rel="stylesheet" href="<%= request.getContextPath() %>/pages/css/home.css">
@@ -25,7 +26,7 @@
         <label id="welcome" >Bienvenido ${userName}</label>
         <button type="submit" formaction="/TruthCheckJava/library">Mi biblioteca</button>
         <button type="submit" formaction="/TruthCheckJava/gallery">Creaciones de la comunidad</button>
-        <button type="submit" formaction="[partida]">Crear una partida</button>
+        <button type="submit" formaction="/TruthCheckJava/workspace">Crear recursos</button>
         <button type="submit" formaction="/TruthCheckJava/logout">Cerrar sesi&oacute;n</button>
       </form>
     </gamu-modal>

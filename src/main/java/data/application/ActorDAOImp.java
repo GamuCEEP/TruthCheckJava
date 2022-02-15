@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Actor;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class ActorDAOImp implements ActorDAO {
   }
 
   @Override
-  public List<Actor> findAll() {
+  public Set<Actor> findAll() {
     List<Actor> actors = em.createQuery("SELECT u FROM Actor u").getResultList();
-    return actors != null ? actors : new ArrayList<>();
+    List<Actor> result = actors != null ? actors : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,11 +42,12 @@ public class ActorDAOImp implements ActorDAO {
   }
 
   @Override
-  public List<Actor> findText(String text) {
+  public Set<Actor> findText(String text) {
     List<Actor> actors = em.createQuery("SELECT u FROM Actor u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return actors != null ? actors : new ArrayList<>();
+    List<Actor> result = actors != null ? actors : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
 }

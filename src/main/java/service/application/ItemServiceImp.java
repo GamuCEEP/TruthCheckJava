@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.ItemDAO;
+import java.util.Set;
 
 @Stateless
 public class ItemServiceImp   implements ItemService{
@@ -18,7 +19,7 @@ public class ItemServiceImp   implements ItemService{
   }
   
  @Override
-  public List<Item> findText(String text) {
+  public Set<Item> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -26,7 +27,7 @@ public class ItemServiceImp   implements ItemService{
   }
   
  @Override
-  public List<Item> findAll() {
+  public Set<Item> findAll() {
     return dao.findAll();
   }
   

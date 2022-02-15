@@ -2,6 +2,7 @@ package data.application;
 
 import domain.application.Interaction;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 @Local
@@ -9,9 +10,9 @@ public interface InteractionDAO {
 
   Interaction find(int name);
 
-  List<Interaction> findAll();
+  Set<Interaction> findAll();
 
-  List<Interaction> findText(String text);
+  Set<Interaction> findText(String text);
 
   void merge(Interaction resource);
 

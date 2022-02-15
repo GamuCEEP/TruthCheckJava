@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import data.application.EventDAO;
+import java.util.Set;
 
 @Stateless
 public class EventServiceImp implements EventService   {
@@ -18,7 +19,7 @@ public class EventServiceImp implements EventService   {
   }
 
   @Override
-  public List<Event> findText(String text) {
+  public Set<Event> findText(String text) {
     if (text.isEmpty()) {
       return findAll();
     }
@@ -27,7 +28,7 @@ public class EventServiceImp implements EventService   {
   }
 
   @Override
-  public List<Event> findAll() {
+  public Set<Event> findAll() {
     return dao.findAll();
   }
 

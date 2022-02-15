@@ -28,7 +28,7 @@ public class home extends HttpServlet {
     Object userNameAttr = req.getSession().getAttribute("userName");
 
     if (userNameAttr == null) {
-      req.getRequestDispatcher("/pages/welcome.jsp").include(req, resp);
+      resp.sendRedirect("/TruthCheckJava/welcome");
       return;
     }
 

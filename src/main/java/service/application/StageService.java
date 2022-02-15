@@ -3,6 +3,7 @@ package service.application;
 import domain.application.Resource;
 import domain.application.Stage;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -11,9 +12,9 @@ public interface StageService {
 
   Stage find(int id);
 
-  List<Stage> findAll();
+  Set<Stage> findAll();
 
-  List<Stage> findText(String text);
+  Set<Stage> findText(String text);
 
   void merge(Resource resource);
 

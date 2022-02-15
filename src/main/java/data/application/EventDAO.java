@@ -2,6 +2,7 @@ package data.application;
 
 import domain.application.Event;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 @Local
@@ -9,9 +10,9 @@ public interface EventDAO {
 
   Event find(int name);
 
-  List<Event> findAll();
+  Set<Event> findAll();
 
-  List<Event> findText(String text);
+  Set<Event> findText(String text);
 
   void merge(Event resource);
 

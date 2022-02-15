@@ -11,10 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria - TruthCheck</title>
 
+    <link rel="icon" href="<%= request.getContextPath()%>/images/logo.png"/>
+
+
     <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/root.css">
     <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/retractil.css">
     <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/gallery.css">
     <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/modal.css">
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/pages/css/resourceView.css">
   </head>
 
   <body>
@@ -31,35 +35,55 @@
         </form>
       </div>
       <div id="userIcon">
-        <!-- Loged in/not logged in -->
-        <a href="">
+        <c:if test="${sessionScope.userName == null}">
+          <div class="modal">
+            <a href="/TruthCheckJava/welcome" style="margin: 0">Entrar</a>
+          </div>
+        </c:if>
+        <c:if test="${sessionScope.userName != null}">
+          <p>${sessionScope.userName}</p>
+          <img src="/TruthCheckJava/images/profilePicture.png" width="80px"/>
+        </c:if>
 
-        </a>
-        
+
       </div>
     </header>
     <main>
 
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+      <div class="resourceView">
+        <button>+</button>
+      </div>
+
+
+
+      <c:forEach var="resource" items="${resources}">
+        <%@include file="../WEB-INF/jspf/resourceView.jspf"%>
+      </c:forEach>
+
       <footer>
 
       </footer>
@@ -81,10 +105,6 @@
         </form>
       </aside>
     </div>
-
-    <script>
-      ${resources.toString()}
-    </script>
 
   </body>
 

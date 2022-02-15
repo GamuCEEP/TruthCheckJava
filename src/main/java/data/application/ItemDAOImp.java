@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Item;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class ItemDAOImp implements ItemDAO {
   }
 
   @Override
-  public List<Item> findAll() {
+  public Set<Item> findAll() {
     List<Item> items = em.createQuery("SELECT u FROM Item u").getResultList();
-    return items != null ? items : new ArrayList<>();
+    List<Item> result = items != null ? items : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,10 +42,11 @@ public class ItemDAOImp implements ItemDAO {
   }
 
   @Override
-  public List<Item> findText(String text) {
+  public Set<Item> findText(String text) {
     List<Item> items = em.createQuery("SELECT u FROM Item u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return items != null ? items : new ArrayList<>();
+    List<Item> result = items != null ? items : new ArrayList<>();
+    return new HashSet<>(result);
   }
 }

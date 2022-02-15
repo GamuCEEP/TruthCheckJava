@@ -3,6 +3,7 @@ package service.application;
 import domain.application.Item;
 import domain.application.Resource;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -11,9 +12,9 @@ public interface ItemService {
 
   Item find(int id);
 
-  List<Item> findAll();
+  Set<Item> findAll();
 
-  List<Item> findText(String text);
+  Set<Item> findText(String text);
 
   void merge(Resource resource);
 

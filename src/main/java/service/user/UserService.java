@@ -2,6 +2,7 @@ package service.user;
 
 import domain.user.User;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -12,7 +13,7 @@ public interface UserService {
 
   User find(String text);
 
-  List<User> findAll();
+  Set<User> findAll();
 
   void merge(User resource);
 

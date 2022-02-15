@@ -2,6 +2,7 @@ package data.application;
 
 import domain.application.Stage;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 @Local
@@ -9,9 +10,9 @@ public interface StageDAO {
 
   Stage find(int name);
 
-  List<Stage> findAll();
+  Set<Stage> findAll();
 
-  List<Stage> findText(String text);
+  Set<Stage> findText(String text);
 
   void merge(Stage resource);
 

@@ -2,7 +2,9 @@ package data.application;
 
 import domain.application.Interaction;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,9 +20,10 @@ public class InteractionDAOImp implements InteractionDAO {
   }
 
   @Override
-  public List<Interaction> findAll() {
+  public Set<Interaction> findAll() {
     List<Interaction> interactions = em.createQuery("SELECT u FROM Interaction u").getResultList();
-    return interactions != null ? interactions : new ArrayList<>();
+    List<Interaction> result = interactions != null ? interactions : new ArrayList<>();
+    return new HashSet<>(result);
   }
 
   @Override
@@ -39,11 +42,12 @@ public class InteractionDAOImp implements InteractionDAO {
   }
 
   @Override
-  public List<Interaction> findText(String text) {
+  public Set<Interaction> findText(String text) {
     List<Interaction> interactions = em.createQuery("SELECT u FROM Interaction u WHERE u.name LIKE '%:text%' OR u.description LIKE '%:text%'")
             .setParameter("text", text)
             .getResultList();
-    return interactions != null ? interactions : new ArrayList<>();
+    List<Interaction> result = interactions != null ? interactions : new ArrayList<>();
+    return new HashSet<>(result);
 
   }
 }

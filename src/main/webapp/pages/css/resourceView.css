@@ -1,0 +1,42 @@
+
+
+
+.resourceView{
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+  background-color: rgb(var(--color-dark));
+  position: relative;
+  border-radius: 5px;
+}
+.resourceView p{
+  margin-top: 20px;
+  text-align: center;
+  color: white;
+  font-size: 1.3em;
+}
+.resourceView button{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: rgb(var(--color-dim));
+  border: none;
+  padding: 0 10px;
+  border-bottom: 2px rgba(var(--color-lit)) solid;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  font-size: 2em;
+  user-select: none;
+  transition: 100ms transform ease, 100ms border ease;
+}
+
+.resourceView button:hover{
+  border-bottom: 3px rgba(var(--color-lit)) solid;
+  transform: translateY(-1px);
+}
+.resourceView button:active{
+  border-bottom: 0px rgba(var(--color-lit)) solid;
+  transform: translateY(1px);
+}
+

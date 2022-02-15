@@ -9,7 +9,7 @@ import lombok.*;
 
 @Data
 @Entity
-public class Actor implements Serializable, Resource {
+public class Actor extends Resource{
 
   @Id
   @GeneratedValue

@@ -9,7 +9,7 @@ import lombok.*;
 
 @Data
 @Entity
-public class Event implements Serializable, Resource {
+public class Event extends Resource {
 
   @Id
   @GeneratedValue

@@ -1,0 +1,81 @@
+El json se pasa en bloques
+
+peticion es trivial
+
+post_
+
+resource =	
+{
+type: 'item',
+item: 	{
+	id: *id*,
+	name: *name*,
+	description: *description*,
+	interactions:
+		{
+		type: 'interaction',	
+		interaction: [*interactionId*,*interactionId*]
+		}
+	}
+}
+
+[TODO] mirar como pasar post usando js, fetch?
+
+Los recursos se pasan por POST
+la entrada de post es superclass por lo que se creará un array
+
+la estructura de recurso será objetos con 2 propiedades
+type = '*resourceType*',
+*resourceType* = { ...*resource* }
+
+dentro de *resource*
+tenemos las propiedades que tenga
+	si son valores primitivos -> correspondencia directa
+	si son objetos / arrays -> recursivo: 
+		un objeto con 2 propiedades
+			type = '*resourceSuper*'<- la superClass
+solo si es un array ->	types = ['*rTypeAtPos0*', '*rTypeAtPos1*']
+			*resourceSuper* = [{*rId*},{*rId*}] / {*rId*}
+
+Dejar que Gson haga el trabajo duro, solo nos encargamos de cortar el mensaje
+y darselo a Gson
+
+[TODO] diseñar los JSON 
+[TODO] mirar como convertir de json a objeto java
+[TODO] arbol de relaciones al parsear
+[WARNING] usando Gson no puede haber polimorfismo (Se pierde la referencia la clase inicial)
+[REFACTOR] los objetos no guardan objetos sino ids de objetos -> mata dependencias circulares
+	En java no hace falta tener el objeto entero para usarlo por lo que se puede rellenar
+	solo la id
+
+Recursos -> ver y crear modals
+
+	creacion automatica
+		valores primitivos 
+		objetos incrustados
+		arrays 
+			primitivos
+			objetos
+
+	Como los objetos contienen solo las ids de las referencias al leer las ids
+	hay que hacer otra petición con todas las ids que contenga
+	Arrays multidimensionales -> recursion
+
+Peticiones al servidor:
+	de momento se cachean todas, los datos son muy ligeros
+
+[TODO][low-priorty] service workers mirar como van para el cache
+[TODO][low-priorty] .manifest (PWA)
+
+[TODO][hight-priority] revisar el modelo de datos, refactorizar lo necesario
+	Objetos lo mas simples posible
+	Cuantos mas elementos primitivos mejor
+	en el caso de objetos intentar no tener dependencias circulares
+
+[IDEA] el codigo de Effect es una funcion de js, mediante reflexion se ve que parametros tiene
+
+
+
+
+
+

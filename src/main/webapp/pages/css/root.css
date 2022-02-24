@@ -5,8 +5,8 @@
   --color-lit  : 171,131,82;
 }
 *{
-  box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   user-select: none;
+  box-sizing: border-box;
   margin: 0;
 }

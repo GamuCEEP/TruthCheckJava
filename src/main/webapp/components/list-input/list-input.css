@@ -1,0 +1,20 @@
+
+
+list-input{
+  display: flex;
+  flex-direction: column;
+}
+list-input div:first-child{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+list-input div:last-child{
+  display: flex;
+  flex-direction: column;
+  
+}
+list-input button{
+  font-size: 2em;
+}

@@ -1,0 +1,126 @@
+form{
+  display: flex;
+  flex-direction: column;
+  
+  position: relative;
+  
+  margin: 0;
+  padding: 20px;
+  
+  width: 400px;
+  height: max-content;
+  
+  border-radius: 5px;
+  background-color: rgb(var(--color-dark));
+}
+/* Text */
+form label, form p{
+  margin: 0 0 20px 0;
+  overflow: hidden;
+  font-size: 1.8em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-decoration: rgb(var(--color-lit)) underline 2px;
+  color: rgb(var(--color-light));
+}
+/* Input */
+form select, form input{
+  width: 300px;
+  height: 30px;
+  margin: 10px auto;
+  padding: 0 20px;
+  
+  background-color: rgba(var(--color-light));
+  border:none;
+  border-radius: 5px;
+  
+  font-size: inherit;
+}
+form input{
+  border-radius: 5px 5px 20px 5px;
+  user-select: text;
+}
+
+form list-input{
+  border: 2px rgb(var(--color-dim)) solid;
+  border-radius: 5px;
+}
+
+/* Decoration */
+form label[for='togglePasswordVisibility']{
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 11px;
+
+  width: 30px;
+  height: 30px;
+  background-image: url(/images/showPassword.svg);
+  background-repeat:  no-repeat;
+  cursor: pointer;
+}
+form input:checked+[for='togglePasswordVisibility']{
+  background-image: url(/images/hidePassword.svg);
+}
+
+/* Organization */
+form span, form div{
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+
+/* Submits */
+form button, form a, form input[type='submit']{
+  height: 40px;
+  margin: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 5px;
+  background-color: rgb(var(--color-dim));
+  border-bottom: 2px rgba(var(--color-lit)) solid;
+  transition: 100ms transform ease, 100ms border ease;
+}
+form button, form a{
+  display: block;
+  padding: 0 20px;
+  font-size: 1em;
+}
+form a{
+  text-decoration: none;
+  text-align: center;
+  padding-top: 3%;
+}
+
+/* Animation */
+form button:hover, form a:hover, form input[type='submit']:hover{
+  border-bottom: 3px rgba(var(--color-lit)) solid;
+  transform: translateY(-1px);
+}
+form button:active,form a:active, form input[type='submit']:active{
+  border-bottom: 0px rgba(var(--color-lit)) solid;
+  transform: translateY(1px);
+}
+
+/* Errors */
+form .error{
+  display: none;
+  color: red;
+  font-size: .8em;
+  text-decoration: none;
+  text-align: left;
+  margin: 0;
+  margin-left: 60px;
+  
+}
+form .error::before{
+  content: '*';
+}
+
+
+*:focus{
+  outline: 2px solid greenyellow;
+}

@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - TruthCheck</title>
-  <link rel="icon" href="../images/logo.png" />
+  <link rel="icon" href="/TruthCheckJava/images/logo.png" />
 
-  <link rel="stylesheet" href="../pages/css/root.css">
-  <link rel="stylesheet" href="../pages/css/home.css">
-  <link rel="stylesheet" href="../components/form.css">
+  <link rel="manifest" href="/TruthCheckJava/tcs.manifest.json">
+
+
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/home.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
 
-  <script type="text/javascript" src="../pages/js/root.js"></script>
-  <script type="text/javascript" src="../components/list-input/list-input.js" defer></script>
+  <script type="text/javascript" src="/TruthCheckJava/pages/js/root.js"></script>
+  <script type="text/javascript" src="/TruthCheckJava/components/list-input/list-input.js" defer></script>
+
+  <script src="/TruthCheckJava/sw_init.js"></script>
+
 </head>
 
 <body>
@@ -25,7 +31,7 @@
   <header>
 
     <nav>
-      <div class="modal">
+      <form class="modal" method="POST">
         <label>Log In</label>
         <input type="text" required name="user" placeholder="Usuario">
         <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
@@ -35,8 +41,6 @@
           <input type="password" required name="password" placeholder="Contraseña">
           <input type="checkbox" hidden id="togglePasswordVisibility">
           <label for="togglePasswordVisibility"></label>
-        </span>
-        <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
         <script>
           ; (() => {
             window.addEventListener('load', () => {
@@ -48,25 +52,19 @@
             })
           })()
         </script>
+        </span>
+        <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
         <div>
           <!-- TODO cambiar los formaction -->
-          <input type="submit" value="Registrarse" onclick="register(this)">
-          <input type="submit" value="Entrar" onclick="login(this)">
+          <input type="submit" formaction="/TruthCheckJava/" value="Registrarse">
+          <input type="submit" value="Entrar">
         </div>
         <!-- Cambiar link -->
-        <a href="/TruthCheckJava/gallery">
+        <a href="#">
           Solo quiero ver
         </a>
-      </div>
-      <script>
-        function register(btn){
-          console.log(btn.form.elements.namedItem('password').value)
-          console.log(btn.form.elements.namedItem('user').value)
-        }
-        function login(btn){
+      </form>
 
-        }
-      </script>
     </nav>
 
   </header>
@@ -76,25 +74,6 @@
       <h2>The Role Play Assistant</h2>
     </div>
   </main>
-
-  <script>
-      ; (() => {
-
-        const UserAlreadyExists = $('#UserAlreadyExists')
-
-        const UserNotFound = $('#UserNotFound')
-        const IncorrectPassword = $('#IncorrectPassword')
-
-        //TODO Modificar el codigo de errores
-
-        error.style = 'display: inline'
-
-
-
-
-
-      })()    
-  </script>
 </body>
 
 </html>

@@ -55,12 +55,12 @@
 
   width: 30px;
   height: 30px;
-  background-image: url(../images/showPassword.svg);
+  background-image: url(/TruthCheckJava/images/showPassword.svg);
   background-repeat:  no-repeat;
   cursor: pointer;
 }
 .modal input:checked+[for='togglePasswordVisibility']{
-  background-image: url(../images/hidePassword.svg);
+  background-image: url(/TruthCheckJava/images/hidePassword.svg);
 }
 
 /* Organization */

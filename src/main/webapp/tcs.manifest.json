@@ -1,0 +1,12 @@
+{
+  "name": "TruthCheck - The Roleplay Assistant",
+  "short_name": "TruthCheck",
+  "description": "A simple app to assist in rol games",
+  "start_url": ".",
+  "lang": "es",
+  "icons": [{
+    "src": "../images/logo.png",
+    "sizes": "80x80",
+    "type": "image/png"
+  }]
+}

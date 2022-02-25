@@ -8,12 +8,14 @@ list-input div:first-child{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
+}
+list-input div:first-child button{
+  width: 40px;
+  padding: 0;
 }
 list-input div:last-child{
   display: flex;
   flex-direction: column;
-  
 }
 list-input button{
   font-size: 2em;

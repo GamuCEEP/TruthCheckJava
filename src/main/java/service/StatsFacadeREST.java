@@ -52,14 +52,14 @@ public class StatsFacadeREST extends AbstractFacade<Stats> {
 
   @POST
   @Override
-  @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Consumes({MediaType.APPLICATION_JSON})
   public void create(Stats entity) {
     super.create(entity);
   }
 
   @PUT
   @Path("{id}")
-  @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Consumes({MediaType.APPLICATION_JSON})
   public void edit(@PathParam("id") PathSegment id, Stats entity) {
     super.edit(entity);
   }
@@ -73,7 +73,7 @@ public class StatsFacadeREST extends AbstractFacade<Stats> {
 
   @GET
   @Path("{id}")
-  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Produces({MediaType.APPLICATION_JSON})
   public Stats find(@PathParam("id") PathSegment id) {
     domain.StatsPK key = getPrimaryKey(id);
     return super.find(key);
@@ -81,14 +81,14 @@ public class StatsFacadeREST extends AbstractFacade<Stats> {
 
   @GET
   @Override
-  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Produces({MediaType.APPLICATION_JSON})
   public List<Stats> findAll() {
     return super.findAll();
   }
 
   @GET
   @Path("{from}/{to}")
-  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @Produces({MediaType.APPLICATION_JSON})
   public List<Stats> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
     return super.findRange(new int[]{from, to});
   }

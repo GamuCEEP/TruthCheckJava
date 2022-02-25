@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - TruthCheck</title>
-  <link rel="icon" href="/images/logo.png"/>
+  <link rel="icon" href="../images/logo.png" />
 
-  <link rel="stylesheet" href="/pages/css/root.css">
-  <!-- <link rel="stylesheet" href="/pages/css/home.css"> -->
-  <link rel="stylesheet" href="/components/form.css">
+  <link rel="stylesheet" href="../pages/css/root.css">
+  <link rel="stylesheet" href="../pages/css/home.css">
+  <link rel="stylesheet" href="../components/form.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
-  
-  <script src="/pages/js/root.js"></script>
-  <script src="/components/list-input/list-input.js" defer></script>
+
+  <script type="text/javascript" src="../pages/js/root.js"></script>
+  <script type="text/javascript" src="../components/list-input/list-input.js" defer></script>
 </head>
 
 <body>
@@ -25,50 +25,48 @@
   <header>
 
     <nav>
-        <form method="POST" class="modal">
-          <label>Log In</label>
-          <input type="text" required name="user" placeholder="Usuario">
-          <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
-          <p class="error" id="UserNotFound">El usuario no existe</p>
-          <select name="" id="">
-            <option value="">Patata</option>
-            <option value="">Verdura</option>
-            <option value="">Tomate</option>
-          </select>
+      <div class="modal">
+        <label>Log In</label>
+        <input type="text" required name="user" placeholder="Usuario">
+        <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
+        <p class="error" id="UserNotFound">El usuario no existe</p>
 
-          <list-input label="Patata" name="patata">
-            <input type="text" placeholder="key">
-            <input type="text" placeholder="value">
-          </list-input>
-
-          <span>
-            <input type="password" required name="password" placeholder="Contraseña">
-            <input type="checkbox" hidden id="togglePasswordVisibility">
-            <label for="togglePasswordVisibility"></label>
-          </span>
-          <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
-          <script>
-            ;(()=>{
-              window.addEventListener('load', ()=>{
-                const passwordInput = $('input[type="password"]')
-                const passwordToggle = $('#togglePasswordVisibility')
-                passwordToggle.addEventListener('change', ()=>{
-                  passwordInput.type = passwordToggle.checked ? 'text' : 'password'
-                })
+        <span>
+          <input type="password" required name="password" placeholder="Contraseña">
+          <input type="checkbox" hidden id="togglePasswordVisibility">
+          <label for="togglePasswordVisibility"></label>
+        </span>
+        <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
+        <script>
+          ; (() => {
+            window.addEventListener('load', () => {
+              const passwordInput = $('input[type="password"]')
+              const passwordToggle = $('#togglePasswordVisibility')
+              passwordToggle.addEventListener('change', () => {
+                passwordInput.type = passwordToggle.checked ? 'text' : 'password'
               })
-            })()
-          </script>
-          <div>
-            <!-- TODO cambiar los formaction -->
-            <input type="submit" formaction="/TruthCheckJava/register" value="Registrarse">
-            <input type="submit" formaction="/TruthCheckJava/login" value="Entrar">
-          </div>
-          <button>Hola</button>
-          
-          <a href="/TruthCheckJava/gallery">
-            Solo quiero ver
-          </a>
-        </form>
+            })
+          })()
+        </script>
+        <div>
+          <!-- TODO cambiar los formaction -->
+          <input type="submit" value="Registrarse" onclick="register(this)">
+          <input type="submit" value="Entrar" onclick="login(this)">
+        </div>
+        <!-- Cambiar link -->
+        <a href="/TruthCheckJava/gallery">
+          Solo quiero ver
+        </a>
+      </div>
+      <script>
+        function register(btn){
+          console.log(btn.form.elements.namedItem('password').value)
+          console.log(btn.form.elements.namedItem('user').value)
+        }
+        function login(btn){
+
+        }
+      </script>
     </nav>
 
   </header>
@@ -78,24 +76,24 @@
       <h2>The Role Play Assistant</h2>
     </div>
   </main>
-  
+
   <script>
-    ;(()=>{
-      
-      const UserAlreadyExists = $('#UserAlreadyExists')
-      
-      const UserNotFound = $('#UserNotFound')
-      const IncorrectPassword = $('#IncorrectPassword')
-      
-      //TODO Modificar el codigo de errores
-      
-      error.style = 'display: inline'
-      
-      
-      
-      
-      
-    })()    
+      ; (() => {
+
+        const UserAlreadyExists = $('#UserAlreadyExists')
+
+        const UserNotFound = $('#UserNotFound')
+        const IncorrectPassword = $('#IncorrectPassword')
+
+        //TODO Modificar el codigo de errores
+
+        error.style = 'display: inline'
+
+
+
+
+
+      })()    
   </script>
 </body>
 

@@ -61,7 +61,7 @@ class ListInput extends HTMLElement {
     const css = document.head.querySelector("link[src$='list-input.css'")
     if (css != null) return
     const link = document.createElement('link')
-    link.setAttribute('href', '/components/list-input/list-input.css')
+    link.setAttribute('href', '../components/list-input/list-input.css')
     link.setAttribute('rel', 'stylesheet')
     document.head.append(link)
   }

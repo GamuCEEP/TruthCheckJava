@@ -1,4 +1,4 @@
-form{
+.modal{
   display: flex;
   flex-direction: column;
   
@@ -14,7 +14,7 @@ form{
   background-color: rgb(var(--color-dark));
 }
 /* Text */
-form label, form p{
+.modal label, .modal p{
   margin: 0 0 20px 0;
   overflow: hidden;
   font-size: 1.8em;
@@ -24,7 +24,7 @@ form label, form p{
   color: rgb(var(--color-light));
 }
 /* Input */
-form select, form input{
+.modal select, .modal input{
   width: 300px;
   height: 30px;
   margin: 10px auto;
@@ -36,18 +36,18 @@ form select, form input{
   
   font-size: inherit;
 }
-form input{
+.modal input{
   border-radius: 5px 5px 20px 5px;
   user-select: text;
 }
 
-form list-input{
+.modal list-input{
   border: 2px rgb(var(--color-dim)) solid;
   border-radius: 5px;
 }
 
 /* Decoration */
-form label[for='togglePasswordVisibility']{
+.modal label[for='togglePasswordVisibility']{
   display: block;
   position: absolute;
   right: 5px;
@@ -55,16 +55,16 @@ form label[for='togglePasswordVisibility']{
 
   width: 30px;
   height: 30px;
-  background-image: url(/images/showPassword.svg);
+  background-image: url(../images/showPassword.svg);
   background-repeat:  no-repeat;
   cursor: pointer;
 }
-form input:checked+[for='togglePasswordVisibility']{
-  background-image: url(/images/hidePassword.svg);
+.modal input:checked+[for='togglePasswordVisibility']{
+  background-image: url(../images/hidePassword.svg);
 }
 
 /* Organization */
-form span, form div{
+.modal span, .modal div{
   width: 300px;
   margin: 0 auto;
   position: relative;
@@ -72,7 +72,7 @@ form span, form div{
 }
 
 /* Submits */
-form button, form a, form input[type='submit']{
+.modal button, .modal a, .modal input[type='submit']{
   height: 40px;
   margin: 5px;
   border: none;
@@ -84,29 +84,30 @@ form button, form a, form input[type='submit']{
   border-bottom: 2px rgba(var(--color-lit)) solid;
   transition: 100ms transform ease, 100ms border ease;
 }
-form button, form a{
+.modal button, .modal a{
   display: block;
   padding: 0 20px;
   font-size: 1em;
 }
-form a{
+.modal a{
+  margin: 5px auto;
   text-decoration: none;
   text-align: center;
   padding-top: 3%;
 }
 
 /* Animation */
-form button:hover, form a:hover, form input[type='submit']:hover{
+.modal button:hover, .modal a:hover, .modal input[type='submit']:hover{
   border-bottom: 3px rgba(var(--color-lit)) solid;
   transform: translateY(-1px);
 }
-form button:active,form a:active, form input[type='submit']:active{
+.modal button:active,.modal a:active, .modal input[type='submit']:active{
   border-bottom: 0px rgba(var(--color-lit)) solid;
   transform: translateY(1px);
 }
 
 /* Errors */
-form .error{
+.modal .error{
   display: none;
   color: red;
   font-size: .8em;
@@ -116,7 +117,7 @@ form .error{
   margin-left: 60px;
   
 }
-form .error::before{
+.modal .error::before{
   content: '*';
 }
 

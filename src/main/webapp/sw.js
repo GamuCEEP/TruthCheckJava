@@ -1,12 +1,20 @@
 
 
-self.addEventListener('fetch', mockResponse)
+self.addEventListener('fetch', handleRequest)
 
-function mockResponse(event){
-  const resp = new Response()
+self.addEventListener('install', () => {
+  console.log('Instalado')
+})
 
-  resp.
+async function handleRequest(f) {
 
-  event.respondWith('Hola')
-  console.log('te he pillado')
+  console.log("Pero wenooooo")
+  
+  if (/login/.test(f.request.url)){
+    console.log("Te estas logueando, que pillin")
+    console.log(f.request.body)
+    f.respondWith()
+  }
+
 }
+

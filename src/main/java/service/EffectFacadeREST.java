@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,15 +14,19 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 
 @Stateless
-@Path("domain.effect")
+@Path("effect")
 public class EffectFacadeREST extends AbstractFacade<Effect> {
 
   @PersistenceContext(unitName = "TruthCheckJava")
   private EntityManager em;
+  
+  @Context
+  private HttpServletRequest req;
 
   public EffectFacadeREST() {
     super(Effect.class);
@@ -78,6 +83,10 @@ public class EffectFacadeREST extends AbstractFacade<Effect> {
   @Override
   protected EntityManager getEntityManager() {
     return em;
+  }
+    @Override
+  protected HttpServletRequest getRequest() {
+    return req;
   }
 
 }

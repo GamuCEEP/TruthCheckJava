@@ -12,6 +12,8 @@ async function registerSW(src) {
     return;
   }
 
+  await registration.update()
   console.log("Registrado correctamente", registration.scope)
+
 }
 

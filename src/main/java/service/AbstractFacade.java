@@ -1,7 +1,9 @@
 package service;
 
+import domain.User;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 
 
 public abstract class AbstractFacade<T> {
@@ -13,6 +15,7 @@ public abstract class AbstractFacade<T> {
   }
 
   protected abstract EntityManager getEntityManager();
+  protected abstract HttpServletRequest getRequest();
 
   public void create(T entity) {
     getEntityManager().persist(entity);
@@ -52,5 +55,14 @@ public abstract class AbstractFacade<T> {
     javax.persistence.Query q = getEntityManager().createQuery(cq);
     return ((Long) q.getSingleResult()).intValue();
   }
+  
+  public boolean canOperate(Integer userId){
+    User loggedUser = (User) getRequest().getSession().getAttribute(K.LOGGED_USER);
 
+    if (loggedUser == null) {
+      return false;
+    }
+    
+    return loggedUser.getIduser().equals(userId);
+  }
 }

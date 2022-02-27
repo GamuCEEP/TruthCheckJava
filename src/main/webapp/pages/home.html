@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <title>TruthCheck - The Role-Play Assistant</title>
+  <link rel="icon" href="/TruthCheckJava/images/logo.png"/>
   
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/home.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
+  
+</head>
 
-  Teteraaaa :D
-
-
+<body>
+  <header>
+      <form class="modal" method="POST">
+        <!-- Fetch the name -->
+        <label id="welcome" >Bienvenido ${userName}</label>
+        <button type="submit" id="create" formaction="/TruthCheckJava/workspace">Crear</button>
+        <button type="submit" id="play" formaction="/TruthCheckJava/library">Jugar</button>
+        <button type="submit" id="explore" formaction="/TruthCheckJava/gallery">Explorar</button>
+        <button type="submit" formaction="/TruthCheckJava/logout">Salir</button>
+      </form>
+  </header>
+  <main>
+    <div>
+      <h1>TruthCheck</h1>
+      <h2>The Role Play Assistant</h2>
+    </div>
+  </main>
 </body>
+
 </html>

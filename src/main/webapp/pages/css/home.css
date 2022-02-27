@@ -18,8 +18,8 @@ header{
   flex-direction: column;
   justify-content: center;
 }
-header div{
-  margin: auto 0;
+header form{
+  align-self: center;
 }
 header button, header a{
   width: 200px;
@@ -48,6 +48,32 @@ main h1::before{
 }
 main h2{
   font-size: 3em;
+}
+
+button{
+  position: relative;
+}
+
+#play::after{
+  background-image: url(../../images/icons/play.svg);
+}
+#create::after{
+  background-image: url(../../images/icons/create.svg);
+}
+#explore::after{
+  background-image: url(../../images/icons/explore.svg);
+}
+
+
+#play::after, #create::after, #explore::after{
+  content: '';
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 2;
 }
 
 

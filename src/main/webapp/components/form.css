@@ -1,7 +1,7 @@
 .modal{
   display: flex;
   flex-direction: column;
-  
+
   position: relative;
   
   margin: 0;
@@ -55,12 +55,12 @@
 
   width: 30px;
   height: 30px;
-  background-image: url(/TruthCheckJava/images/showPassword.svg);
+  background-image: url(/TruthCheckJava/images/icons/showPassword.svg);
   background-repeat:  no-repeat;
   cursor: pointer;
 }
 .modal input:checked+[for='togglePasswordVisibility']{
-  background-image: url(/TruthCheckJava/images/hidePassword.svg);
+  background-image: url(/TruthCheckJava/images/icons/hidePassword.svg);
 }
 
 /* Organization */
@@ -69,6 +69,7 @@
   margin: 0 auto;
   position: relative;
   display: flex;
+  justify-content: center;
 }
 
 /* Submits */
@@ -83,6 +84,7 @@
   background-color: rgb(var(--color-dim));
   border-bottom: 2px rgba(var(--color-lit)) solid;
   transition: 100ms transform ease, 100ms border ease;
+  align-self: center;
 }
 .modal button, .modal a{
   display: block;

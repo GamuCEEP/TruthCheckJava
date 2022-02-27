@@ -2,6 +2,8 @@ package service;
 
 import domain.User;
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +23,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("user")
@@ -39,16 +40,20 @@ public class UserFacadeREST extends AbstractFacade<User> {
     super(User.class);
   }
 
+  private User findUser(User entity) {
+    if (entity.getName() == null || entity.getPassword() == null) {
+      resp.setStatus(400);
+      resp.addHeader(K.ERROR, K.USER_OR_PASSWORD_EMPTY);
+      return null;
+    }
+    return findByName(entity.getName());
+  }
+
   @POST
   @Path("register")
   @Consumes({MediaType.APPLICATION_JSON})
   public void register(User entity) {
-    if (entity.getName() == null || entity.getPassword() == null) {
-      resp.setStatus(400);
-      resp.addHeader(K.ERROR, K.USER_OR_PASSWORD_EMPTY);
-      return;
-    }
-    User u = findByName(entity.getName());
+    User u = findUser(entity);
 
     if (u != null) { // Si existe
       resp.setStatus(418, "Soy una tetera :D");
@@ -56,33 +61,37 @@ public class UserFacadeREST extends AbstractFacade<User> {
       return;
     }
 
-    req.getSession().setAttribute(K.LOGGED_USER, entity);
     super.create(entity);
+    req.getSession().setAttribute(K.LOGGED_USER, u);
   }
 
   @POST
   @Path("login")
   @Consumes({MediaType.APPLICATION_JSON})
   public void login(User entity) {
-    if (entity.getName() == null || entity.getPassword() == null) {
-      resp.setStatus(400);
-      resp.addHeader(K.ERROR, K.USER_OR_PASSWORD_EMPTY);
-      return;
-    }
-
-    User u = findByName(entity.getName());
+    
+    User u = findUser(entity);
 
     if (u == null || !u.getPassword().equals(entity.getPassword())) {
       resp.setStatus(418, "Soy una tetera :D");
       resp.addHeader(K.ERROR, K.INCORRECT_CREDENTIALS);
       return;
     }
+    
+    hidePassword(u);
 
     req.getSession().setAttribute(K.LOGGED_USER, u);
-    resp.addHeader(K.USER, entity.getIduser().toString());
+    System.out.println(((User)u).getName());
   }
 
-  @POST
+  @GET
+  @Path("logged")
+  @Produces({MediaType.APPLICATION_JSON})
+  public User logged() {
+    return (User) req.getSession().getAttribute(K.LOGGED_USER);
+  }
+
+  @GET
   @Path("logout")
   public void logout() {
     req.getSession().invalidate();
@@ -119,8 +128,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Produces({MediaType.APPLICATION_JSON})
   public User find(@PathParam("id") Integer id) {
     User u = super.find(id);
-    em.detach(u);
-    u.setPassword(K.FAKE_PASSWORD);
+    hidePassword(u);
     return u;
   }
 
@@ -139,8 +147,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
     List<User> users = super.findAll();
 
     users.forEach(u -> {
-      em.detach(u);
-      u.setPassword(K.FAKE_PASSWORD);
+      hidePassword(u);
     });
 
     return users;
@@ -152,8 +159,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
   public List<User> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
     List<User> res = super.findRange(new int[]{from, to});
     res.forEach(u -> {
-      em.detach(u);
-      u.setPassword(K.FAKE_PASSWORD);
+      hidePassword(u);
     });
     return res;
   }
@@ -173,6 +179,12 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Override
   protected HttpServletRequest getRequest() {
     return req;
+  }
+  
+  private User hidePassword(User u){
+    em.detach(u);
+    u.setPassword(K.FAKE_PASSWORD);
+    return u;
   }
 
 }

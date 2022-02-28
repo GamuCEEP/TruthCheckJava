@@ -19,8 +19,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Milonga&display=swap" rel="stylesheet">
 
-  <script type="text/javascript" src="/TruthCheckJava/pages/js/root.js"></script>
-  <script type="text/javascript" src="/TruthCheckJava/components/list-input/list-input.js" defer></script>
+  <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <script src="/TruthCheckJava/components/list-input/list-input.js" defer></script>
 
   <script src="/TruthCheckJava/sw_init.js"></script>
 
@@ -29,15 +29,11 @@
 <body>
 
   <header>
-    <form action="/TruthCheckJava/home">
-      <input type="submit" name="e" value="pepe">
-    </form>
     <nav>
-      <form class="modal" method="POST" action="/TruthCheckJava/home">
+      <form class="modal" method="POST">
         <label>Log In</label>
         <input type="text" required name="user" placeholder="Usuario">
         <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
-        <p class="error" id="UserNotFound">El usuario no existe</p>
 
         <span>
           <input type="password" required name="password" placeholder="Contrase&ntilde;a">
@@ -55,10 +51,12 @@
             })()
           </script>
         </span>
-        <p class="error" id="IncorrectPassword">Contraseña incorrecta</p>
+        <p class="error" id="IncorrectUserOrPassword">
+          El usuario o la contrase&ntilde;a son incorrectos
+        </p>
         <div>
-          <input type="submit" name="action" value="Registrarse">
-          <input type="submit" name="action" value="Entrar">
+          <input type="submit" formaction="/TruthCheckJava/webresources/user/register" value="Registrarse">
+          <input type="submit" formaction="/TruthCheckJava/webresources/user/login" value="Entrar">
         </div>
         <!-- Cambiar link -->
         <a href="#">
@@ -69,8 +67,7 @@
 
         const errors = {
           UserAlreadyExists: 'UserAlreadyExists',
-          UserNotFound: 'UserNotFound',
-          IncorrectPassword: 'IncorrectPassword'
+          IncorrectUserOrPassword: 'IncorrectUserOrPassword'
         }
 
         const urlParams = new URLSearchParams(window.location.search)
@@ -80,6 +77,7 @@
             show(errors[param])
           }
         }
+        $('input[name="user"').value = urlParams.get('user')
 
       </script>
 

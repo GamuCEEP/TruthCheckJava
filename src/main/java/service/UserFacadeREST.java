@@ -69,7 +69,6 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Path("login")
   @Consumes({MediaType.APPLICATION_JSON})
   public void login(User entity) {
-    
     User u = findUser(entity);
 
     if (u == null || !u.getPassword().equals(entity.getPassword())) {
@@ -81,7 +80,6 @@ public class UserFacadeREST extends AbstractFacade<User> {
     hidePassword(u);
 
     req.getSession().setAttribute(K.LOGGED_USER, u);
-    System.out.println(((User)u).getName());
   }
 
   @GET

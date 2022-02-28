@@ -4,7 +4,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("w")
 public class ApplicationConfig extends Application {
 
   @Override

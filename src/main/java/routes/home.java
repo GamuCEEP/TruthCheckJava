@@ -28,6 +28,8 @@ public class home extends HttpServlet {
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     req.getRequestDispatcher("facades/home.jsp").forward(req, resp);
+    System.out.println("peticion de home");
+    System.out.println(req.getSession().getId());
 
   }
 

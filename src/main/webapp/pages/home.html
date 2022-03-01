@@ -24,11 +24,11 @@
     <form class="modal" method="POST">
       <label id="welcome">Bienvenido</label>
       <script>
-        ; (() => {
+        ; (async () => {
 
           const welcome = $('#welcome')
           const urlParams = new URLSearchParams(window.location.search)
-          welcome.innerText = 'Bienvenido ' + urlParams.get('user')
+          welcome.innerText = 'Bienvenido ' + (await getUser()).name
         })()
       </script>
       <button type="submit" id="create" formaction="/TruthCheckJava/workspace">Crear</button>

@@ -13,16 +13,7 @@ function clearURL() {
 }
 
 async function getUser() {
-  // let cache = await caches.open('TCS')
-
-  // const resp = await cache.match('/TruthCheckJava/webresources/user/logged')
-  // console.log(resp)
-  // if (resp === undefined)
-  //   return null
-
-  // const user = await resp.json()
-
-  // return user
-  return 'FakeUser'
+  const resp = await fetch('/TruthCheckJava/w/user/logged')
+  return resp.json()
 }
 

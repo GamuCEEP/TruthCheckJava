@@ -38,7 +38,6 @@ main h1{
   font-size: 8rem;
   margin: 0;
   font-family:'Milonga';
-
 }
 main h1::after{
   content: '~';
@@ -86,5 +85,13 @@ button{
   header{
     grid-row: 2 / 3;
     align-items: center;
+  }
+}
+@media (max-width: 900px){
+  main h1{
+    font-size: 5em;
+  }
+  main h2{
+    font-size: 2em;
   }
 }

@@ -2,12 +2,12 @@
 // Constantes
 const root = '/TruthCheckJava'
 
-const resourceURL = root + '/w/user'
+const userURL = root + '/w/user'
 
-const login = resourceURL + '/login'
-const logout = resourceURL + '/logout'
-const register = resourceURL + '/register'
-const logged = resourceURL + '/logged'
+const login = userURL + '/login'
+const logout = userURL + '/logout'
+const register = userURL + '/register'
+const logged = userURL + '/logged'
 
 const home = root + '/home'
 const welcome = root + '/welcome'
@@ -25,18 +25,28 @@ self.addEventListener('install', () => {
   console.log('Instalado')
 })
 
+self.addEventListener('activate',()=>{
+  console.log('Activo')
+})
+
 // Utils
 
-async function cache(resource){
-  console.log(`Caching ${resource}`)
-  const res = fetch(resource)
-  const cache = caches.open('TCS')
-
-  await cache.put(await res)
-  console.log(`${resource} cached`)
+function getCacheStorage(){
+  return caches.open('TCS')
 }
 
-async function getCached(resource){
+async function cache(url_or_resource){
+
+  const res = url_or_resource
+  if(res instanceof String){
+    res = fetch(url_or_resource)
+  }
+
+  const cache = getCacheStorage()
+  await cache.put(await res)
+}
+
+async function getFromCache(resource){
   const cache = await caches.open('TCS')
   return cache.match(resource)
 }
@@ -49,6 +59,17 @@ async function sendFormData(url, data){
     },
     body: JSON.stringify(data)
   })
+}
+
+async function getPage(url){
+
+  let page = await getFromCache(url)
+  if(page === undefined){
+    page = fetch(url)
+    cache(page)
+  }
+
+  return page
 }
 
 
@@ -66,6 +87,7 @@ const routes = {
 async function handleRequest(f) {
   for (const route in routes) {
     if (f.request.url.includes(route)) {
+      console.log('Executing :',route)
       f.respondWith(routes[route](f))
     }
   }
@@ -74,11 +96,11 @@ async function handleRequest(f) {
 // Handlers
 
 async function defaultAction(f){
-  const cachedPage = await getCached(f.request.url)
+  const cachedPage = await getFromCache(f.request.url)
   if(cachedPage !== undefined){
     return cachedPage
   }
-  return fetch(f.request.url)
+  return fetch(f.request.url) //Creo que esto es getPage
 }
 
 async function registerHandler(){
@@ -91,23 +113,20 @@ async function registerHandler(){
 }
 
 async function loginHandler(f) {
+  
   const formData = await f.request.formData()
 
   const user = formData.get('user')
   const password = formData.get('password')
-
-  sendFormData(login, {'name':user,'password':password})
-
+  
+  const log = await sendFormData(login, {'name':user,'password':password})
   const error = log.headers.get('error')
+  
   if (error != null) {
     return Response.redirect(welcome + `?error=${error}&user=${user}`)
   }
-
+  
   cache(logged)
 
-  return Response.redirect(home + `?user=${user}`)
+  return Response.redirect(home)
 }
-
-
-
-

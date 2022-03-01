@@ -29,8 +29,8 @@
 <body>
 
   <header>
-    <nav>
-      <form class="modal" method="POST">
+    <form class="modal" method="POST">
+      <div>
         <label>Log In</label>
         <input type="text" required name="user" placeholder="Usuario">
         <p class="error" id="UserAlreadyExists">El usuario ya existe</p>
@@ -54,34 +54,31 @@
         <p class="error" id="IncorrectUserOrPassword">
           El usuario o la contrase&ntilde;a son incorrectos
         </p>
-        <div>
-          <input type="submit" formaction="/TruthCheckJava/w/user/register" value="Registrarse">
-        </div>
         <input type="submit" formaction="/TruthCheckJava/w/user/login" value="Entrar">
-        <!-- Cambiar link -->
-        <a href="#">
-          Solo quiero ver
-        </a>
-      </form>
-      <script>
+      </div>
+      <input type="submit" formaction="/TruthCheckJava/w/user/register" value="Registrarse">
+      <!-- Cambiar link -->
+      <a href="#">
+        Solo quiero ver
+      </a>
+    </form>
+    <script>
 
-        const errors = {
-          UserAlreadyExists: 'UserAlreadyExists',
-          IncorrectUserOrPassword: 'IncorrectUserOrPassword'
+      const errors = {
+        UserAlreadyExists: 'UserAlreadyExists',
+        IncorrectUserOrPassword: 'IncorrectUserOrPassword'
+      }
+
+      const urlParams = new URLSearchParams(window.location.search)
+
+      for (const param of urlParams.getAll('error')) {
+        if (param in errors) {
+          show(errors[param])
         }
+      }
+      $('input[name="user"').value = urlParams.get('user')
 
-        const urlParams = new URLSearchParams(window.location.search)
-
-        for (const param of urlParams.getAll('error')) {
-          if (param in errors){
-            show(errors[param])
-          }
-        }
-        $('input[name="user"').value = urlParams.get('user')
-
-      </script>
-
-    </nav>
+    </script>
 
   </header>
   <main>
@@ -94,4 +91,5 @@
     clearURL()
   </script>
 </body>
+
 </html>

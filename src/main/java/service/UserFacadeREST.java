@@ -65,7 +65,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
   public Response login(User entity) {
     User u = findUser(entity);
 
-    if (u == null || !u.getPassword().equals(entity.getPassword()) || true) {
+    if (u == null || !u.getPassword().equals(entity.getPassword())) {
       return Response
               .status(418, "Soy una tetera :D")
               .header(K.ERROR, K.INCORRECT_CREDENTIALS)

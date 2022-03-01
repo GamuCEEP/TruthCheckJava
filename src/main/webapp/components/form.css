@@ -65,11 +65,16 @@
 
 /* Organization */
 .modal span, .modal div{
-  width: 300px;
-  margin: 0 auto;
+  margin: 10px auto;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  border-radius: 5px;
+}
+.modal div{
+  padding: 5px;
+  border: 2px rgb(var(--color-lit)) solid;
 }
 
 /* Submits */

@@ -32,14 +32,14 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Context
   private HttpServletResponse resp;
 
+  resp.sta
+
   public UserFacadeREST() {
     super(User.class);
   }
 
   private User findUser(User entity) {
     if (entity.getName() == null || entity.getPassword() == null) {
-      resp.setStatus(400);
-      resp.addHeader(K.ERROR, K.USER_OR_PASSWORD_EMPTY);
       return null;
     }
     return findByName(entity.getName());
@@ -98,16 +98,18 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @PUT
   @Override
   @Consumes({MediaType.APPLICATION_JSON})
-  public void edit(User entity) {
+  public Response edit(User entity) {
     if (entity.getIduser() == null) {
-      resp.setStatus(400);
-      resp.setHeader(K.ERROR, K.NO_ID_IN_USER);
-      return;
+      return Response
+              .status(418, "Soy una tetera :D")
+              .header(K.ERROR, K.NO_ID_IN_USER)
+              .build();;
     }
 
     if (canOperate(entity.getIduser())) {
       super.edit(entity);
     }
+    return Response.accepted().build();
   }
 
   @DELETE

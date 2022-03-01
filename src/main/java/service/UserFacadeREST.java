@@ -1,12 +1,7 @@
 package service;
 
 import domain.User;
-import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +18,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Stateless
 @Path("user")
@@ -52,34 +48,38 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @POST
   @Path("register")
   @Consumes({MediaType.APPLICATION_JSON})
-  public void register(User entity) {
+  public Response register(User entity) {
     User u = findUser(entity);
 
     if (u != null) { // Si existe
-      resp.setStatus(418, "Soy una tetera :D");
-      resp.addHeader(K.ERROR, K.USER_ALREADY_EXISTS);
-      return;
+      return Response
+              .status(418, "Soy una tetera :D")
+              .header(K.ERROR, K.USER_ALREADY_EXISTS)
+              .build();
     }
 
     super.create(entity);
     req.getSession().setAttribute(K.LOGGED_USER, u);
+    return Response.accepted().build();
   }
 
   @POST
   @Path("login")
   @Consumes({MediaType.APPLICATION_JSON})
-  public void login(User entity) {
+  public Response login(User entity) {
     User u = findUser(entity);
 
-    if (u == null || !u.getPassword().equals(entity.getPassword())) {
-      resp.setStatus(418, "Soy una tetera :D");
-      resp.addHeader(K.ERROR, K.INCORRECT_CREDENTIALS);
-      return;
+    if (u == null || !u.getPassword().equals(entity.getPassword()) || true) {
+      return Response
+              .status(418, "Soy una tetera :D")
+              .header(K.ERROR, K.INCORRECT_CREDENTIALS)
+              .build();
     }
     
     hidePassword(u);
 
     req.getSession().setAttribute(K.LOGGED_USER, u);
+    return Response.accepted().build();
   }
 
   @GET

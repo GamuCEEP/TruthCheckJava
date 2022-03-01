@@ -29,10 +29,6 @@ public class UserFacadeREST extends AbstractFacade<User> {
 
   @Context
   private HttpServletRequest req;
-  @Context
-  private HttpServletResponse resp;
-
-  resp.sta
 
   public UserFacadeREST() {
     super(User.class);
@@ -103,7 +99,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
       return Response
               .status(418, "Soy una tetera :D")
               .header(K.ERROR, K.NO_ID_IN_USER)
-              .build();;
+              .build();
     }
 
     if (canOperate(entity.getIduser())) {

@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @Stateless
@@ -35,21 +36,21 @@ public class StageFacadeREST extends AbstractFacade<Stage> {
   @POST
   @Override
   @Consumes({MediaType.APPLICATION_JSON})
-  public void create(Stage entity) {
-    super.create(entity);
+  public Response create(Stage entity) {
+    return super.create(entity);
   }
 
   @PUT
   @Path("{id}")
   @Consumes({MediaType.APPLICATION_JSON})
-  public void edit(@PathParam("id") Integer id, Stage entity) {
-    super.edit(entity);
+  public Response edit(@PathParam("id") Integer id, Stage entity) {
+    return super.edit(entity);
   }
 
   @DELETE
   @Path("{id}")
-  public void remove(@PathParam("id") Integer id) {
-    super.remove(super.find(id));
+  public Response remove(@PathParam("id") Integer id) {
+    return super.remove(super.find(id));
   }
 
   @GET

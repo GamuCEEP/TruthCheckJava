@@ -4,7 +4,7 @@ import domain.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.ws.rs.core.Response;
 
 public abstract class AbstractFacade<T> {
 
@@ -15,18 +15,22 @@ public abstract class AbstractFacade<T> {
   }
 
   protected abstract EntityManager getEntityManager();
+
   protected abstract HttpServletRequest getRequest();
 
-  public void create(T entity) {
+  public Response create(T entity) {
     getEntityManager().persist(entity);
+    return Response.accepted().build();
   }
 
-  public void edit(T entity) {
+  public Response edit(T entity) {
     getEntityManager().merge(entity);
+    return Response.accepted().build();
   }
 
-  public void remove(T entity) {
+  public Response remove(T entity) {
     getEntityManager().remove(getEntityManager().merge(entity));
+    return Response.accepted().build();
   }
 
   public T find(Object id) {
@@ -55,14 +59,14 @@ public abstract class AbstractFacade<T> {
     javax.persistence.Query q = getEntityManager().createQuery(cq);
     return ((Long) q.getSingleResult()).intValue();
   }
-  
-  public boolean canOperate(Integer userId){
+
+  public boolean canOperate(Integer userId) {
     User loggedUser = (User) getRequest().getSession().getAttribute(K.LOGGED_USER);
 
     if (loggedUser == null) {
       return false;
     }
-    
+
     return loggedUser.getIduser().equals(userId);
   }
 }

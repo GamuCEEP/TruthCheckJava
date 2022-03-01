@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.PathSegment;
+import javax.ws.rs.core.Response;
 
 
 @Stateless
@@ -58,22 +59,22 @@ public class StatsFacadeREST extends AbstractFacade<Stats> {
   @POST
   @Override
   @Consumes({MediaType.APPLICATION_JSON})
-  public void create(Stats entity) {
-    super.create(entity);
+  public Response create(Stats entity) {
+    return super.create(entity);
   }
 
   @PUT
   @Path("{id}")
   @Consumes({MediaType.APPLICATION_JSON})
-  public void edit(@PathParam("id") PathSegment id, Stats entity) {
-    super.edit(entity);
+  public Response edit(@PathParam("id") PathSegment id, Stats entity) {
+    return super.edit(entity);
   }
 
   @DELETE
   @Path("{id}")
-  public void remove(@PathParam("id") PathSegment id) {
+  public Response remove(@PathParam("id") PathSegment id) {
     domain.StatsPK key = getPrimaryKey(id);
-    super.remove(super.find(key));
+    return super.remove(super.find(key));
   }
 
   @GET

@@ -1,5 +1,3 @@
-
-
 package domain;
 
 import java.io.Serializable;
@@ -7,7 +5,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -18,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "_inventory")
+@Table(name = "_inventory", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
@@ -35,10 +32,10 @@ public class Inventory implements Serializable {
   @Column(name = "amount")
   private float amount;
   @JoinColumn(name = "actor_id", referencedColumnName = "id", insertable = false, updatable = false)
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Actor actor;
   @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Item item;
 
   public Inventory() {

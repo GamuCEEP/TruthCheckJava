@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -49,34 +46,34 @@ public class User implements Serializable {
   @Size(min = 1, max = 128)
   @Column(name = "password")
   private String password;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Interaction> interactionList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Event> eventList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Stage> stageList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Actor> actorList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Effect> effectList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Item> itemList;
-  @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
-  private List<Map> mapList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Actor> createdActors;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Item> createdItems;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Stage> createdStages;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Effect> createdEffects;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Interaction> createdInteractions;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Event> createdEvents;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Map> createdMaps;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Interaction> interactionCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Event> eventCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Stage> stageCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Actor> actorCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Effect> effectCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Item> itemCollection;
+  @ManyToMany(mappedBy = "userCollection")
+  private Collection<Map> mapCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Actor> actorCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Item> itemCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Stage> stageCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Effect> effectCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Interaction> interactionCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Event> eventCollection1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+  private Collection<Map> mapCollection1;
 
   public User() {
   }
@@ -116,129 +113,129 @@ public class User implements Serializable {
   }
 
   @XmlTransient
-  public List<Interaction> getInteractionList() {
-    return interactionList;
+  public Collection<Interaction> getInteractionCollection() {
+    return interactionCollection;
   }
 
-  public void setInteractionList(List<Interaction> interactionList) {
-    this.interactionList = interactionList;
-  }
-
-  @XmlTransient
-  public List<Event> getEventList() {
-    return eventList;
-  }
-
-  public void setEventList(List<Event> eventList) {
-    this.eventList = eventList;
+  public void setInteractionCollection(Collection<Interaction> interactionCollection) {
+    this.interactionCollection = interactionCollection;
   }
 
   @XmlTransient
-  public List<Stage> getStageList() {
-    return stageList;
+  public Collection<Event> getEventCollection() {
+    return eventCollection;
   }
 
-  public void setStageList(List<Stage> stageList) {
-    this.stageList = stageList;
-  }
-
-  @XmlTransient
-  public List<Actor> getActorList() {
-    return actorList;
-  }
-
-  public void setActorList(List<Actor> actorList) {
-    this.actorList = actorList;
+  public void setEventCollection(Collection<Event> eventCollection) {
+    this.eventCollection = eventCollection;
   }
 
   @XmlTransient
-  public List<Effect> getEffectList() {
-    return effectList;
+  public Collection<Stage> getStageCollection() {
+    return stageCollection;
   }
 
-  public void setEffectList(List<Effect> effectList) {
-    this.effectList = effectList;
-  }
-
-  @XmlTransient
-  public List<Item> getItemList() {
-    return itemList;
-  }
-
-  public void setItemList(List<Item> itemList) {
-    this.itemList = itemList;
+  public void setStageCollection(Collection<Stage> stageCollection) {
+    this.stageCollection = stageCollection;
   }
 
   @XmlTransient
-  public List<Map> getMapList() {
-    return mapList;
+  public Collection<Actor> getActorCollection() {
+    return actorCollection;
   }
 
-  public void setMapList(List<Map> mapList) {
-    this.mapList = mapList;
-  }
-
-  @XmlTransient
-  public List<Actor> getCreatedActors() {
-    return createdActors;
-  }
-
-  public void setCreatedActors(List<Actor> createdActors) {
-    this.createdActors = createdActors;
+  public void setActorCollection(Collection<Actor> actorCollection) {
+    this.actorCollection = actorCollection;
   }
 
   @XmlTransient
-  public List<Item> getCreatedItems() {
-    return createdItems;
+  public Collection<Effect> getEffectCollection() {
+    return effectCollection;
   }
 
-  public void setCreatedItems(List<Item> createdItems) {
-    this.createdItems = createdItems;
-  }
-
-  @XmlTransient
-  public List<Stage> getCreatedStages() {
-    return createdStages;
-  }
-
-  public void setCreatedStages(List<Stage> createdStages) {
-    this.createdStages = createdStages;
+  public void setEffectCollection(Collection<Effect> effectCollection) {
+    this.effectCollection = effectCollection;
   }
 
   @XmlTransient
-  public List<Effect> getCreatedEffects() {
-    return createdEffects;
+  public Collection<Item> getItemCollection() {
+    return itemCollection;
   }
 
-  public void setCreatedEffects(List<Effect> createdEffects) {
-    this.createdEffects = createdEffects;
-  }
-
-  @XmlTransient
-  public List<Interaction> getCreatedInteractions() {
-    return createdInteractions;
-  }
-
-  public void setCreatedInteractions(List<Interaction> createdInteractions) {
-    this.createdInteractions = createdInteractions;
+  public void setItemCollection(Collection<Item> itemCollection) {
+    this.itemCollection = itemCollection;
   }
 
   @XmlTransient
-  public List<Event> getCreatedEvents() {
-    return createdEvents;
+  public Collection<Map> getMapCollection() {
+    return mapCollection;
   }
 
-  public void setCreatedEvents(List<Event> createdEvents) {
-    this.createdEvents = createdEvents;
+  public void setMapCollection(Collection<Map> mapCollection) {
+    this.mapCollection = mapCollection;
   }
 
   @XmlTransient
-  public List<Map> getCreatedMaps() {
-    return createdMaps;
+  public Collection<Actor> getActorCollection1() {
+    return actorCollection1;
   }
 
-  public void setCreatedMaps(List<Map> createdMaps) {
-    this.createdMaps = createdMaps;
+  public void setActorCollection1(Collection<Actor> actorCollection1) {
+    this.actorCollection1 = actorCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Item> getItemCollection1() {
+    return itemCollection1;
+  }
+
+  public void setItemCollection1(Collection<Item> itemCollection1) {
+    this.itemCollection1 = itemCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Stage> getStageCollection1() {
+    return stageCollection1;
+  }
+
+  public void setStageCollection1(Collection<Stage> stageCollection1) {
+    this.stageCollection1 = stageCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Effect> getEffectCollection1() {
+    return effectCollection1;
+  }
+
+  public void setEffectCollection1(Collection<Effect> effectCollection1) {
+    this.effectCollection1 = effectCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Interaction> getInteractionCollection1() {
+    return interactionCollection1;
+  }
+
+  public void setInteractionCollection1(Collection<Interaction> interactionCollection1) {
+    this.interactionCollection1 = interactionCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Event> getEventCollection1() {
+    return eventCollection1;
+  }
+
+  public void setEventCollection1(Collection<Event> eventCollection1) {
+    this.eventCollection1 = eventCollection1;
+  }
+
+  @XmlTransient
+  public Collection<Map> getMapCollection1() {
+    return mapCollection1;
+  }
+
+  public void setMapCollection1(Collection<Map> mapCollection1) {
+    this.mapCollection1 = mapCollection1;
   }
 
   @Override

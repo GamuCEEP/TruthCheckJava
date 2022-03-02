@@ -1,13 +1,10 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "map")
+@Table(name = "map", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Map.findAll", query = "SELECT m FROM Map m"),
@@ -48,15 +45,15 @@ public class Map implements Serializable {
   @JoinTable(name = "_user_has_map", joinColumns = {
     @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
+  @ManyToMany
+  private Collection<User> userCollection;
   @JoinTable(name = "_map_has_stage", joinColumns = {
     @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "stage_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<Stage> stageList;
+  @ManyToMany
+  private Collection<Stage> stageCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
 
   public Map() {
@@ -91,21 +88,21 @@ public class Map implements Serializable {
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<User> getUserCollection() {
+    return userCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   @XmlTransient
-  public List<Stage> getStageList() {
-    return stageList;
+  public Collection<Stage> getStageCollection() {
+    return stageCollection;
   }
 
-  public void setStageList(List<Stage> stageList) {
-    this.stageList = stageList;
+  public void setStageCollection(Collection<Stage> stageCollection) {
+    this.stageCollection = stageCollection;
   }
 
   public User getAuthor() {

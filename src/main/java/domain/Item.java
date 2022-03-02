@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "item")
+@Table(name = "item", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
@@ -52,25 +49,25 @@ public class Item implements Serializable {
   @Size(min = 1, max = 400)
   @Column(name = "description")
   private String description;
-  @ManyToMany(mappedBy = "itemList", fetch = FetchType.EAGER)
-  private List<Actor> actorList;
-  @ManyToMany(mappedBy = "itemList", fetch = FetchType.EAGER)
-  private List<Interaction> interactionList;
+  @ManyToMany(mappedBy = "itemCollection")
+  private Collection<Actor> actorCollection;
+  @ManyToMany(mappedBy = "itemCollection")
+  private Collection<Interaction> interactionCollection;
   @JoinTable(name = "_user_has_item", joinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
+  @ManyToMany
+  private Collection<User> userCollection;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Effect effectId;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId", fetch = FetchType.EAGER)
-  private List<Trigger> triggerList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.EAGER)
-  private List<Inventory> inventoryList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
+  private Collection<Trigger> triggerCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+  private Collection<Inventory> inventoryCollection;
 
   public Item() {
   }
@@ -110,30 +107,30 @@ public class Item implements Serializable {
   }
 
   @XmlTransient
-  public List<Actor> getActorList() {
-    return actorList;
+  public Collection<Actor> getActorCollection() {
+    return actorCollection;
   }
 
-  public void setActorList(List<Actor> actorList) {
-    this.actorList = actorList;
-  }
-
-  @XmlTransient
-  public List<Interaction> getInteractionList() {
-    return interactionList;
-  }
-
-  public void setInteractionList(List<Interaction> interactionList) {
-    this.interactionList = interactionList;
+  public void setActorCollection(Collection<Actor> actorCollection) {
+    this.actorCollection = actorCollection;
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<Interaction> getInteractionCollection() {
+    return interactionCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
+  public void setInteractionCollection(Collection<Interaction> interactionCollection) {
+    this.interactionCollection = interactionCollection;
+  }
+
+  @XmlTransient
+  public Collection<User> getUserCollection() {
+    return userCollection;
+  }
+
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   public Effect getEffectId() {
@@ -153,21 +150,21 @@ public class Item implements Serializable {
   }
 
   @XmlTransient
-  public List<Trigger> getTriggerList() {
-    return triggerList;
+  public Collection<Trigger> getTriggerCollection() {
+    return triggerCollection;
   }
 
-  public void setTriggerList(List<Trigger> triggerList) {
-    this.triggerList = triggerList;
+  public void setTriggerCollection(Collection<Trigger> triggerCollection) {
+    this.triggerCollection = triggerCollection;
   }
 
   @XmlTransient
-  public List<Inventory> getInventoryList() {
-    return inventoryList;
+  public Collection<Inventory> getInventoryCollection() {
+    return inventoryCollection;
   }
 
-  public void setInventoryList(List<Inventory> inventoryList) {
-    this.inventoryList = inventoryList;
+  public void setInventoryCollection(Collection<Inventory> inventoryCollection) {
+    this.inventoryCollection = inventoryCollection;
   }
 
   @Override

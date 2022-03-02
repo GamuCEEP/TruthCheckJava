@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "interaction")
+@Table(name = "interaction", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Interaction.findAll", query = "SELECT i FROM Interaction i"),
@@ -55,17 +52,17 @@ public class Interaction implements Serializable {
   @JoinTable(name = "_user_has_interaction", joinColumns = {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
+  @ManyToMany
+  private Collection<User> userCollection;
   @JoinTable(name = "_item_interaction", joinColumns = {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<Item> itemList;
+  @ManyToMany
+  private Collection<Item> itemCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "interaction", fetch = FetchType.EAGER)
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "interaction")
   private Trigger trigger;
 
   public Interaction() {
@@ -106,21 +103,21 @@ public class Interaction implements Serializable {
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<User> getUserCollection() {
+    return userCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   @XmlTransient
-  public List<Item> getItemList() {
-    return itemList;
+  public Collection<Item> getItemCollection() {
+    return itemCollection;
   }
 
-  public void setItemList(List<Item> itemList) {
-    this.itemList = itemList;
+  public void setItemCollection(Collection<Item> itemCollection) {
+    this.itemCollection = itemCollection;
   }
 
   public User getAuthor() {

@@ -1,5 +1,3 @@
-
-
 package domain;
 
 import java.io.Serializable;
@@ -7,7 +5,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -18,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "_stage_event")
+@Table(name = "_stage_event", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "StageEvent.findAll", query = "SELECT s FROM StageEvent s"),
@@ -41,10 +38,10 @@ public class StageEvent implements Serializable {
   @Column(name = "odds")
   private int odds;
   @JoinColumn(name = "event_id", referencedColumnName = "id", insertable = false, updatable = false)
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Event event;
   @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Stage stage;
 
   public StageEvent() {

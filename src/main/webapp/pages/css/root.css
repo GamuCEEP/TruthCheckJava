@@ -1,8 +1,9 @@
 :root{
-  --color-dark : 41,32,27;
-  --color-light: 241,220,177;
-  --color-dim  : 89,60,45;
-  --color-lit  : 171,131,82;
+  --color-dark  : 41,32,27;
+  --color-light : 241,220,177;
+  --color-dim   : 89,60,45;
+  --color-lit   : 171,131,82;
+  --color-accent: 154, 205, 50;
 }
 *{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "stage")
+@Table(name = "stage", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Stage.findAll", query = "SELECT s FROM Stage s"),
@@ -55,17 +52,17 @@ public class Stage implements Serializable {
   @JoinTable(name = "_user_has_stage", joinColumns = {
     @JoinColumn(name = "stage_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
-  @ManyToMany(mappedBy = "stageList", fetch = FetchType.EAGER)
-  private List<Map> mapList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "stageId", fetch = FetchType.EAGER)
-  private List<Actor> actorList;
+  @ManyToMany
+  private Collection<User> userCollection;
+  @ManyToMany(mappedBy = "stageCollection")
+  private Collection<Map> mapCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "stageId")
+  private Collection<Actor> actorCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "stage", fetch = FetchType.EAGER)
-  private List<StageEvent> stageEventList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "stage")
+  private Collection<StageEvent> stageEventCollection;
 
   public Stage() {
   }
@@ -105,30 +102,30 @@ public class Stage implements Serializable {
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<User> getUserCollection() {
+    return userCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
-  }
-
-  @XmlTransient
-  public List<Map> getMapList() {
-    return mapList;
-  }
-
-  public void setMapList(List<Map> mapList) {
-    this.mapList = mapList;
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   @XmlTransient
-  public List<Actor> getActorList() {
-    return actorList;
+  public Collection<Map> getMapCollection() {
+    return mapCollection;
   }
 
-  public void setActorList(List<Actor> actorList) {
-    this.actorList = actorList;
+  public void setMapCollection(Collection<Map> mapCollection) {
+    this.mapCollection = mapCollection;
+  }
+
+  @XmlTransient
+  public Collection<Actor> getActorCollection() {
+    return actorCollection;
+  }
+
+  public void setActorCollection(Collection<Actor> actorCollection) {
+    this.actorCollection = actorCollection;
   }
 
   public User getAuthor() {
@@ -140,12 +137,12 @@ public class Stage implements Serializable {
   }
 
   @XmlTransient
-  public List<StageEvent> getStageEventList() {
-    return stageEventList;
+  public Collection<StageEvent> getStageEventCollection() {
+    return stageEventCollection;
   }
 
-  public void setStageEventList(List<StageEvent> stageEventList) {
-    this.stageEventList = stageEventList;
+  public void setStageEventCollection(Collection<StageEvent> stageEventCollection) {
+    this.stageEventCollection = stageEventCollection;
   }
 
   @Override

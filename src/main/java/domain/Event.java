@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "event")
+@Table(name = "event", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
@@ -55,15 +52,15 @@ public class Event implements Serializable {
   @JoinTable(name = "_user_has_event", joinColumns = {
     @JoinColumn(name = "event_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
-  private List<StageEvent> stageEventList;
+  @ManyToMany
+  private Collection<User> userCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+  private Collection<StageEvent> stageEventCollection;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Effect effectId;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
 
   public Event() {
@@ -104,21 +101,21 @@ public class Event implements Serializable {
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<User> getUserCollection() {
+    return userCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   @XmlTransient
-  public List<StageEvent> getStageEventList() {
-    return stageEventList;
+  public Collection<StageEvent> getStageEventCollection() {
+    return stageEventCollection;
   }
 
-  public void setStageEventList(List<StageEvent> stageEventList) {
-    this.stageEventList = stageEventList;
+  public void setStageEventCollection(Collection<StageEvent> stageEventCollection) {
+    this.stageEventCollection = stageEventCollection;
   }
 
   public Effect getEffectId() {

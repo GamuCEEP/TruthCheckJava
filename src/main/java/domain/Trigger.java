@@ -1,12 +1,9 @@
-
-
 package domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "_trigger")
+@Table(name = "_trigger", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Trigger.findAll", query = "SELECT t FROM Trigger t"),
@@ -33,10 +30,10 @@ public class Trigger implements Serializable {
   @Column(name = "interaction_id")
   private Integer interactionId;
   @JoinColumn(name = "interaction_id", referencedColumnName = "id", insertable = false, updatable = false)
-  @OneToOne(optional = false, fetch = FetchType.EAGER)
+  @OneToOne(optional = false)
   private Interaction interaction;
   @JoinColumn(name = "item_id", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Item itemId;
 
   public Trigger() {

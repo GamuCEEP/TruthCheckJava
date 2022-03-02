@@ -1,14 +1,11 @@
-
-
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "actor")
+@Table(name = "actor", catalog = "truthchecksimplified", schema = "")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a"),
@@ -55,23 +52,23 @@ public class Actor implements Serializable {
   @JoinTable(name = "_equipment", joinColumns = {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<Item> itemList;
+  @ManyToMany
+  private Collection<Item> itemCollection;
   @JoinTable(name = "_user_has_actor", joinColumns = {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
-  @ManyToMany(fetch = FetchType.EAGER)
-  private List<User> userList;
+  @ManyToMany
+  private Collection<User> userCollection;
   @JoinColumn(name = "stage_id", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private Stage stageId;
   @JoinColumn(name = "author", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @ManyToOne(optional = false)
   private User author;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor", fetch = FetchType.EAGER)
-  private List<Stats> statsList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor", fetch = FetchType.EAGER)
-  private List<Inventory> inventoryList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
+  private Collection<Stats> statsCollection;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
+  private Collection<Inventory> inventoryCollection;
 
   public Actor() {
   }
@@ -111,21 +108,21 @@ public class Actor implements Serializable {
   }
 
   @XmlTransient
-  public List<Item> getItemList() {
-    return itemList;
+  public Collection<Item> getItemCollection() {
+    return itemCollection;
   }
 
-  public void setItemList(List<Item> itemList) {
-    this.itemList = itemList;
+  public void setItemCollection(Collection<Item> itemCollection) {
+    this.itemCollection = itemCollection;
   }
 
   @XmlTransient
-  public List<User> getUserList() {
-    return userList;
+  public Collection<User> getUserCollection() {
+    return userCollection;
   }
 
-  public void setUserList(List<User> userList) {
-    this.userList = userList;
+  public void setUserCollection(Collection<User> userCollection) {
+    this.userCollection = userCollection;
   }
 
   public Stage getStageId() {
@@ -145,21 +142,21 @@ public class Actor implements Serializable {
   }
 
   @XmlTransient
-  public List<Stats> getStatsList() {
-    return statsList;
+  public Collection<Stats> getStatsCollection() {
+    return statsCollection;
   }
 
-  public void setStatsList(List<Stats> statsList) {
-    this.statsList = statsList;
+  public void setStatsCollection(Collection<Stats> statsCollection) {
+    this.statsCollection = statsCollection;
   }
 
   @XmlTransient
-  public List<Inventory> getInventoryList() {
-    return inventoryList;
+  public Collection<Inventory> getInventoryCollection() {
+    return inventoryCollection;
   }
 
-  public void setInventoryList(List<Inventory> inventoryList) {
-    this.inventoryList = inventoryList;
+  public void setInventoryCollection(Collection<Inventory> inventoryCollection) {
+    this.inventoryCollection = inventoryCollection;
   }
 
   @Override

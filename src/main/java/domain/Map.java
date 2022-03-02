@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,11 +24,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "map", catalog = "truthchecksimplified", schema = "")
+@Table(name = "map")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Map.findAll", query = "SELECT m FROM Map m"),
-  @NamedQuery(name = "Map.findByIdmap", query = "SELECT m FROM Map m WHERE m.idmap = :idmap"),
+  @NamedQuery(name = "Map.findById", query = "SELECT m FROM Map m WHERE m.id = :id"),
   @NamedQuery(name = "Map.findByName", query = "SELECT m FROM Map m WHERE m.name = :name"),
   @NamedQuery(name = "Map.findByDescription", query = "SELECT m FROM Map m WHERE m.description = :description")})
 public class Map implements Serializable {
@@ -34,8 +37,8 @@ public class Map implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Basic(optional = false)
-  @Column(name = "idmap")
-  private Integer idmap;
+  @Column(name = "id")
+  private Integer id;
   @Size(max = 40)
   @Column(name = "name")
   private String name;
@@ -43,29 +46,32 @@ public class Map implements Serializable {
   @Column(name = "description")
   private String description;
   @JoinTable(name = "_user_has_map", joinColumns = {
-    @JoinColumn(name = "map_idmap", referencedColumnName = "idmap")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @JoinTable(name = "_map_has_stage", joinColumns = {
-    @JoinColumn(name = "map_idmap", referencedColumnName = "idmap")}, inverseJoinColumns = {
+    @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "stage_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<Stage> stageList;
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
 
   public Map() {
   }
 
-  public Map(Integer idmap) {
-    this.idmap = idmap;
+  public Map(Integer id) {
+    this.id = id;
   }
 
-  public Integer getIdmap() {
-    return idmap;
+  public Integer getId() {
+    return id;
   }
 
-  public void setIdmap(Integer idmap) {
-    this.idmap = idmap;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -102,10 +108,18 @@ public class Map implements Serializable {
     this.stageList = stageList;
   }
 
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
+  }
+
   @Override
   public int hashCode() {
     int hash = 0;
-    hash += (idmap != null ? idmap.hashCode() : 0);
+    hash += (id != null ? id.hashCode() : 0);
     return hash;
   }
 
@@ -116,7 +130,7 @@ public class Map implements Serializable {
       return false;
     }
     Map other = (Map) object;
-    if ((this.idmap == null && other.idmap != null) || (this.idmap != null && !this.idmap.equals(other.idmap))) {
+    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
       return false;
     }
     return true;
@@ -124,7 +138,7 @@ public class Map implements Serializable {
 
   @Override
   public String toString() {
-    return "domain.Map[ idmap=" + idmap + " ]";
+    return "domain.Map[ id=" + id + " ]";
   }
 
 }

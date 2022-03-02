@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "item", catalog = "truthchecksimplified", schema = "")
+@Table(name = "item")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
@@ -56,12 +58,15 @@ public class Item implements Serializable {
   private List<Interaction> interactionList;
   @JoinTable(name = "_user_has_item", joinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private Effect effectId;
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId", fetch = FetchType.EAGER)
   private List<Trigger> triggerList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.EAGER)
@@ -137,6 +142,14 @@ public class Item implements Serializable {
 
   public void setEffectId(Effect effectId) {
     this.effectId = effectId;
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   @XmlTransient

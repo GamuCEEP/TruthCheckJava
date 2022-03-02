@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "effect", catalog = "truthchecksimplified", schema = "")
+@Table(name = "effect")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Effect.findAll", query = "SELECT e FROM Effect e"),
@@ -57,12 +60,15 @@ public class Effect implements Serializable {
   private String description;
   @JoinTable(name = "_user_has_effect", joinColumns = {
     @JoinColumn(name = "effect_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId", fetch = FetchType.EAGER)
   private List<Item> itemList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId", fetch = FetchType.EAGER)
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
   private List<Interaction> interactionList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId", fetch = FetchType.EAGER)
   private List<Event> eventList;
@@ -129,6 +135,14 @@ public class Effect implements Serializable {
 
   public void setItemList(List<Item> itemList) {
     this.itemList = itemList;
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   @XmlTransient

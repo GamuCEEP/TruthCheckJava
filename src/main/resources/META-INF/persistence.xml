@@ -1,75 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-              
-    
-    
-    <persistence-unit name="TruthCheckJava" transaction-type="JTA">
-                            
-        
-        
-        <shared-cache-mode>ALL</shared-cache-mode>
-                            
-        
-        
-        <jta-data-source>jdbc/TCJ</jta-data-source>
-                            
-        
-        
-        <class>domain.Actor</class>
-                            
-        
-        
-        <class>domain.Map</class>
-                            
-        
-        
-        <class>domain.Interaction</class>
-                            
-        
-        
-        <class>domain.User</class>
-                            
-        
-        
-        <class>domain.Stage</class>
-                            
-        
-        
-        <class>domain.Event</class>
-                            
-        
-        
-        <class>domain.Item</class>
-                            
-        
-        
-        <class>domain.Effect</class>
-                            
-        
-        
-        <class>domain.StageEvent</class>
-                            
-        
-        
-        <class>domain.Inventory</class>
-                            
-        
-        
-        <class>domain.Trigger</class>
-                            
-        
-        
-        <class>domain.Stats</class>
-                            
-        
-        
-        <properties>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="TruthCheckJava" transaction-type="JTA">
+    <shared-cache-mode>ALL</shared-cache-mode>
+    <jta-data-source>jdbc/TCJ</jta-data-source>
+    <class>domain.Actor</class>
+    <class>domain.Map</class>
+    <class>domain.Interaction</class>
+    <class>domain.User</class>
+    <class>domain.Stage</class>
+    <class>domain.Event</class>
+    <class>domain.Item</class>
+    <class>domain.Effect</class>
+    <class>domain.StageEvent</class>
+    <class>domain.Inventory</class>
+    <class>domain.Trigger</class>
+    <class>domain.Stats</class>
+    <properties>
     </properties>
-                          
-    
-    
-    </persistence-unit>
-            
-
-
+  </persistence-unit>
 </persistence>

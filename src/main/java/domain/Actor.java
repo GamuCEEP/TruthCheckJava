@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "actor", catalog = "truthchecksimplified", schema = "")
+@Table(name = "actor")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a"),
@@ -57,12 +59,15 @@ public class Actor implements Serializable {
   private List<Item> itemList;
   @JoinTable(name = "_user_has_actor", joinColumns = {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @JoinColumn(name = "stage_id", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private Stage stageId;
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor", fetch = FetchType.EAGER)
   private List<Stats> statsList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor", fetch = FetchType.EAGER)
@@ -129,6 +134,14 @@ public class Actor implements Serializable {
 
   public void setStageId(Stage stageId) {
     this.stageId = stageId;
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   @XmlTransient

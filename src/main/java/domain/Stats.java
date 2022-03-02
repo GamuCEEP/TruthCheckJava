@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -17,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "_stats", catalog = "truthchecksimplified", schema = "")
+@Table(name = "_stats")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Stats.findAll", query = "SELECT s FROM Stats s"),

@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "stage", catalog = "truthchecksimplified", schema = "")
+@Table(name = "stage")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Stage.findAll", query = "SELECT s FROM Stage s"),
@@ -51,13 +54,16 @@ public class Stage implements Serializable {
   private String description;
   @JoinTable(name = "_user_has_stage", joinColumns = {
     @JoinColumn(name = "stage_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @ManyToMany(mappedBy = "stageList", fetch = FetchType.EAGER)
   private List<Map> mapList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "stageId", fetch = FetchType.EAGER)
   private List<Actor> actorList;
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "stage", fetch = FetchType.EAGER)
   private List<StageEvent> stageEventList;
 
@@ -123,6 +129,14 @@ public class Stage implements Serializable {
 
   public void setActorList(List<Actor> actorList) {
     this.actorList = actorList;
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   @XmlTransient

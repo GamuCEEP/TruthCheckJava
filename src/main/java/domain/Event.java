@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "event", catalog = "truthchecksimplified", schema = "")
+@Table(name = "event")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
@@ -52,7 +54,7 @@ public class Event implements Serializable {
   private String description;
   @JoinTable(name = "_user_has_event", joinColumns = {
     @JoinColumn(name = "event_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
@@ -60,6 +62,9 @@ public class Event implements Serializable {
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private Effect effectId;
+  @JoinColumn(name = "author", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User author;
 
   public Event() {
   }
@@ -122,6 +127,14 @@ public class Event implements Serializable {
 
   public void setEffectId(Effect effectId) {
     this.effectId = effectId;
+  }
+
+  public User getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(User author) {
+    this.author = author;
   }
 
   @Override

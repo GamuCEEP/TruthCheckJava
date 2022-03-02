@@ -67,6 +67,6 @@ public abstract class AbstractFacade<T> {
       return false;
     }
 
-    return loggedUser.getIduser().equals(userId);
+    return loggedUser.getId().equals(userId);
   }
 }

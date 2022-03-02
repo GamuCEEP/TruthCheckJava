@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "interaction", catalog = "truthchecksimplified", schema = "")
+@Table(name = "interaction")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Interaction.findAll", query = "SELECT i FROM Interaction i"),
@@ -52,7 +54,7 @@ public class Interaction implements Serializable {
   private String description;
   @JoinTable(name = "_user_has_interaction", joinColumns = {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser")})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<User> userList;
   @JoinTable(name = "_item_interaction", joinColumns = {
@@ -60,9 +62,12 @@ public class Interaction implements Serializable {
     @JoinColumn(name = "item_id", referencedColumnName = "id")})
   @ManyToMany(fetch = FetchType.EAGER)
   private List<Item> itemList;
-  @JoinColumn(name = "effect_id", referencedColumnName = "id")
+  @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
-  private Effect effectId;
+  private Effect author;
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  private User userId;
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "interaction", fetch = FetchType.EAGER)
   private Trigger trigger;
 
@@ -121,12 +126,20 @@ public class Interaction implements Serializable {
     this.itemList = itemList;
   }
 
-  public Effect getEffectId() {
-    return effectId;
+  public Effect getAuthor() {
+    return author;
   }
 
-  public void setEffectId(Effect effectId) {
-    this.effectId = effectId;
+  public void setAuthor(Effect author) {
+    this.author = author;
+  }
+
+  public User getUserId() {
+    return userId;
+  }
+
+  public void setUserId(User userId) {
+    this.userId = userId;
   }
 
   public Trigger getTrigger() {

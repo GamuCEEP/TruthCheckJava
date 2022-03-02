@@ -101,14 +101,14 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Override
   @Consumes({MediaType.APPLICATION_JSON})
   public Response edit(User entity) {
-    if (entity.getIduser() == null) {
+    if (entity.getId() == null) {
       return Response
               .status(418, "Soy una tetera :D")
               .header(K.ERROR, K.NO_ID_IN_USER)
               .build();
     }
 
-    if (canOperate(entity.getIduser())) {
+    if (canOperate(entity.getId())) {
       super.edit(entity);
     }
     return Response.accepted().build();
@@ -122,7 +122,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
       return;
     }
 
-    super.remove(super.find(loggedUser.getIduser()));
+    super.remove(super.find(loggedUser.getId()));
   }
 
   @GET

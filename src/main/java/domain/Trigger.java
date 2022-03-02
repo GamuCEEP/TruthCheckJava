@@ -1,3 +1,5 @@
+
+
 package domain;
 
 import java.io.Serializable;
@@ -17,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "_trigger", catalog = "truthchecksimplified", schema = "")
+@Table(name = "_trigger")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Trigger.findAll", query = "SELECT t FROM Trigger t"),

@@ -1,15 +1,21 @@
+
+
 package domain;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,20 +24,21 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
-@Table(name = "user", catalog = "truthchecksimplified", schema = "")
+@Table(name = "user")
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-  @NamedQuery(name = "User.findByIduser", query = "SELECT u FROM User u WHERE u.iduser = :iduser"),
+  @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
   @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
   @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Basic(optional = false)
-  @Column(name = "iduser")
-  private Integer iduser;
+  @Column(name = "id")
+  private Integer id;
   @Basic(optional = false)
   @NotNull
   @Size(min = 1, max = 40)
@@ -56,26 +63,40 @@ public class User implements Serializable {
   private List<Item> itemList;
   @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
   private List<Map> mapList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Actor> actorList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Item> itemList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Stage> stageList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Effect> effectList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+  private List<Interaction> interactionList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Event> eventList1;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Map> mapList1;
 
   public User() {
   }
 
-  public User(Integer iduser) {
-    this.iduser = iduser;
+  public User(Integer id) {
+    this.id = id;
   }
 
-  public User(Integer iduser, String name, String password) {
-    this.iduser = iduser;
+  public User(Integer id, String name, String password) {
+    this.id = id;
     this.name = name;
     this.password = password;
   }
 
-  public Integer getIduser() {
-    return iduser;
+  public Integer getId() {
+    return id;
   }
 
-  public void setIduser(Integer iduser) {
-    this.iduser = iduser;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -157,10 +178,73 @@ public class User implements Serializable {
     this.mapList = mapList;
   }
 
+  @XmlTransient
+  public List<Actor> getActorList1() {
+    return actorList1;
+  }
+
+  public void setActorList1(List<Actor> actorList1) {
+    this.actorList1 = actorList1;
+  }
+
+  @XmlTransient
+  public List<Item> getItemList1() {
+    return itemList1;
+  }
+
+  public void setItemList1(List<Item> itemList1) {
+    this.itemList1 = itemList1;
+  }
+
+  @XmlTransient
+  public List<Stage> getStageList1() {
+    return stageList1;
+  }
+
+  public void setStageList1(List<Stage> stageList1) {
+    this.stageList1 = stageList1;
+  }
+
+  @XmlTransient
+  public List<Effect> getEffectList1() {
+    return effectList1;
+  }
+
+  public void setEffectList1(List<Effect> effectList1) {
+    this.effectList1 = effectList1;
+  }
+
+  @XmlTransient
+  public List<Interaction> getInteractionList1() {
+    return interactionList1;
+  }
+
+  public void setInteractionList1(List<Interaction> interactionList1) {
+    this.interactionList1 = interactionList1;
+  }
+
+  @XmlTransient
+  public List<Event> getEventList1() {
+    return eventList1;
+  }
+
+  public void setEventList1(List<Event> eventList1) {
+    this.eventList1 = eventList1;
+  }
+
+  @XmlTransient
+  public List<Map> getMapList1() {
+    return mapList1;
+  }
+
+  public void setMapList1(List<Map> mapList1) {
+    this.mapList1 = mapList1;
+  }
+
   @Override
   public int hashCode() {
     int hash = 0;
-    hash += (iduser != null ? iduser.hashCode() : 0);
+    hash += (id != null ? id.hashCode() : 0);
     return hash;
   }
 
@@ -171,7 +255,7 @@ public class User implements Serializable {
       return false;
     }
     User other = (User) object;
-    if ((this.iduser == null && other.iduser != null) || (this.iduser != null && !this.iduser.equals(other.iduser))) {
+    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
       return false;
     }
     return true;
@@ -179,7 +263,7 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return "domain.User[ iduser=" + iduser + " ]";
+    return "domain.User[ id=" + id + " ]";
   }
 
 }

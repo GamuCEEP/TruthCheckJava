@@ -19,6 +19,21 @@ CREATE SCHEMA IF NOT EXISTS `truthchecksimplified` DEFAULT CHARACTER SET utf8mb4
 USE `truthchecksimplified` ;
 
 -- -----------------------------------------------------
+-- Table `truthchecksimplified`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `truthchecksimplified`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`user` (
+  `id` INT(11) NOT NULL,
+  `name` VARCHAR(40) NOT NULL,
+  `password` VARCHAR(128) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
 -- Table `truthchecksimplified`.`stage`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `truthchecksimplified`.`stage` ;
@@ -27,9 +42,17 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`stage` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
-  PRIMARY KEY (`id`))
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
+  CONSTRAINT `fk_stage_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE INDEX `fk_stage_user1_idx` ON `truthchecksimplified`.`stage` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -42,16 +65,24 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`actor` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
   `stage_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
   CONSTRAINT `fk_actor_stage1`
     FOREIGN KEY (`stage_id`)
     REFERENCES `truthchecksimplified`.`stage` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_actor_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_actor_stage1_idx` ON `truthchecksimplified`.`actor` (`stage_id` ASC) ;
+
+CREATE INDEX `fk_actor_user1_idx` ON `truthchecksimplified`.`actor` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -64,9 +95,17 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`effect` (
   `code` VARCHAR(1000) NOT NULL,
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
-  PRIMARY KEY (`id`))
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
+  CONSTRAINT `fk_effect_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE INDEX `fk_effect_user1_idx` ON `truthchecksimplified`.`effect` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -79,16 +118,24 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`item` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
   `effect_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
   CONSTRAINT `fk_item_effect1`
     FOREIGN KEY (`effect_id`)
     REFERENCES `truthchecksimplified`.`effect` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_item_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_item_effect1_idx` ON `truthchecksimplified`.`item` (`effect_id` ASC) ;
+
+CREATE INDEX `fk_item_user1_idx` ON `truthchecksimplified`.`item` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -156,16 +203,24 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`interaction` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
   `effect_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
   CONSTRAINT `fk_interaction_effect1`
     FOREIGN KEY (`effect_id`)
     REFERENCES `truthchecksimplified`.`effect` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_interaction_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_interaction_effect1_idx` ON `truthchecksimplified`.`interaction` (`effect_id` ASC) ;
+
+CREATE INDEX `fk_interaction_user1_idx` ON `truthchecksimplified`.`interaction` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -201,12 +256,20 @@ CREATE INDEX `fk_item_interaction_interaction1_idx` ON `truthchecksimplified`.`_
 DROP TABLE IF EXISTS `truthchecksimplified`.`map` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`map` (
-  `idmap` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL,
   `name` VARCHAR(40) NULL DEFAULT NULL,
   `description` VARCHAR(400) NULL DEFAULT NULL,
-  PRIMARY KEY (`idmap`))
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
+  CONSTRAINT `fk_map_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE INDEX `fk_map_user1_idx` ON `truthchecksimplified`.`map` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -215,12 +278,12 @@ DEFAULT CHARACTER SET = utf8mb4;
 DROP TABLE IF EXISTS `truthchecksimplified`.`_map_has_stage` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_map_has_stage` (
-  `map_idmap` INT(11) NOT NULL,
+  `map_id` INT(11) NOT NULL,
   `stage_id` INT(11) NOT NULL,
-  PRIMARY KEY (`map_idmap`, `stage_id`),
+  PRIMARY KEY (`map_id`, `stage_id`),
   CONSTRAINT `fk_map_has_stage_map1`
-    FOREIGN KEY (`map_idmap`)
-    REFERENCES `truthchecksimplified`.`map` (`idmap`)
+    FOREIGN KEY (`map_id`)
+    REFERENCES `truthchecksimplified`.`map` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_map_has_stage_stage1`
@@ -233,7 +296,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_map_has_stage_stage1_idx` ON `truthchecksimplified`.`_map_has_stage` (`stage_id` ASC) ;
 
-CREATE INDEX `fk_map_has_stage_map1_idx` ON `truthchecksimplified`.`_map_has_stage` (`map_idmap` ASC) ;
+CREATE INDEX `fk_map_has_stage_map1_idx` ON `truthchecksimplified`.`_map_has_stage` (`map_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -246,16 +309,24 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`event` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
   `effect_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  `author` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `author`),
   CONSTRAINT `fk_event_effect1`
     FOREIGN KEY (`effect_id`)
     REFERENCES `truthchecksimplified`.`effect` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_event_user1`
+    FOREIGN KEY (`author`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_event_effect1_idx` ON `truthchecksimplified`.`event` (`effect_id` ASC) ;
+
+CREATE INDEX `fk_event_user1_idx` ON `truthchecksimplified`.`event` (`author` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -335,37 +406,22 @@ CREATE INDEX `fk__trigger_item1_idx` ON `truthchecksimplified`.`_trigger` (`item
 
 
 -- -----------------------------------------------------
--- Table `truthchecksimplified`.`user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `truthchecksimplified`.`user` ;
-
-CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`user` (
-  `iduser` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(40) NOT NULL,
-  `password` VARCHAR(128) NOT NULL,
-  PRIMARY KEY (`iduser`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = utf8mb4;
-
-
--- -----------------------------------------------------
 -- Table `truthchecksimplified`.`_user_has_actor`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_actor` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_actor` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `actor_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `actor_id`),
+  PRIMARY KEY (`user_id`, `actor_id`),
   CONSTRAINT `fk_user_has_actor_actor1`
     FOREIGN KEY (`actor_id`)
     REFERENCES `truthchecksimplified`.`actor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_actor_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -373,7 +429,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_actor_actor1_idx` ON `truthchecksimplified`.`_user_has_actor` (`actor_id` ASC) ;
 
-CREATE INDEX `fk_user_has_actor_user1_idx` ON `truthchecksimplified`.`_user_has_actor` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_actor_user1_idx` ON `truthchecksimplified`.`_user_has_actor` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -382,17 +438,17 @@ CREATE INDEX `fk_user_has_actor_user1_idx` ON `truthchecksimplified`.`_user_has_
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_effect` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_effect` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `effect_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `effect_id`),
+  PRIMARY KEY (`user_id`, `effect_id`),
   CONSTRAINT `fk_user_has_effect_effect1`
     FOREIGN KEY (`effect_id`)
     REFERENCES `truthchecksimplified`.`effect` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_effect_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -400,7 +456,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_effect_effect1_idx` ON `truthchecksimplified`.`_user_has_effect` (`effect_id` ASC) ;
 
-CREATE INDEX `fk_user_has_effect_user1_idx` ON `truthchecksimplified`.`_user_has_effect` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_effect_user1_idx` ON `truthchecksimplified`.`_user_has_effect` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -409,17 +465,17 @@ CREATE INDEX `fk_user_has_effect_user1_idx` ON `truthchecksimplified`.`_user_has
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_event` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_event` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `event_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `event_id`),
+  PRIMARY KEY (`user_id`, `event_id`),
   CONSTRAINT `fk_user_has_event_event1`
     FOREIGN KEY (`event_id`)
     REFERENCES `truthchecksimplified`.`event` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_event_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -427,7 +483,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_event_event1_idx` ON `truthchecksimplified`.`_user_has_event` (`event_id` ASC) ;
 
-CREATE INDEX `fk_user_has_event_user1_idx` ON `truthchecksimplified`.`_user_has_event` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_event_user1_idx` ON `truthchecksimplified`.`_user_has_event` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -436,17 +492,17 @@ CREATE INDEX `fk_user_has_event_user1_idx` ON `truthchecksimplified`.`_user_has_
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_interaction` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_interaction` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `interaction_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `interaction_id`),
+  PRIMARY KEY (`user_id`, `interaction_id`),
   CONSTRAINT `fk_user_has_interaction_interaction1`
     FOREIGN KEY (`interaction_id`)
     REFERENCES `truthchecksimplified`.`interaction` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_interaction_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -454,7 +510,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_interaction_interaction1_idx` ON `truthchecksimplified`.`_user_has_interaction` (`interaction_id` ASC) ;
 
-CREATE INDEX `fk_user_has_interaction_user1_idx` ON `truthchecksimplified`.`_user_has_interaction` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_interaction_user1_idx` ON `truthchecksimplified`.`_user_has_interaction` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -463,17 +519,17 @@ CREATE INDEX `fk_user_has_interaction_user1_idx` ON `truthchecksimplified`.`_use
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_item` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_item` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `item_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `item_id`),
+  PRIMARY KEY (`user_id`, `item_id`),
   CONSTRAINT `fk_user_has_item_item1`
     FOREIGN KEY (`item_id`)
     REFERENCES `truthchecksimplified`.`item` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_item_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -481,7 +537,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_item_item1_idx` ON `truthchecksimplified`.`_user_has_item` (`item_id` ASC) ;
 
-CREATE INDEX `fk_user_has_item_user1_idx` ON `truthchecksimplified`.`_user_has_item` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_item_user1_idx` ON `truthchecksimplified`.`_user_has_item` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -490,25 +546,25 @@ CREATE INDEX `fk_user_has_item_user1_idx` ON `truthchecksimplified`.`_user_has_i
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_map` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_map` (
-  `user_iduser` INT(11) NOT NULL,
-  `map_idmap` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `map_idmap`),
+  `user_id` INT(11) NOT NULL,
+  `map_id` INT(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `map_id`),
   CONSTRAINT `fk_user_has_map_map1`
-    FOREIGN KEY (`map_idmap`)
-    REFERENCES `truthchecksimplified`.`map` (`idmap`)
+    FOREIGN KEY (`map_id`)
+    REFERENCES `truthchecksimplified`.`map` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_map_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-CREATE INDEX `fk_user_has_map_map1_idx` ON `truthchecksimplified`.`_user_has_map` (`map_idmap` ASC) ;
+CREATE INDEX `fk_user_has_map_map1_idx` ON `truthchecksimplified`.`_user_has_map` (`map_id` ASC) ;
 
-CREATE INDEX `fk_user_has_map_user1_idx` ON `truthchecksimplified`.`_user_has_map` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_map_user1_idx` ON `truthchecksimplified`.`_user_has_map` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -517,17 +573,17 @@ CREATE INDEX `fk_user_has_map_user1_idx` ON `truthchecksimplified`.`_user_has_ma
 DROP TABLE IF EXISTS `truthchecksimplified`.`_user_has_stage` ;
 
 CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`_user_has_stage` (
-  `user_iduser` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `stage_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_iduser`, `stage_id`),
+  PRIMARY KEY (`user_id`, `stage_id`),
   CONSTRAINT `fk_user_has_stage_stage1`
     FOREIGN KEY (`stage_id`)
     REFERENCES `truthchecksimplified`.`stage` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_stage_user1`
-    FOREIGN KEY (`user_iduser`)
-    REFERENCES `truthchecksimplified`.`user` (`iduser`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -535,7 +591,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `fk_user_has_stage_stage1_idx` ON `truthchecksimplified`.`_user_has_stage` (`stage_id` ASC) ;
 
-CREATE INDEX `fk_user_has_stage_user1_idx` ON `truthchecksimplified`.`_user_has_stage` (`user_iduser` ASC) ;
+CREATE INDEX `fk_user_has_stage_user1_idx` ON `truthchecksimplified`.`_user_has_stage` (`user_id` ASC) ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

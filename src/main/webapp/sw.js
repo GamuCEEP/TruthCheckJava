@@ -25,20 +25,20 @@ self.addEventListener('install', () => {
   console.log('Instalado')
 })
 
-self.addEventListener('activate',()=>{
+self.addEventListener('activate', () => {
   console.log('Activo')
 })
 
 // Utils
 
-function getCacheStorage(){
+function getCacheStorage() {
   return caches.open('TCS')
 }
 
-async function cache(url_or_resource){
+async function cache(url_or_resource) {
 
   const res = url_or_resource
-  if(res instanceof String){
+  if (res instanceof String) {
     res = fetch(url_or_resource)
   }
 
@@ -46,12 +46,12 @@ async function cache(url_or_resource){
   await cache.put(await res)
 }
 
-async function getFromCache(resource){
+async function getFromCache(resource) {
   const cache = await caches.open('TCS')
   return cache.match(resource)
 }
 
-async function sendFormData(url, data){
+async function sendFormData(url, data) {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -61,10 +61,10 @@ async function sendFormData(url, data){
   })
 }
 
-async function getPage(url){
+async function getPage(url) {
 
   let page = await getFromCache(url)
-  if(page === undefined){
+  if (page === undefined) {
     page = fetch(url)
     cache(page)
   }
@@ -79,15 +79,17 @@ const routes = {
   [home]: defaultAction,
   [login]: loginHandler,
   [register]: registerHandler,
-
 }
 
 // Main
 
 async function handleRequest(f) {
+
+  //Caching code, cache first
+
   for (const route in routes) {
-    if (f.request.url.includes(route)) {
-      console.log('Executing :',route)
+    if (f.request.url.includes(route)) { // Cambiar include por algo mas seguro
+      console.log('Managing :', route)
       f.respondWith(routes[route](f))
     }
   }
@@ -95,38 +97,36 @@ async function handleRequest(f) {
 
 // Handlers
 
-async function defaultAction(f){
+async function defaultAction(f) {
   const cachedPage = await getFromCache(f.request.url)
-  if(cachedPage !== undefined){
+  if (cachedPage !== undefined) {
     return cachedPage
   }
   return fetch(f.request.url) //Creo que esto es getPage
 }
-
-async function registerHandler(){
-  const formData = await f.request.formData()
-
-  const user = formData.get('user')
-  const password = formData.get('password')
-
-  const log = sendFormData(register, {'name': user, 'password': password})
-}
-
 async function loginHandler(f) {
-  
+
   const formData = await f.request.formData()
 
   const user = formData.get('user')
   const password = formData.get('password')
-  
-  const log = await sendFormData(login, {'name':user,'password':password})
+
+  const log = await sendFormData(login, { 'name': user, 'password': password })
   const error = log.headers.get('error')
-  
+
   if (error != null) {
     return Response.redirect(welcome + `?error=${error}&user=${user}`)
   }
-  
+
   cache(logged)
 
   return Response.redirect(home)
+}
+async function registerHandler(f) {
+  const formData = await f.request.formData()
+
+  const user = formData.get('user')
+  const password = formData.get('password')
+
+  const log = sendFormData(register, { 'name': user, 'password': password })
 }

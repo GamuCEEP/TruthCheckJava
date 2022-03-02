@@ -64,7 +64,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Consumes({MediaType.APPLICATION_JSON})
   public Response login(User entity) {
     User u = findUser(entity);
-
+    
     if (u == null || !u.getPassword().equals(entity.getPassword())) {
       return Response
               .status(418, "Soy una tetera :D")
@@ -82,7 +82,13 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Path("logged")
   @Produces({MediaType.APPLICATION_JSON})
   public User logged() {
-    return (User) req.getSession().getAttribute(K.LOGGED_USER);
+    User u = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if(u == null){
+      u = new User();
+      u.setName("");
+      return u;
+    }
+    return u;
   }
 
   @GET

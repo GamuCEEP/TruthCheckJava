@@ -68,8 +68,6 @@ public class Effect implements Serializable {
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private User author;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Interaction> interactionList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId", fetch = FetchType.EAGER)
   private List<Event> eventList;
 
@@ -143,15 +141,6 @@ public class Effect implements Serializable {
 
   public void setAuthor(User author) {
     this.author = author;
-  }
-
-  @XmlTransient
-  public List<Interaction> getInteractionList() {
-    return interactionList;
-  }
-
-  public void setInteractionList(List<Interaction> interactionList) {
-    this.interactionList = interactionList;
   }
 
   @XmlTransient

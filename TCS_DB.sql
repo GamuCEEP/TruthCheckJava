@@ -202,24 +202,16 @@ CREATE TABLE IF NOT EXISTS `truthchecksimplified`.`interaction` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
   `author` INT(11) NOT NULL,
-  `user_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_interaction_effect1`
-    FOREIGN KEY (`author`)
-    REFERENCES `truthchecksimplified`.`effect` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_interaction_user1`
-    FOREIGN KEY (`user_id`)
+    FOREIGN KEY (`author`)
     REFERENCES `truthchecksimplified`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
-CREATE INDEX `fk_interaction_effect1_idx` ON `truthchecksimplified`.`interaction` (`author` ASC) ;
-
-CREATE INDEX `fk_interaction_user1_idx` ON `truthchecksimplified`.`interaction` (`user_id` ASC) ;
+CREATE INDEX `fk_interaction_user1_idx` ON `truthchecksimplified`.`interaction` (`author` ASC) ;
 
 
 -- -----------------------------------------------------

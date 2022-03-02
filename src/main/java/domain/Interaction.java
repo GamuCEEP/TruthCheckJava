@@ -64,10 +64,7 @@ public class Interaction implements Serializable {
   private List<Item> itemList;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
-  private Effect author;
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
-  private User userId;
+  private User author;
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "interaction", fetch = FetchType.EAGER)
   private Trigger trigger;
 
@@ -126,20 +123,12 @@ public class Interaction implements Serializable {
     this.itemList = itemList;
   }
 
-  public Effect getAuthor() {
+  public User getAuthor() {
     return author;
   }
 
-  public void setAuthor(Effect author) {
+  public void setAuthor(User author) {
     this.author = author;
-  }
-
-  public User getUserId() {
-    return userId;
-  }
-
-  public void setUserId(User userId) {
-    this.userId = userId;
   }
 
   public Trigger getTrigger() {

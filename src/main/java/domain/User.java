@@ -64,19 +64,19 @@ public class User implements Serializable {
   @ManyToMany(mappedBy = "userList", fetch = FetchType.EAGER)
   private List<Map> mapList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Actor> actorList1;
+  private List<Actor> createdActors;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Item> itemList1;
+  private List<Item> createdItems;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Stage> stageList1;
+  private List<Stage> createdStages;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Effect> effectList1;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
-  private List<Interaction> interactionList1;
+  private List<Effect> createdEffects;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Event> eventList1;
+  private List<Interaction> createdInteractions;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
-  private List<Map> mapList1;
+  private List<Event> createdEvents;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
+  private List<Map> createdMaps;
 
   public User() {
   }
@@ -179,66 +179,66 @@ public class User implements Serializable {
   }
 
   @XmlTransient
-  public List<Actor> getActorList1() {
-    return actorList1;
+  public List<Actor> getCreatedActors() {
+    return createdActors;
   }
 
-  public void setActorList1(List<Actor> actorList1) {
-    this.actorList1 = actorList1;
-  }
-
-  @XmlTransient
-  public List<Item> getItemList1() {
-    return itemList1;
-  }
-
-  public void setItemList1(List<Item> itemList1) {
-    this.itemList1 = itemList1;
+  public void setCreatedActors(List<Actor> createdActors) {
+    this.createdActors = createdActors;
   }
 
   @XmlTransient
-  public List<Stage> getStageList1() {
-    return stageList1;
+  public List<Item> getCreatedItems() {
+    return createdItems;
   }
 
-  public void setStageList1(List<Stage> stageList1) {
-    this.stageList1 = stageList1;
-  }
-
-  @XmlTransient
-  public List<Effect> getEffectList1() {
-    return effectList1;
-  }
-
-  public void setEffectList1(List<Effect> effectList1) {
-    this.effectList1 = effectList1;
+  public void setCreatedItems(List<Item> createdItems) {
+    this.createdItems = createdItems;
   }
 
   @XmlTransient
-  public List<Interaction> getInteractionList1() {
-    return interactionList1;
+  public List<Stage> getCreatedStages() {
+    return createdStages;
   }
 
-  public void setInteractionList1(List<Interaction> interactionList1) {
-    this.interactionList1 = interactionList1;
-  }
-
-  @XmlTransient
-  public List<Event> getEventList1() {
-    return eventList1;
-  }
-
-  public void setEventList1(List<Event> eventList1) {
-    this.eventList1 = eventList1;
+  public void setCreatedStages(List<Stage> createdStages) {
+    this.createdStages = createdStages;
   }
 
   @XmlTransient
-  public List<Map> getMapList1() {
-    return mapList1;
+  public List<Effect> getCreatedEffects() {
+    return createdEffects;
   }
 
-  public void setMapList1(List<Map> mapList1) {
-    this.mapList1 = mapList1;
+  public void setCreatedEffects(List<Effect> createdEffects) {
+    this.createdEffects = createdEffects;
+  }
+
+  @XmlTransient
+  public List<Interaction> getCreatedInteractions() {
+    return createdInteractions;
+  }
+
+  public void setCreatedInteractions(List<Interaction> createdInteractions) {
+    this.createdInteractions = createdInteractions;
+  }
+
+  @XmlTransient
+  public List<Event> getCreatedEvents() {
+    return createdEvents;
+  }
+
+  public void setCreatedEvents(List<Event> createdEvents) {
+    this.createdEvents = createdEvents;
+  }
+
+  @XmlTransient
+  public List<Map> getCreatedMaps() {
+    return createdMaps;
+  }
+
+  public void setCreatedMaps(List<Map> createdMaps) {
+    this.createdMaps = createdMaps;
   }
 
   @Override

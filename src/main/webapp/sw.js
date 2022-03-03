@@ -11,9 +11,9 @@ const logout = userURL + '/logout'
 
 const home = root + '/home'
 const welcome = root + '/welcome'
-const workspace = root + '/workspace'
-const library = root + '/library'
-const gallery = root + '/gallery'
+const create = root + '/create' //donde se crean las cosas / la biblioteca personal
+const explore = root + '/explore' // donde estan las cosas de todos
+const play = root + '/play' // Donde se juega --Comming soon--
 
 // Eventos
 self.addEventListener('fetch', handleRequest)

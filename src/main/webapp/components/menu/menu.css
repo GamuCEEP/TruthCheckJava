@@ -1,0 +1,24 @@
+
+
+menu.modal{
+  width: 300px;
+  position: absolute;
+  top: 94%;
+  right: 50%;
+  border-bottom: 2px rgb(var(--color-dim)) solid;
+  transform-origin: top right;
+  transition: 200ms transform ease;
+  outline: transparent;
+}
+menu.modal p{
+  max-width: 280px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+menu.modal a{
+  width: 80%;
+}
+
+menu.modal.hidden{
+  transform: scale(0);
+}

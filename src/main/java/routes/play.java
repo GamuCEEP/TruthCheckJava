@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author GamuD
  */
-@WebServlet(name="workspace", urlPatterns={"/workspace"})
-public class workspace extends HttpServlet {
+@WebServlet(name="play", urlPatterns={"/play"})
+public class play extends HttpServlet {
    
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,6 +26,6 @@ public class workspace extends HttpServlet {
     defaultAction(req, resp);
   }
   private void defaultAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.getRequestDispatcher("facades/workspace.jsp").forward(req, resp);
+    req.getRequestDispatcher("facades/play.jsp").forward(req, resp);
   }
 }

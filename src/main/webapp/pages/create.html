@@ -9,10 +9,12 @@
   <link rel="icon" href="/TruthCheckJava/images/logo.png" />
 
   <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
-  <link rel="stylesheet" href="/TruthCheckJava/pages/css/workspace.css">
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/create.css">
   <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/menu/menu.css">
 
   <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <script defer src="/TruthCheckJava/components/menu/menu.js"></script>
 </head>
 
 <body>
@@ -34,8 +36,13 @@
       </div>
 
       <div id="loggedUser" class="modal" style="display: none;">
-        <button></button>
-        
+        <button class="menu-button"></button>
+        <menu class="modal hidden" tabindex="-1">
+          <p></p>
+          <a href="/TruthCheckJava/explore">Explorar</a>
+          <a href="/TruthCheckJava/play">Jugar</a>
+          <a href="/TruthCheckJava/w/user/logout">Cerrar sesion</a>
+        </menu>
       </div>
 
     </div>
@@ -53,6 +60,8 @@
 
         const icon = $('button',logged)
         icon.innerText = userName.slice(0,2)
+        const menuName = $('p',logged)
+        menuName.innerText = userName
         logged.removeAttribute('style') //show logged div
 
       })()

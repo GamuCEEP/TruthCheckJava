@@ -8,13 +8,27 @@
   <title>TruthCheck - The Role-Play Assistant</title>
   <link rel="icon" href="/TruthCheckJava/images/logo.png" />
 
+  <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <!-- <script>
+    ; (async () => {
+      const userName = (await getUser())?.name
+      if (userName == "") {
+        location.replace('/TruthCheckJava/welcome')
+      }
+    })()
+  </script> -->
+
   <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
   <link rel="stylesheet" href="/TruthCheckJava/pages/css/create.css">
   <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
   <link rel="stylesheet" href="/TruthCheckJava/components/menu/menu.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/retractil/retractil.css">
 
-  <script src="/TruthCheckJava/pages/js/root.js"></script>
   <script defer src="/TruthCheckJava/components/menu/menu.js"></script>
+  <script defer src="/TruthCheckJava/components/retractil/retractil.js"></script>
+
+  <script src="/TruthCheckJava/pages/js/templateBuilder.js"></script>
+  <script defer src="/TruthCheckJava/components/modal/modal.js"></script>
 </head>
 
 <body>
@@ -26,23 +40,24 @@
     </div>
 
     <div>
-      <form action="" class="modal">
+      <!-- Cambiarlo para que no recarge la pagina -->
+      <form action="" class="base"> 
         <div class="searchbar">
-          <input name="search" type="text">
           <input type="submit" value="">
+          <input name="search" type="text">
         </div>
       </form>
     </div>
 
     <div id="userIcon">
 
-      <div id="anonUser" style="display: none;">
-        <a href="/TruthCheck/welcome">Entrar / Registrarse</a>
+      <div id="anonUser" class="base" style="display: none;">
+        <a href="/TruthCheckJava/welcome">Entrar</a>
       </div>
 
-      <div id="loggedUser" class="modal" style="display: none;">
+      <div id="loggedUser" class="base" style="display: none;">
         <button class="menu-button"></button>
-        <menu class="modal hidden" tabindex="-1">
+        <menu class="base hidden" tabindex="-1">
           <p></p>
           <a href="/TruthCheckJava/explore">Explorar</a>
           <a href="/TruthCheckJava/play">Jugar</a>
@@ -52,37 +67,64 @@
 
     </div>
     <script>
-      ; (async () => {
-        const anon = $('#anonUser')
-        const logged = $('#loggedUser')
+        ; (async () => {
+          const anon = $('#anonUser')
+          const logged = $('#loggedUser')
 
-        const userName = (await getUser())?.name
+          const userName = (await getUser())?.name
+          if (userName === "") {
+            anon.removeAttribute('style') //show anon div
+            return
+          }
 
-        if (userName === undefined) {
-          anon.removeAttribute('style') //show anon div
-          return
-        }
+          const icon = $('button', logged)
+          icon.innerText = userName.slice(0, 2)
+          const menuName = $('p', logged)
+          menuName.innerText = userName
+          logged.removeAttribute('style') //show logged div
 
-        const icon = $('button', logged)
-        icon.innerText = userName.slice(0, 2)
-        const menuName = $('p', logged)
-        menuName.innerText = userName
-        logged.removeAttribute('style') //show logged div
-
-      })()
+        })()
     </script>
   </header>
-  <aside>
-    <button>Cosas</button>
+  <aside class="extended">
+    <button class="retract-button"></button>
+    <form id="resourceTypes" class="base">
+      <label>Filtrar por:</label>
+      <!--value se genera antes de enviar-->
+    </form>
+    <script>
+        ; (async () => {
+          const aside = $('#resourceTypes')
+          const v = $('input[type="hidden"]', aside)
+          const types = await getResourceTypes()
+
+          for (const type in types) {
+            const inp = document.createElement('input')
+            inp.type = 'submit'
+            inp.value = type
+            inp.setAttribute('filter', types[type])
+            aside.appendChild(inp)
+          }
+
+          aside.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const filter = e.submitter.getAttribute('filter')
+            putResources(filter)
+          })
+        })()
+    </script>
   </aside>
   <main>
-    <div>
-      <button>
-        Crear uno nuevo
+    <div id="createResource">
+      <button class="modal-button" modal="resourceCreator" m_name="pepe">
+        Crear un nuevo recurso
       </button>
     </div>
-    <!-- Autofill con cosas creadas por ti -->
+    <!-- Autofill con cosas creadas por user -->
   </main>
+  <div id="modalContainer">
+
+  </div>
 </body>
 
 </html>

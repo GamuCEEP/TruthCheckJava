@@ -1,4 +1,4 @@
-.modal{
+.base{
   display: flex;
   flex-direction: column;
 
@@ -14,7 +14,7 @@
   background-color: rgb(var(--color-dark));
 }
 /* Text */
-.modal label, .modal p{
+.base label, .base p{
   margin: 0 0 20px 0;
   overflow: hidden;
   font-size: 1.8em;
@@ -24,7 +24,7 @@
   color: rgb(var(--color-light));
 }
 /* Input */
-.modal select, .modal input{
+.base select, .base input{
   width: 300px;
   height: 30px;
   margin: 10px auto;
@@ -36,41 +36,29 @@
   
   font-size: inherit;
 }
-.modal input{
+.base input{
   border-radius: 5px 5px 20px 5px;
   user-select: text;
 }
 
-.modal list-input{
+.base list-input{
   border: 2px rgb(var(--color-dim)) solid;
   border-radius: 5px;
 }
 
-.modal .searchbar{
-  display: grid;
-  grid-template-columns: 1fr 40px;
-  padding: 0;
-  margin: 0;
-}
-.modal .searchbar input{
+
+.base .searchbar input{
   border-radius: 5px 0 0 5px;
   margin-right: 0;
-}
-.modal .searchbar input[type='submit']{
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin-left: 0;
-  border-radius: 0 5px 5px 0;
-  background-image: url(/TruthCheckJava/images/icons/search.svg);
-  background-repeat: no-repeat;
-  background-size: 25px;
-  background-position: 3px 3px;
-  padding: 0;
+  border-bottom: 2px rgba(var(--color-lit)) solid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  transition: 100ms transform ease, 100ms border ease;
 }
 
+
 /* Decoration */
-.modal label[for='togglePasswordVisibility']{
+.base label[for='togglePasswordVisibility']{
   display: block;
   position: absolute;
   right: 5px;
@@ -82,16 +70,16 @@
   background-repeat:  no-repeat;
   cursor: pointer;
 }
-.modal input:checked+[for='togglePasswordVisibility']{
+.base input:checked+[for='togglePasswordVisibility']{
   background-image: url(/TruthCheckJava/images/icons/hidePassword.svg);
 }
-.modal hr{
+.base hr{
   border: 1px rgb(var(--color-lit)) solid;
   margin: 15px 20px 30px 20px;
 }
 
 /* Organization */
-.modal span, .modal div{
+.base span, .base div{
   margin: 10px auto;
   position: relative;
   display: flex;
@@ -99,12 +87,18 @@
   justify-content: center;
   border-radius: 5px;
 }
-.modal div{
+.base div{
   padding: 5px;
+}
+.base .searchbar{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 0;
+  margin: 0;
 }
 
 /* Submits */
-.modal button, .modal a, .modal input[type='submit']{
+.base button, .base a, .base input[type='submit']{
   height: 40px;
   margin: 5px;
   border: none;
@@ -117,30 +111,49 @@
   transition: 100ms transform ease, 100ms border ease;
   align-self: center;
 }
-.modal button, .modal a{
+.base button, .base a{
   display: block;
   padding: 0 20px;
   font-size: 1em;
 }
-.modal a{
+.base a{
   margin: 5px auto;
   text-decoration: none;
   text-align: center;
   padding-top: 3%;
 }
+.base .searchbar input[type='submit']{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  width: 30px;
+  height: 30px;
+  margin-left: 0;
+  border-radius: 0 5px 5px 0;
+  background-image: url(/TruthCheckJava/images/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: 3px 3px;
+  padding: 0;
+}
 
 /* Animation */
-.modal button:hover, .modal a:hover, .modal input[type='submit']:hover{
+.base button:hover,
+.base a:hover, 
+.base input[type='submit']:hover,
+.base .searchbar input[type='submit']:hover + input {
   border-bottom: 3px rgba(var(--color-lit)) solid;
   transform: translateY(-1px);
 }
-.modal button:active,.modal a:active, .modal input[type='submit']:active{
+.base button:active,
+.base a:active,
+.base input[type='submit']:active,
+.base .searchbar input[type='submit']:active + input {
   border-bottom: 0px rgba(var(--color-lit)) solid;
   transform: translateY(1px);
 }
 
 /* Errors */
-.modal .error{
+.base .error{
   display: none;
   color: red;
   font-size: .8em;
@@ -150,7 +163,7 @@
   margin-left: 60px;
   
 }
-.modal .error::before{
+.base .error::before{
   content: '*';
 }
 

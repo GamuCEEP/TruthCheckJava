@@ -13,7 +13,21 @@ function clearURL() {
 }
 
 async function getUser() {
-  const resp = await fetch('/TruthCheckJava/w/user/logged')
+  return getData('/TruthCheckJava/w/user/logged')
+}
+
+async function getResourceTypes(){
+  return getData('/TruthCheckJava/w/util/resourceTypes')
+}
+
+async function getData(url){
+  const resp = await fetch(url)
   return resp.json()
 }
+
+async function putResources(container, filter = ''){
+// Coje los recursos del servidor y los pone en el container
+}
+
+
 

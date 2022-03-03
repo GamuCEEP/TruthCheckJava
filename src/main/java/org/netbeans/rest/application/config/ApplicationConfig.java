@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     resources.add(service.StatsFacadeREST.class);
     resources.add(service.TriggerFacadeREST.class);
     resources.add(service.UserFacadeREST.class);
+    resources.add(service.UtilFacadeREST.class);
   }
 
 }

@@ -1,0 +1,49 @@
+.retracted, .extended{
+  position: relative;
+  transform-origin: right;
+  transition: 200ms transform ease, 200ms width ease;
+}
+.retracted{
+  position: relative;
+  transform-origin: right;
+  transform: translate(-100%);
+  width: 40px;
+}
+.extended{
+}
+.retract-button{
+  position: absolute;
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+.retracted .retract-button{
+  width: 20px;
+  height: 100%;
+  right: -20px;
+  background-color: rgba(var(--color-dim), .5);
+}
+.extended .retract-button{
+  height: 40px;
+  width: 30px;
+  right: 0;
+  background-color: rgb(var(--color-dim));
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+}
+.retract-button::before{
+  content: '>';
+  display: block;
+  position: absolute;
+  top: 5px;
+  font-weight: 900;
+  font-size: 2em;
+  color: rgb(var(--color-light));
+}
+.extended .retract-button::before{
+  transform: rotateZ(180deg);
+}
+.retracted .retract-button:hover{
+  background-color: rgba(var(--color-dim), .9);
+  filter: brightness(.7);
+}

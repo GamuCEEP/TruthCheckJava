@@ -46,6 +46,29 @@
   border-radius: 5px;
 }
 
+.modal .searchbar{
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  padding: 0;
+  margin: 0;
+}
+.modal .searchbar input{
+  border-radius: 5px 0 0 5px;
+  margin-right: 0;
+}
+.modal .searchbar input[type='submit']{
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-left: 0;
+  border-radius: 0 5px 5px 0;
+  background-image: url(/TruthCheckJava/images/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: 3px 3px;
+  padding: 0;
+}
+
 /* Decoration */
 .modal label[for='togglePasswordVisibility']{
   display: block;

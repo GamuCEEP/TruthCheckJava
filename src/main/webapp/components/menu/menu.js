@@ -1,7 +1,6 @@
 
 ; (() => {
   const menuButtons = $$('.menu-button')
-  console.log(menuButtons)
   for(const button of menuButtons){
     const menu = nextNonTextSibling(button)
     button.addEventListener('focus', ()=>{

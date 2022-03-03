@@ -26,7 +26,12 @@
     </div>
 
     <div>
-      <!-- SearchBar -->
+      <form action="" class="modal">
+        <div class="searchbar">
+          <input name="search" type="text">
+          <input type="submit" value="">
+        </div>
+      </form>
     </div>
 
     <div id="userIcon">
@@ -53,29 +58,31 @@
 
         const userName = (await getUser())?.name
 
-        if(userName === undefined){
+        if (userName === undefined) {
           anon.removeAttribute('style') //show anon div
           return
         }
 
-        const icon = $('button',logged)
-        icon.innerText = userName.slice(0,2)
-        const menuName = $('p',logged)
+        const icon = $('button', logged)
+        icon.innerText = userName.slice(0, 2)
+        const menuName = $('p', logged)
         menuName.innerText = userName
         logged.removeAttribute('style') //show logged div
 
       })()
     </script>
   </header>
+  <aside>
+    <button>Cosas</button>
+  </aside>
   <main>
     <div>
-      <!-- Crear desde 0 -->
+      <button>
+        Crear uno nuevo
+      </button>
     </div>
     <!-- Autofill con cosas creadas por ti -->
   </main>
-  <aside>
-
-  </aside>
 </body>
 
 </html>

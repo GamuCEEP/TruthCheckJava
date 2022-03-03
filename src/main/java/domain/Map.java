@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,6 +47,7 @@ public class Map implements Serializable {
     @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @JoinTable(name = "_map_has_stage", joinColumns = {
     @JoinColumn(name = "map_id", referencedColumnName = "id")}, inverseJoinColumns = {
@@ -54,6 +56,7 @@ public class Map implements Serializable {
   private Collection<Stage> stageCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
 
   public Map() {

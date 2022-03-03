@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -35,6 +36,7 @@ public class Stats implements Serializable {
   private String value;
   @JoinColumn(name = "actor_id", referencedColumnName = "id", insertable = false, updatable = false)
   @ManyToOne(optional = false)
+  @JsonbTransient
   private Actor actor;
 
   public Stats() {

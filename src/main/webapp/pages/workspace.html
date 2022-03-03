@@ -17,20 +17,46 @@
 
 <body>
   <header>
-    <nav>
-      <div>
-        <!-- Logo -->
-        asdas
+    <div id="logo">
+      <a href="/TruthCheckJava/home">
+        <img src="/TruthCheckJava/images/logo.png" alt="~TC~" width="80">
+      </a>
+    </div>
+
+    <div>
+      <!-- SearchBar -->
+    </div>
+
+    <div id="userIcon">
+
+      <div id="anonUser" style="display: none;">
+        <a href="/TruthCheck/welcome">Entrar / Registrarse</a>
       </div>
 
-      <div>
-        <!-- searchBar -->
+      <div id="loggedUser" class="modal" style="display: none;">
+        <button></button>
+        
       </div>
 
-      <div>
-        <!-- UserIcon -->
-      </div>
-    </nav>
+    </div>
+    <script>
+      ; (async () => {
+        const anon = $('#anonUser')
+        const logged = $('#loggedUser')
+
+        const userName = (await getUser())?.name
+
+        if(userName === undefined){
+          anon.removeAttribute('style') //show anon div
+          return
+        }
+
+        const icon = $('button',logged)
+        icon.innerText = userName.slice(0,2)
+        logged.removeAttribute('style') //show logged div
+
+      })()
+    </script>
   </header>
   <main>
     <div>

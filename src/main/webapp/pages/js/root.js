@@ -1,5 +1,5 @@
-$ = e => document.querySelector(e)
-$$ = e => document.querySelectorAll(e)
+$ = (e, from = null) => from ? from.querySelector(e) : document.querySelector(e)
+$$ = (e, from = null) => from ? from.querySelectorAll(e) : document.querySelectorAll(e) 
 
 
 function show(e) {

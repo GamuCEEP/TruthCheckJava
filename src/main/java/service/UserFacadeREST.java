@@ -55,8 +55,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
     }
 
     super.create(entity);
-    req.getSession().setAttribute(K.LOGGED_USER, u);
-    return Response.accepted().build();
+    return login(entity);
   }
 
   @POST
@@ -82,12 +81,15 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Path("logged")
   @Produces({MediaType.APPLICATION_JSON})
   public User logged() {
+    System.out.println("Quien esta logueado??");
     User u = (User) req.getSession().getAttribute(K.LOGGED_USER);
     if(u == null){
       u = new User();
       u.setName("");
+      System.out.println("Nadie");
       return u;
     }
+    System.out.println(u.getName());
     return u;
   }
 

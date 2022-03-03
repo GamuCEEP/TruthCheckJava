@@ -2,10 +2,12 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,12 +60,14 @@ public class Actor implements Serializable {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @JoinColumn(name = "stage_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Stage stageId;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
   private Collection<Stats> statsCollection;

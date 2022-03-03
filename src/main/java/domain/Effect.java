@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +22,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Table(name = "effect", catalog = "truthchecksimplified", schema = "")
@@ -59,13 +59,17 @@ public class Effect implements Serializable {
     @JoinColumn(name = "effect_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId")
+  @JsonbTransient
   private Collection<Item> itemCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId")
+  @JsonbTransient
   private Collection<Event> eventCollection;
 
   public Effect() {
@@ -163,7 +167,8 @@ public class Effect implements Serializable {
       return false;
     }
     Effect other = (Effect) object;
-    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+    if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(
+            other.id))) {
       return false;
     }
     return true;

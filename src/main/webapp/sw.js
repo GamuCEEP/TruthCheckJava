@@ -138,7 +138,7 @@ async function registerHandler(f) {
   return accountHandler(f, register)
 }
 async function logoutHandler(f) {
-  await fetch(logout)
+  await fetch(logout) // Redirigir a donde se pida por la url/post mejor
   return Response.redirect(welcome)
 }
 

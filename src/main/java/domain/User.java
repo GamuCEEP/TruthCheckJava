@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,19 +62,19 @@ public class User implements Serializable {
   @ManyToMany(mappedBy = "userCollection")
   private Collection<Map> mapCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Actor> actorCollection1;
+  private Collection<Actor> createdActors;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Item> itemCollection1;
+  private Collection<Item> createdItems;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Stage> stageCollection1;
+  private Collection<Stage> createdStages;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Effect> effectCollection1;
+  private Collection<Effect> createdEffects;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Interaction> interactionCollection1;
+  private Collection<Interaction> createdInteractions;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Event> eventCollection1;
+  private Collection<Event> createdEvents;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
-  private Collection<Map> mapCollection1;
+  private Collection<Map> createdMaps;
 
   public User() {
   }
@@ -176,66 +177,66 @@ public class User implements Serializable {
   }
 
   @XmlTransient
-  public Collection<Actor> getActorCollection1() {
-    return actorCollection1;
+  public Collection<Actor> getCreatedActors() {
+    return createdActors;
   }
 
-  public void setActorCollection1(Collection<Actor> actorCollection1) {
-    this.actorCollection1 = actorCollection1;
-  }
-
-  @XmlTransient
-  public Collection<Item> getItemCollection1() {
-    return itemCollection1;
-  }
-
-  public void setItemCollection1(Collection<Item> itemCollection1) {
-    this.itemCollection1 = itemCollection1;
+  public void setCreatedActors(Collection<Actor> createdActors) {
+    this.createdActors = createdActors;
   }
 
   @XmlTransient
-  public Collection<Stage> getStageCollection1() {
-    return stageCollection1;
+  public Collection<Item> getCreatedItems() {
+    return createdItems;
   }
 
-  public void setStageCollection1(Collection<Stage> stageCollection1) {
-    this.stageCollection1 = stageCollection1;
-  }
-
-  @XmlTransient
-  public Collection<Effect> getEffectCollection1() {
-    return effectCollection1;
-  }
-
-  public void setEffectCollection1(Collection<Effect> effectCollection1) {
-    this.effectCollection1 = effectCollection1;
+  public void setCreatedItems(Collection<Item> createdItems) {
+    this.createdItems = createdItems;
   }
 
   @XmlTransient
-  public Collection<Interaction> getInteractionCollection1() {
-    return interactionCollection1;
+  public Collection<Stage> getCreatedStages() {
+    return createdStages;
   }
 
-  public void setInteractionCollection1(Collection<Interaction> interactionCollection1) {
-    this.interactionCollection1 = interactionCollection1;
-  }
-
-  @XmlTransient
-  public Collection<Event> getEventCollection1() {
-    return eventCollection1;
-  }
-
-  public void setEventCollection1(Collection<Event> eventCollection1) {
-    this.eventCollection1 = eventCollection1;
+  public void setCreatedStages(Collection<Stage> createdStages) {
+    this.createdStages = createdStages;
   }
 
   @XmlTransient
-  public Collection<Map> getMapCollection1() {
-    return mapCollection1;
+  public Collection<Effect> getCreatedEffects() {
+    return createdEffects;
   }
 
-  public void setMapCollection1(Collection<Map> mapCollection1) {
-    this.mapCollection1 = mapCollection1;
+  public void setCreatedEffects(Collection<Effect> createdEffects) {
+    this.createdEffects = createdEffects;
+  }
+
+  @XmlTransient
+  public Collection<Interaction> getCreatedInteractions() {
+    return createdInteractions;
+  }
+
+  public void setCreatedInteractions(Collection<Interaction> createdInteractions) {
+    this.createdInteractions = createdInteractions;
+  }
+
+  @XmlTransient
+  public Collection<Event> getCreatedEvents() {
+    return createdEvents;
+  }
+
+  public void setCreatedEvents(Collection<Event> createdEvents) {
+    this.createdEvents = createdEvents;
+  }
+
+  @XmlTransient
+  public Collection<Map> getCreatedMaps() {
+    return createdMaps;
+  }
+
+  public void setCreatedMaps(Collection<Map> createdMaps) {
+    this.createdMaps = createdMaps;
   }
 
   @Override

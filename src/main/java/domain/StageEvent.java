@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -42,6 +43,7 @@ public class StageEvent implements Serializable {
   private Event event;
   @JoinColumn(name = "stage_id", referencedColumnName = "id", insertable = false, updatable = false)
   @ManyToOne(optional = false)
+  @JsonbTransient
   private Stage stage;
 
   public StageEvent() {

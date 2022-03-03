@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,14 +54,17 @@ public class Event implements Serializable {
     @JoinColumn(name = "event_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+  @JsonbTransient
   private Collection<StageEvent> stageEventCollection;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Effect effectId;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
 
   public Event() {

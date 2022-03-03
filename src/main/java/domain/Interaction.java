@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,6 +54,7 @@ public class Interaction implements Serializable {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @JoinTable(name = "_item_interaction", joinColumns = {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
@@ -61,6 +63,7 @@ public class Interaction implements Serializable {
   private Collection<Item> itemCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "interaction")
   private Trigger trigger;

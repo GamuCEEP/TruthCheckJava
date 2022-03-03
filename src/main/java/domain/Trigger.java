@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,14 +29,15 @@ public class Trigger implements Serializable {
   @Basic(optional = false)
   @NotNull
   @Column(name = "interaction_id")
+  @JsonbTransient
   private Integer interactionId;
   @JoinColumn(name = "interaction_id", referencedColumnName = "id", insertable = false, updatable = false)
   @OneToOne(optional = false)
+  @JsonbTransient
   private Interaction interaction;
   @JoinColumn(name = "item_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Item itemId;
-
   public Trigger() {
   }
 
@@ -58,7 +60,7 @@ public class Trigger implements Serializable {
   public void setInteraction(Interaction interaction) {
     this.interaction = interaction;
   }
-
+  
   public Item getItemId() {
     return itemId;
   }

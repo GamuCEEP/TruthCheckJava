@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,23 +51,29 @@ public class Item implements Serializable {
   @Column(name = "description")
   private String description;
   @ManyToMany(mappedBy = "itemCollection")
+  @JsonbTransient
   private Collection<Actor> actorCollection;
   @ManyToMany(mappedBy = "itemCollection")
+  @JsonbTransient
   private Collection<Interaction> interactionCollection;
   @JoinTable(name = "_user_has_item", joinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<User> userCollection;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Effect effectId;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @JsonbTransient
   private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
+  @JsonbTransient
   private Collection<Trigger> triggerCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+  @JsonbTransient
   private Collection<Inventory> inventoryCollection;
 
   public Item() {

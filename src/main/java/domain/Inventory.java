@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -33,6 +34,7 @@ public class Inventory implements Serializable {
   private float amount;
   @JoinColumn(name = "actor_id", referencedColumnName = "id", insertable = false, updatable = false)
   @ManyToOne(optional = false)
+  @JsonbTransient
   private Actor actor;
   @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
   @ManyToOne(optional = false)

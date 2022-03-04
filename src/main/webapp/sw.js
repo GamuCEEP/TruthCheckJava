@@ -100,12 +100,9 @@ async function handleRequest(f) {
 
   for (const route in routes) {
     if (f.request.url.includes(route)) { // Cambiar include por algo mas seguro
-      console.log('Managing :', route)
       f.respondWith(routes[route](f))
       return
     }
-    console.log(f.request.url)
-    console.log(route)
   }
   f.respondWith(getPage(f.request.url))
 }

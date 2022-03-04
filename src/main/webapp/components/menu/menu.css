@@ -11,13 +11,14 @@ menu.base{
   transform-origin: top right;
   transition: 200ms transform ease;
   outline: transparent;
+  z-index: 1;
 }
 menu.base p{
   max-width: 280px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-menu.base a{
+menu.base input{
   width: 80%;
 }
 

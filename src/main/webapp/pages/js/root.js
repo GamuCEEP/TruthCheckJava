@@ -25,8 +25,36 @@ async function getData(url) {
   return resp.json()
 }
 
-async function getUserCreatedResources(type = '', filter = '') {
-  const user = await getUser()
+function getUserLikedResources(user, type = '', filter = '') {
+  const resp = {}
+  console.log(user)
+  for (const field in user) {
+    if (!field.includes('Collection')) {
+      continue
+    }
+    if (!field.includes(type)) {
+      continue
+    }
+    for (const resource of user[field]) {
+      const id = resource.id + '';
+      const name = resource.name + '';
+      const description = resource.description + '';
+      if (!id.includes(filter) && !name.includes(filter) && !description.includes(filter)) {
+        continue
+      }
+
+      const type = field.replace('Collection', '')
+      if(resp[type] == undefined){
+        resp[type] = []
+      }
+
+      resp[type].push(resource)
+    }
+  }
+  return resp
+}
+
+function getUserCreatedResources(user, type = '', filter = '') {
   const resp = {}
   for (const field in user) {
     if (!field.includes('created')) continue
@@ -36,6 +64,7 @@ async function getUserCreatedResources(type = '', filter = '') {
   }
   return resp
 }
+
 
 function createResourceView(resource, depth = -1) {
   if (depth == 0) return
@@ -53,6 +82,8 @@ function createResourceView(resource, depth = -1) {
   }
   return container
 }
+
+
 
 
 

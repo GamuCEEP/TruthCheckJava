@@ -9,6 +9,8 @@
   <link rel="icon" href="/TruthCheckJava/images/logo.png" />
 
   <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <script src="/TruthCheckJava/sw_init.js"></script>
+
   <!-- <script>
     ; (async () => {
       const userName = (await getUser())?.name
@@ -58,10 +60,13 @@
       <div id="loggedUser" class="base" style="display: none;">
         <button class="menu-button"></button>
         <menu class="base hidden" tabindex="-1">
-          <p></p>
-          <a href="/TruthCheckJava/explore">Explorar</a>
-          <a href="/TruthCheckJava/play">Jugar</a>
-          <a href="/TruthCheckJava/w/user/logout">Cerrar sesion</a>
+          <form method="post">
+            <p></p>
+            <input type="submit" value="Explorar" formaction="/TruthCheckJava/explore">
+            <input type="submit" value="Jugar" formaction="/TruthCheckJava/play">
+            <input type="hidden" name="to" value="/TruthCheckJava/welcome">
+            <input type="submit" value="Cerrar sesion" formaction="/TruthCheckJava/w/user/logout">
+          </form>
         </menu>
       </div>
 
@@ -125,10 +130,36 @@
     <!-- Autofill con cosas creadas por user -->
     <script>
       async function putResources(type = '', filter = '') {
-        getUserCreatedResources(type, filter)
-        
+        const container = $('main')
+        const user = await getUser()
+        const created = getUserCreatedResources(user, type, filter)
+        const liked = getUserLikedResources(user, type, filter)
+
+        console.log(created, liked)
+
+        for (const resource in created) {
+
+        }
+
+        for (const type in liked) {
+          const url = '/TruthCheckJava/pages/templates/likedResourceExpositor.html'
+
+          for (const resource of liked[type]) {
+            // If its not a resource
+            if (Object.values(await getResourceTypes()).indexOf(type) < 0) continue
+            // else
+            const template = await getTemplate(url, {
+              e_type: type,
+              e_name: resource.name,
+              e_description: resource.description,
+              e_id: resource.id
+            })
+            const expositor = template.content.firstElementChild.cloneNode(true)
+            container.append(expositor)
+          }
+        }
       }
-      putResources($('main'))
+      putResources()
     </script>
   </main>
   <div id="modalContainer">

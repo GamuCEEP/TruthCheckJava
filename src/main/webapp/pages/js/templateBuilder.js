@@ -18,7 +18,6 @@ function fillTemplate(genericTemplateString,values){
   for(const value in values){
     const regex = new RegExp(`_(${value})`, 'g')
     res = res.replace(regex, (match, p1)=>{
-      console.log(match, p1)
       return values[p1]
     })
   }

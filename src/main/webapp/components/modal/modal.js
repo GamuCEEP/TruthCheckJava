@@ -31,7 +31,7 @@ function attributeListToObj(attrList) {
 async function setModalButtons(from) {
 
   const modalContainer = $('#modalContainer')
-  const modalBox = document.createElement('div')
+  const modalBox = _('div')
   modalContainer.append(modalBox)
   modalBox.innerHTML = ''
 
@@ -59,7 +59,7 @@ cover = createCover()
 setModalButtons()
 
 function createCover() {
-  const cover = document.createElement('div')
+  const cover = _('div')
   cover.classList.add('modal-cover')
   cover.setAttribute('style', 'display: none')
 

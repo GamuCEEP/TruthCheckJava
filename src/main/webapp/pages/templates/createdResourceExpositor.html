@@ -5,14 +5,20 @@
   <textarea readonly>_e_description</textarea>
   <h3>Tipo</h3>
   <input type="text" readonly value="_e_type">
-  <button class="remove-button _e_name">-</button>
+  <button class="delete-button _e_name">-</button>
+  <button class="edit-button _e_name">-</button>
   <script>
     (()=>{
       const container = $('#_e_type_e_id')
-      const button = $('.remove-button', container)
-      button.addEventListener('click', ()=>{
+      const deleteButton = $('.delete-button', container)
+      const editButton = $('.edit-button', container)
+      deleteButton.addEventListener('click', ()=>{
         // send remove petition to the server
         container.remove()
+      })
+      editButton.addEventListener('click', ()=>{
+        // send remove petition to the server
+        // modal with fields autocompleted
       })
 
     })()

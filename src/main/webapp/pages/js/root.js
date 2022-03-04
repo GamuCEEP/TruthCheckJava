@@ -2,6 +2,10 @@ $ = (e, from = null) => from ? from.querySelector(e) : document.querySelector(e)
 $$ = (e, from = null) => from ? from.querySelectorAll(e) : document.querySelectorAll(e)
 _ = (type) => document.createElement(type)
 
+const getKeyByValue = (obj, value) => 
+        Object.keys(obj).find(key => obj[key] === value);
+
+
 function show(e) {
   let id = e.startsWith('#') ? e : `#${e}`
   $(id).setAttribute('style', 'display: block')
@@ -26,41 +30,31 @@ async function getData(url) {
 }
 
 function getUserLikedResources(user, type = '', filter = '') {
+  return filterUserResources(user, 'Collection', type, filter)
+}
+
+function getUserCreatedResources(user, type = '', filter = '') {
+  return filterUserResources(user, 'created', type, filter)
+}
+
+function filterUserResources(user, relation = '', type = '', filter = '') {
   const resp = {}
-  console.log(user)
   for (const field in user) {
-    if (!field.includes('Collection')) {
-      continue
-    }
-    if (!field.includes(type)) {
-      continue
-    }
+    if (!field.includes(relation)) continue
+    if (!field.includes(type)) continue
+
     for (const resource of user[field]) {
       const id = resource.id + '';
       const name = resource.name + '';
       const description = resource.description + '';
-      if (!id.includes(filter) && !name.includes(filter) && !description.includes(filter)) {
-        continue
-      }
+      if (!id.includes(filter) && !name.includes(filter) && !description.includes(filter)) continue
 
-      const type = field.replace('Collection', '')
-      if(resp[type] == undefined){
+      const type = field.replace(relation, '')
+      if (resp[type] == undefined) {
         resp[type] = []
       }
-
       resp[type].push(resource)
     }
-  }
-  return resp
-}
-
-function getUserCreatedResources(user, type = '', filter = '') {
-  const resp = {}
-  for (const field in user) {
-    if (!field.includes('created')) continue
-    if (!field.includes(type)) continue
-    if (!user[field].includes(filter)) continue
-    resp[field] = user[field]
   }
   return resp
 }

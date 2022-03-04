@@ -19,7 +19,7 @@ menu.base p{
   text-overflow: ellipsis;
 }
 menu.base input{
-  width: 80%;
+  width: 100%;
 }
 
 menu.base.hidden{

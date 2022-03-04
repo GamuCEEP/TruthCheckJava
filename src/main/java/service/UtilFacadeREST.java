@@ -21,7 +21,7 @@ public class UtilFacadeREST {
     res.put("Item", "item");
     res.put("Escenario", "stage");
     res.put("Interacción", "interaction");
-    res.put("Effecto", "effect");
+    res.put("Efecto", "effect");
     res.put("Evento", "event");
     res.put("Mapa", "map");
     

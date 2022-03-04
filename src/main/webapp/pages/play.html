@@ -1,16 +1,135 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-  <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div>TODO write content</div>
-  </body>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruthCheck - The Role-Play Assistant</title>
+  <link rel="icon" href="/TruthCheckJava/images/logo.png" />
+
+  <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <script src="/TruthCheckJava/sw_init.js"></script>
+
+  <!-- <script>
+    ; (async () => {
+      const userName = (await getUser())?.name
+      if (userName == "") {
+        location.replace('/TruthCheckJava/welcome')
+      }
+    })()
+  </script> -->
+
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/create.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/menu/menu.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/retractil/retractil.css">
+
+  <script defer src="/TruthCheckJava/components/menu/menu.js"></script>
+  <script defer src="/TruthCheckJava/components/retractil/retractil.js"></script>
+
+  <script src="/TruthCheckJava/pages/js/templateBuilder.js"></script>
+  <script defer src="/TruthCheckJava/components/modal/modal.js"></script>
+</head>
+
+<body>
+  <header>
+    <div id="logo">
+      <a href="/TruthCheckJava/home">
+        <img src="/TruthCheckJava/images/logo.png" alt="~TC~" width="80">
+      </a>
+    </div>
+
+    <div>
+      <!-- Cambiarlo para que no recarge la pagina -->
+      <form action="" class="base">
+        <div class="searchbar">
+          <input type="submit" value="">
+          <input name="search" type="text">
+        </div>
+      </form>
+      <script>
+        const searchBarForm = $('.searchbar').parentNode
+        const searchInput = $('.searchbar input[name="search"]')
+        searchBarForm.addEventListener('submit', (e) => {
+          e.preventDefault()
+          putResources('', searchInput.value)
+        })
+      </script>
+    </div>
+
+    <div id="userIcon">
+
+      <div id="anonUser" class="base" style="display: none;">
+        <a href="/TruthCheckJava/welcome">Entrar</a>
+      </div>
+
+      <div id="loggedUser" class="base" style="display: none;">
+        <button class="menu-button"></button>
+        <menu class="base hidden" tabindex="-1">
+          <form method="post">
+            <p></p>
+            <input type="submit" value="Explorar" formaction="/TruthCheckJava/explore">
+            <input type="submit" value="Crear" formaction="/TruthCheckJava/create">
+            <input type="hidden" name="to" value="/TruthCheckJava/welcome">
+            <input type="submit" value="Cerrar sesion" formaction="/TruthCheckJava/w/user/logout">
+          </form>
+        </menu>
+      </div>
+
+    </div>
+    <script>
+        ; (async () => {
+          const anon = $('#anonUser')
+          const logged = $('#loggedUser')
+
+          const userName = (await getUser())?.name
+          if (userName === "") {
+            anon.removeAttribute('style') //show anon div
+            return
+          }
+
+          const icon = $('button', logged)
+          icon.innerText = userName.slice(0, 2)
+          const menuName = $('p', logged)
+          menuName.innerText = userName
+          logged.removeAttribute('style') //show logged div
+
+        })()
+    </script>
+  </header>
+
+  <style>
+    main {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      width: 100vw;
+    }
+    main h2 {
+      font-size: 5em;
+      color: white;
+      background-color: rgb(var(--color-dark));
+      border-radius: 5px;
+      padding: 10px;
+      font-family: milonga;
+    }
+    main div.base{
+      width: 450px;
+    }
+  </style>
+  <main>
+    <div class="base">
+      <h2>Es peligroso ir solo</h2>
+      <a href="/TruthCheckJava/home">Volver a casa</a>
+    </div>
+  </main>
+
+  </main>
+  <div id="modalContainer">
+
+  </div>
+</body>
+
 </html>

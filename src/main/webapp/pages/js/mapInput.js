@@ -11,8 +11,6 @@ $ = e => document.querySelector(e)
       addButton.innerText = '+'
       addButton.type = 'button'
 
-
-
       const subButton = document.createElement('button')
       subButton.innerText = '-'
       subButton.type = 'button'

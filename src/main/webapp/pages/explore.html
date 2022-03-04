@@ -1,16 +1,162 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-  <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div>TODO write content</div>
-  </body>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruthCheck - The Role-Play Assistant</title>
+  <link rel="icon" href="/TruthCheckJava/images/logo.png" />
+
+  <script src="/TruthCheckJava/pages/js/root.js"></script>
+  <script src="/TruthCheckJava/sw_init.js"></script>
+
+  <!-- <script>
+    ; (async () => {
+      const userName = (await getUser())?.name
+      if (userName == "") {
+        location.replace('/TruthCheckJava/welcome')
+      }
+    })()
+  </script> -->
+
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/root.css">
+  <link rel="stylesheet" href="/TruthCheckJava/pages/css/create.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/form.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/menu/menu.css">
+  <link rel="stylesheet" href="/TruthCheckJava/components/retractil/retractil.css">
+
+  <script defer src="/TruthCheckJava/components/menu/menu.js"></script>
+  <script defer src="/TruthCheckJava/components/retractil/retractil.js"></script>
+
+  <script src="/TruthCheckJava/pages/js/templateBuilder.js"></script>
+  <script defer src="/TruthCheckJava/components/modal/modal.js"></script>
+</head>
+
+<body>
+  <header>
+    <div id="logo">
+      <a href="/TruthCheckJava/home">
+        <img src="/TruthCheckJava/images/logo.png" alt="~TC~" width="80">
+      </a>
+    </div>
+
+    <div>
+      <!-- Cambiarlo para que no recarge la pagina -->
+      <form action="" class="base">
+        <div class="searchbar">
+          <input type="submit" value="">
+          <input name="search" type="text">
+        </div>
+      </form>
+    </div>
+
+    <div id="userIcon">
+
+      <div id="anonUser" class="base" style="display: none;">
+        <a href="/TruthCheckJava/welcome">Entrar</a>
+      </div>
+
+      <div id="loggedUser" class="base" style="display: none;">
+        <button class="menu-button"></button>
+        <menu class="base hidden" tabindex="-1">
+          <form method="post">
+            <p></p>
+            <input type="submit" value="Crear" formaction="/TruthCheckJava/create">
+            <input type="submit" value="Jugar" formaction="/TruthCheckJava/play">
+            <input type="hidden" name="to" value="/TruthCheckJava/welcome">
+            <input type="submit" value="Cerrar sesion" formaction="/TruthCheckJava/w/user/logout">
+          </form>
+        </menu>
+      </div>
+
+    </div>
+    <script>
+      ; (async () => {
+        const anon = $('#anonUser')
+        const logged = $('#loggedUser')
+
+        const userName = (await getUser())?.name
+        if (userName === "") {
+          anon.removeAttribute('style') //show anon div
+          return
+        }
+
+        const icon = $('button', logged)
+        icon.innerText = userName.slice(0, 2)
+        const menuName = $('p', logged)
+        menuName.innerText = userName
+        logged.removeAttribute('style') //show logged div
+
+      })()
+    </script>
+  </header>
+  <aside class="extended">
+    <button class="retract-button"></button>
+    <form id="resourceTypes" class="base">
+      <label>Filtrar por:</label>
+      <!--value se genera antes de enviar-->
+    </form>
+    <script>
+        ; (async () => {
+          const aside = $('#resourceTypes')
+          const v = $('input[type="hidden"]', aside)
+          const types = await getResourceTypes()
+
+          for (const type in types) {
+            const inp = _('input')
+            inp.type = 'submit'
+            inp.value = type
+            inp.setAttribute('resourcetype', types[type])
+            aside.appendChild(inp)
+          }
+
+          aside.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const type = e.submitter.getAttribute('resourcetype')
+            putResources('', type)
+          })
+        })()
+    </script>
+  </aside>
+  <main>
+    <script>
+      async function putResources(type = '', filter = '') {
+        $('main').innerText = ''
+        const container = $('main')
+        const user = await getUser()
+        const created = getAllResources(user, type, filter)
+
+        const url = '/TruthCheckJava/pages/templates/resourceExpositor.html'
+        await createExpositors(container, allResources, url)
+
+      }
+      putResources()
+
+      async function createExpositors(container, resources, templateURl) {
+        for (const type in resources) {
+          for (const resource of resources[type]) {
+            // If its not a resource
+            if (Object.values(await getResourceTypes()).indexOf(type) < 0) continue
+            // else
+            const template = await getTemplate(templateURl, {
+              e_type: type,
+              e_name: resource.name,
+              e_description: resource.description,
+              e_id: resource.id,
+              e_author: 'en proceso de ser muy largo ostra tu que se me va de las manos'
+            })
+            const expositor = template.content.firstElementChild.cloneNode(true)
+            container.append(expositor)
+            for (const script of $$('script', expositor)) eval(script.innerText)
+          }
+        }
+      }
+    </script>
+  </main>
+  <div id="modalContainer">
+
+  </div>
+</body>
+
 </html>

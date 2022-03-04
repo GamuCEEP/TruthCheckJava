@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Map.findById", query = "SELECT m FROM Map m WHERE m.id = :id"),
   @NamedQuery(name = "Map.findByName", query = "SELECT m FROM Map m WHERE m.name = :name"),
   @NamedQuery(name = "Map.findByDescription", query = "SELECT m FROM Map m WHERE m.description = :description")})
-public class Map implements Serializable {
+public class Map implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id

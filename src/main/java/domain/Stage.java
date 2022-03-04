@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Stage.findById", query = "SELECT s FROM Stage s WHERE s.id = :id"),
   @NamedQuery(name = "Stage.findByName", query = "SELECT s FROM Stage s WHERE s.name = :name"),
   @NamedQuery(name = "Stage.findByDescription", query = "SELECT s FROM Stage s WHERE s.description = :description")})
-public class Stage implements Serializable {
+public class Stage implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id

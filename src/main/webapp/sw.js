@@ -35,11 +35,11 @@ function getCacheStorage() {
   return caches.open('TCS')
 }
 function buildURL(baseURL, params) {
-  if (params == null) 
+  if (params == null)
     return baseURL
   let searchParams = '?'
   for (const param in params) {
-    if(searchParams != '?'){
+    if (searchParams != '?') {
       searchParams += '&'
     }
     searchParams += param + '=' + params[param]
@@ -91,6 +91,7 @@ const routes = {
   [login]: loginHandler,
   [register]: registerHandler,
   [logout]: logoutHandler,
+  [create]: creationHandler
 }
 
 // Main
@@ -103,6 +104,8 @@ async function handleRequest(f) {
       f.respondWith(routes[route](f))
       return
     }
+    console.log(f.request.url)
+    console.log(route)
   }
   f.respondWith(getPage(f.request.url))
 }
@@ -126,7 +129,7 @@ async function accountHandler(f, action) {
   const error = log.headers.get('error')
 
   if (error != null) {
-    let url = buildURL(welcome, {error: error, user:user})
+    let url = buildURL(welcome, { error: error, user: user })
     return Response.redirect(url)
   }
   return Response.redirect(home)
@@ -139,6 +142,13 @@ async function registerHandler(f) {
 }
 async function logoutHandler(f) {
   await fetch(logout) // Redirigir a donde se pida por la url/post mejor
-  return Response.redirect(welcome)
+  const formData = await f.request.formData()
+  const url = formData.get('to')
+  return Response.redirect(url)
+}
+
+async function creationHandler(f) {
+
+  // cositas
 }
 

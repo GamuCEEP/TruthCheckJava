@@ -9,11 +9,20 @@
   left: 0;
 
   background-color: rgba(40,40,40,.4);
-
+  z-index: 100;
 }
 .modal{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 101;
+}
+
+.modal{
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 5px;
+  border: 2px rgb(var(--color-accent)) solid;
 }

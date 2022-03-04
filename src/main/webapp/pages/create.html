@@ -41,7 +41,7 @@
 
     <div>
       <!-- Cambiarlo para que no recarge la pagina -->
-      <form action="" class="base"> 
+      <form action="" class="base">
         <div class="searchbar">
           <input type="submit" value="">
           <input name="search" type="text">
@@ -67,23 +67,23 @@
 
     </div>
     <script>
-        ; (async () => {
-          const anon = $('#anonUser')
-          const logged = $('#loggedUser')
+      ; (async () => {
+        const anon = $('#anonUser')
+        const logged = $('#loggedUser')
 
-          const userName = (await getUser())?.name
-          if (userName === "") {
-            anon.removeAttribute('style') //show anon div
-            return
-          }
+        const userName = (await getUser())?.name
+        if (userName === "") {
+          anon.removeAttribute('style') //show anon div
+          return
+        }
 
-          const icon = $('button', logged)
-          icon.innerText = userName.slice(0, 2)
-          const menuName = $('p', logged)
-          menuName.innerText = userName
-          logged.removeAttribute('style') //show logged div
+        const icon = $('button', logged)
+        icon.innerText = userName.slice(0, 2)
+        const menuName = $('p', logged)
+        menuName.innerText = userName
+        logged.removeAttribute('style') //show logged div
 
-        })()
+      })()
     </script>
   </header>
   <aside class="extended">
@@ -99,30 +99,37 @@
           const types = await getResourceTypes()
 
           for (const type in types) {
-            const inp = document.createElement('input')
+            const inp = _('input')
             inp.type = 'submit'
             inp.value = type
-            inp.setAttribute('filter', types[type])
+            inp.setAttribute('resourcetype', types[type])
             aside.appendChild(inp)
           }
 
           aside.addEventListener('submit', (e) => {
             e.preventDefault()
-            const filter = e.submitter.getAttribute('filter')
-            putResources(filter)
+            const type = e.submitter.getAttribute('resourcetype')
+            putResources('', type)
           })
         })()
     </script>
   </aside>
   <main>
     <div id="createResource" class="base">
-      
+
       <button class="modal-button" modal="resourceCreator">
         <label>+</label>
         <h3>Crear un nuevo recurso</h3>
       </button>
     </div>
     <!-- Autofill con cosas creadas por user -->
+    <script>
+      async function putResources(type = '', filter = '') {
+        getUserCreatedResources(type, filter)
+        
+      }
+      putResources($('main'))
+    </script>
   </main>
   <div id="modalContainer">
 

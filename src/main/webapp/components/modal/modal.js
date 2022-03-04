@@ -34,7 +34,6 @@ async function setModalButtons(from) {
   const modalBox = document.createElement('div')
   modalContainer.append(modalBox)
   modalBox.innerHTML = ''
-  console.log(from)
 
   const buttons = $$('.modal-button', from)
   for (const button of buttons) {
@@ -94,7 +93,6 @@ function hideModals() {
 async function evaluate(modal) {
   const scripts = $$('script', modal)
   for (const script of scripts) {
-    console.log(modal, script)
     await eval(script.innerText)
   }
 }

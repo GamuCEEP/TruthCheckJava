@@ -27,6 +27,7 @@ public class Inventory implements Serializable {
 
   private static final long serialVersionUID = 1L;
   @EmbeddedId
+  @JsonbTransient
   protected InventoryPK inventoryPK;
   @Basic(optional = false)
   @NotNull

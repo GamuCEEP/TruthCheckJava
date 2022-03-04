@@ -23,8 +23,11 @@
   text-decoration: rgb(var(--color-lit)) underline 2px;
   color: rgb(var(--color-light));
 }
+h3{
+  color: white;
+}
 /* Input */
-.base select, .base input{
+.base select, .base input, .base textarea{
   width: 300px;
   height: 30px;
   margin: 10px auto;
@@ -36,7 +39,7 @@
   
   font-size: inherit;
 }
-.base input{
+.base input, .base textarea{
   border-radius: 5px 5px 20px 5px;
   user-select: text;
 }
@@ -45,8 +48,6 @@
   border: 2px rgb(var(--color-dim)) solid;
   border-radius: 5px;
 }
-
-
 .base .searchbar input{
   border-radius: 5px 0 0 5px;
   margin-right: 0;
@@ -54,6 +55,12 @@
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   transition: 100ms transform ease, 100ms border ease;
+}
+
+.base textarea{
+  height: 200px;
+  padding: 10px;
+  resize: vertical;
 }
 
 

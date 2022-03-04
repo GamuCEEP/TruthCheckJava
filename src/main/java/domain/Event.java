@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Event.findById", query = "SELECT e FROM Event e WHERE e.id = :id"),
   @NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name = :name"),
   @NamedQuery(name = "Event.findByDescription", query = "SELECT e FROM Event e WHERE e.description = :description")})
-public class Event implements Serializable {
+public class Event implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id

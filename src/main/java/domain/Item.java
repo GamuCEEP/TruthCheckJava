@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id"),
   @NamedQuery(name = "Item.findByName", query = "SELECT i FROM Item i WHERE i.name = :name"),
   @NamedQuery(name = "Item.findByDescription", query = "SELECT i FROM Item i WHERE i.description = :description")})
-public class Item implements Serializable {
+public class Item implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id

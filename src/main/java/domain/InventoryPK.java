@@ -14,10 +14,12 @@ public class InventoryPK implements Serializable {
   @Basic(optional = false)
   @NotNull
   @Column(name = "actor_id")
+  @JsonbTransient
   private int actorId;
   @Basic(optional = false)
   @NotNull
   @Column(name = "item_id")
+  @JsonbTransient
   private int itemId;
 
   public InventoryPK() {

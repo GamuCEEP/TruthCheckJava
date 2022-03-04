@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Effect.findByCode", query = "SELECT e FROM Effect e WHERE e.code = :code"),
   @NamedQuery(name = "Effect.findByName", query = "SELECT e FROM Effect e WHERE e.name = :name"),
   @NamedQuery(name = "Effect.findByDescription", query = "SELECT e FROM Effect e WHERE e.description = :description")})
-public class Effect implements Serializable {
+public class Effect implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -59,17 +59,13 @@ public class Effect implements Serializable {
     @JoinColumn(name = "effect_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "user_id", referencedColumnName = "id")})
   @ManyToMany
-  @JsonbTransient
   private Collection<User> userCollection;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId")
-  @JsonbTransient
   private Collection<Item> itemCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)
-  @JsonbTransient
   private User author;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "effectId")
-  @JsonbTransient
   private Collection<Event> eventCollection;
 
   public Effect() {
@@ -90,6 +86,7 @@ public class Effect implements Serializable {
     return id;
   }
 
+  @JsonbTransient
   public void setId(Integer id) {
     this.id = id;
   }
@@ -118,7 +115,7 @@ public class Effect implements Serializable {
     this.description = description;
   }
 
-  @XmlTransient
+  @JsonbTransient
   public Collection<User> getUserCollection() {
     return userCollection;
   }
@@ -127,7 +124,7 @@ public class Effect implements Serializable {
     this.userCollection = userCollection;
   }
 
-  @XmlTransient
+  @JsonbTransient
   public Collection<Item> getItemCollection() {
     return itemCollection;
   }
@@ -136,6 +133,7 @@ public class Effect implements Serializable {
     this.itemCollection = itemCollection;
   }
 
+  @JsonbTransient
   public User getAuthor() {
     return author;
   }
@@ -144,7 +142,7 @@ public class Effect implements Serializable {
     this.author = author;
   }
 
-  @XmlTransient
+  @JsonbTransient
   public Collection<Event> getEventCollection() {
     return eventCollection;
   }

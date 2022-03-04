@@ -3,12 +3,6 @@
   <!-- <button onclick="hideModals()">Cerrar modal</button> -->
   <!-- _var for variables -->
   <style>
-    #resourceCreator{
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      border: 2px rgb(var(--color-accent)) solid;
-    }
     #resourceCreator button{
       width: 140px;
     }
@@ -20,7 +14,6 @@
     (async () => {
       const resourceTypes = await getResourceTypes()
       const container = $('#resourceCreator')
-      console.log('inserting buttons')
 
       for (const type in resourceTypes) {
         const btn = document.createElement('button')

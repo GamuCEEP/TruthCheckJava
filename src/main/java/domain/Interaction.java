@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Interaction.findById", query = "SELECT i FROM Interaction i WHERE i.id = :id"),
   @NamedQuery(name = "Interaction.findByName", query = "SELECT i FROM Interaction i WHERE i.name = :name"),
   @NamedQuery(name = "Interaction.findByDescription", query = "SELECT i FROM Interaction i WHERE i.description = :description")})
-public class Interaction implements Serializable {
+public class Interaction implements Serializable, iResource {
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -60,6 +60,7 @@ public class Interaction implements Serializable {
     @JoinColumn(name = "interaction_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<Item> itemCollection;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)

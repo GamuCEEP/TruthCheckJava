@@ -1,6 +1,8 @@
 package service;
 
 import domain.User;
+import domain.iResource;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,11 @@ public abstract class AbstractFacade<T> {
   protected abstract HttpServletRequest getRequest();
 
   public Response create(T entity) {
+    if (Arrays.asList(entityClass.getInterfaces()).contains(iResource.class)) {
+      User author = (User) getRequest().getSession().getAttribute(K.LOGGED_USER);
+      ((iResource) entity).setAuthor(author);
+    }
+
     getEntityManager().persist(entity);
     return Response.accepted().build();
   }
@@ -61,7 +68,8 @@ public abstract class AbstractFacade<T> {
   }
 
   public boolean canOperate(Integer userId) {
-    User loggedUser = (User) getRequest().getSession().getAttribute(K.LOGGED_USER);
+    User loggedUser = (User) getRequest().getSession().getAttribute(
+            K.LOGGED_USER);
 
     if (loggedUser == null) {
       return false;

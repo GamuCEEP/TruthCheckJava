@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "Actor.findById", query = "SELECT a FROM Actor a WHERE a.id = :id"),
   @NamedQuery(name = "Actor.findByName", query = "SELECT a FROM Actor a WHERE a.name = :name"),
   @NamedQuery(name = "Actor.findByDescription", query = "SELECT a FROM Actor a WHERE a.description = :description")})
-public class Actor implements Serializable {
+public class Actor implements Serializable, iResource{
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -55,6 +54,7 @@ public class Actor implements Serializable {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {
     @JoinColumn(name = "item_id", referencedColumnName = "id")})
   @ManyToMany
+  @JsonbTransient
   private Collection<Item> itemCollection;
   @JoinTable(name = "_user_has_actor", joinColumns = {
     @JoinColumn(name = "actor_id", referencedColumnName = "id")}, inverseJoinColumns = {

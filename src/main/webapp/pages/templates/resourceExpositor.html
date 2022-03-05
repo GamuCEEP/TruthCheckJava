@@ -1,5 +1,22 @@
-<div>
+<div class="base expositor _e_type" id="_e_type_e_id">
+  <h3>Nombre</h3>
+  <input type="text" readonly value="_e_name">
+  <h3>Descripción</h3>
+  <textarea readonly>_e_description</textarea>
+  <h3>Tipo</h3>
+  <input type="text" readonly value="_e_type">
+  <button class="add-button _e_name">+</button>
+  <script>
+    (()=>{
+      const container = $('#_e_type_e_id')
+      const button = $('.add-button', container)
+      button.addEventListener('click', ()=>{
+        // send remove petition to the server
+        button.innerText = button.innerText== '-' ? '+' : '-'
+        //Codigo para añadir o eliminarlo de la biblioteca
+        // No se puede por que no puedo enviar toda la informacion del servidor
+      })
 
-  _variable
-
+    })()
+  </script>
 </div>

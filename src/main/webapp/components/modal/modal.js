@@ -27,7 +27,6 @@ function attributeListToObj(attrList) {
   return res
 }
 
-
 async function setModalButtons(from) {
 
   const modalContainer = $('#modalContainer')
@@ -54,10 +53,8 @@ async function setModalButtons(from) {
 
   }
 }
-
 cover = createCover()
 setModalButtons()
-
 function createCover() {
   const cover = _('div')
   cover.classList.add('modal-cover')
@@ -70,7 +67,6 @@ function createCover() {
   })
   return cover
 }
-
 async function getModal(button) {
   const modalURL = pathToModals + button.getAttribute('modal') + '.template.html'
   const attributes = attributeListToObj(button.attributes)
@@ -82,14 +78,12 @@ async function getModal(button) {
   modal.classList.add('modal')
   return modal
 }
-
 function hideModals() {
   for (const modal of $$('.modal', modalContainer)) {
     modal.setAttribute('style', 'display: none')
   }
   $('.modal-cover').setAttribute('style', 'display: none')
 }
-
 async function evaluate(modal) {
   const scripts = $$('script', modal)
   for (const script of scripts) {

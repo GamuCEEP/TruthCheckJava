@@ -114,7 +114,7 @@
           aside.addEventListener('submit', (e) => {
             e.preventDefault()
             const type = e.submitter.getAttribute('resourcetype')
-            putResources('', type)
+            putResources(type, '')
           })
         })()
     </script>
@@ -125,7 +125,7 @@
         $('main').innerText = ''
         const container = $('main')
         const user = await getUser()
-        const created = getAllResources(user, type, filter)
+        const allResources = await getAllResources(user, type, filter)
 
         const url = '/TruthCheckJava/pages/templates/resourceExpositor.html'
         await createExpositors(container, allResources, url)
@@ -136,9 +136,6 @@
       async function createExpositors(container, resources, templateURl) {
         for (const type in resources) {
           for (const resource of resources[type]) {
-            // If its not a resource
-            if (Object.values(await getResourceTypes()).indexOf(type) < 0) continue
-            // else
             const template = await getTemplate(templateURl, {
               e_type: type,
               e_name: resource.name,

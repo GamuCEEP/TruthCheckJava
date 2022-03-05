@@ -16,6 +16,11 @@ function clearURL() {
   window.history.replaceState({}, document.title, currentURL)
 }
 
+async function getData(url) {
+  const resp = await fetch(url)
+  return resp.json()
+}
+
 async function getUser() {
   return getData('/TruthCheckJava/w/user/logged')
 }
@@ -24,10 +29,7 @@ async function getResourceTypes() {
   return getData('/TruthCheckJava/w/util/resourceTypes')
 }
 
-async function getData(url) {
-  const resp = await fetch(url)
-  return resp.json()
-}
+
 
 function getUserLikedResources(user, type = '', filter = '') {
   return filterUserResources(user, 'Collection', type, filter)
@@ -60,6 +62,30 @@ function filterUserResources(user, relation = '', type = '', filter = '') {
 }
 
 
+
+
+
+async function getAllResources(user, type = '', filter= ''){
+  const resourceTypes = await getResourceTypes()
+  const allResources = {}
+  for(const resourceType in resourceTypes){
+    allResources[resourceType] = []
+    if(!resourceTypes[resourceType].includes(type)) continue
+    const resources = await getData('/TruthCheckJava/w/'+resourceTypes[resourceType])
+    for(const resource of resources){
+      const id = resource.id+''
+      const name = resource.name+''
+      const description = resource.description+''
+      if (!id.includes(filter) && !name.includes(filter) && !description.includes(filter)) continue
+      allResources[resourceType].push(resource)
+    }
+  }
+  return allResources
+}
+
+
+
+// Not used
 function createResourceView(resource, depth = -1) {
   if (depth == 0) return
   depth--

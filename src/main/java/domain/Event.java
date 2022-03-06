@@ -60,7 +60,7 @@ public class Event implements Serializable, iResource {
   @JsonbTransient
   private Collection<StageEvent> stageEventCollection;
   @JoinColumn(name = "effect_id", referencedColumnName = "id")
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = false, cascade =CascadeType.ALL)
   private Effect effectId;
   @JoinColumn(name = "author", referencedColumnName = "id")
   @ManyToOne(optional = false)

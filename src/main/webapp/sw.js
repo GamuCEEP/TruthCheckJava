@@ -9,6 +9,22 @@ const register = userURL + '/register'
 const logged = userURL + '/logged'
 const logout = userURL + '/logout'
 
+const createItem = userURL + '/item'
+const createActor = userURL + '/actor'
+const createStage = userURL + '/stage'
+const createInteracion = userURL + '/interaction'
+const createEvent = userURL + '/event'
+const createEffect = userURL + '/effect'
+const createMap = userURL + '/map'
+
+const storeItem = root + '/w/item'
+const storeActor = root + '/w/actor'
+const storeStage = root + '/w/stage'
+const storeInteracion = root + '/w/interaction'
+const storeEvent = root + '/w/event'
+const storeEffect = root + '/w/effect'
+const storeMap = root + '/w/map'
+
 const home = root + '/home'
 const welcome = root + '/welcome'
 const create = root + '/create' //donde se crean las cosas / la biblioteca personal
@@ -91,7 +107,14 @@ const routes = {
   [login]: loginHandler,
   [register]: registerHandler,
   [logout]: logoutHandler,
-  [create]: creationHandler
+  // resource creation
+  [create + '?item']: createItemHandler,
+  [create + '?actor']: createActorHandler,
+  [create + '?stage']: createStageHandler,
+  [create + '?interacion']: createInteracionHandler,
+  [create + '?event']: createEventHandler,
+  [create + '?effect']: createEffectHandler,
+  [create + '?map']: createMapHandler,
 }
 
 // Main
@@ -144,8 +167,38 @@ async function logoutHandler(f) {
   return Response.redirect(url)
 }
 
-async function creationHandler(f) {
 
-  // cositas
+
+
+
+async function createItemHandler(f) {
+  const formData = await f.request.formData()
+}
+async function createActorHandler(f) {
+  const formData = await f.request.formData()
+}
+async function createStageHandler(f) {
+  const formData = await f.request.formData()
+}
+async function createInteracionHandler(f) {
+  const formData = await f.request.formData()
+}
+async function createEventHandler(f) {
+  const formData = await f.request.formData()
+}
+async function createEffectHandler(f) {
+  const formData = await f.request.formData()
+  const store = await sendFormData(storeEffect, {
+    name: formData.get('name'),
+    description: formData.get('description'),
+    code: formData.get('code')
+  })
+  const effect = await fetch('/TruthCheckJava/w/effect/named/'+formData.get('name'))
+  const resp = await fetch(createEffect,{method: 'post',body: effect.id})
+  console.log(store.status, effect.status, resp.status, effect.id)
+  return welcome
+}
+async function createMapHandler(f) {
+  const formData = await f.request.formData()
 }
 

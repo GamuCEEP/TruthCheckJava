@@ -1,5 +1,12 @@
 package service;
 
+import domain.Actor;
+import domain.Effect;
+import domain.Event;
+import domain.Interaction;
+import domain.Item;
+import domain.Map;
+import domain.Stage;
 import domain.User;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -63,14 +70,14 @@ public class UserFacadeREST extends AbstractFacade<User> {
   @Consumes({MediaType.APPLICATION_JSON})
   public Response login(User entity) {
     User u = findUser(entity);
-    
+
     if (u == null || !u.getPassword().equals(entity.getPassword())) {
       return Response
               .status(418, "Soy una tetera :D")
               .header(K.ERROR, K.INCORRECT_CREDENTIALS)
               .build();
     }
-    
+
     hidePassword(u);
 
     req.getSession().setAttribute(K.LOGGED_USER, u);
@@ -83,7 +90,7 @@ public class UserFacadeREST extends AbstractFacade<User> {
   public User logged() {
     System.out.println("Quien esta logueado??");
     User u = (User) req.getSession().getAttribute(K.LOGGED_USER);
-    if(u == null){
+    if (u == null) {
       u = new User();
       u.setName("");
       System.out.println("Nadie");
@@ -184,11 +191,95 @@ public class UserFacadeREST extends AbstractFacade<User> {
   protected HttpServletRequest getRequest() {
     return req;
   }
-  
-  private User hidePassword(User u){
+
+  private User hidePassword(User u) {
     em.detach(u);
     u.setPassword(K.FAKE_PASSWORD);
     return u;
+  }
+
+  @POST
+  @Path("item")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addItemToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Item e = em.find(Item.class, id);
+    logged.getItemCollection().add(e);
+  }
+
+  @POST
+  @Path("actor")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addActorToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Actor e = em.find(Actor.class, id);
+    logged.getActorCollection().add(e);
+  }
+
+  @POST
+  @Path("stage")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addStageToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Stage e = em.find(Stage.class, id);
+    logged.getStageCollection().add(e);
+  }
+
+  @POST
+  @Path("interaction")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addInteractionToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Interaction e = em.find(Interaction.class,id);
+    logged.getInteractionCollection().add(e);
+  }
+
+  @POST
+  @Path("event")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addEventToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Event e = em.find(Event.class, id);
+    logged.getEventCollection().add(e);
+  }
+
+  @POST
+  @Path("effect")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addEffectToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Effect e = em.find(Effect.class, id);
+    logged.getEffectCollection().add(e);
+  }
+
+  @POST
+  @Path("map")
+  @Consumes({MediaType.TEXT_PLAIN})
+  public void addMapToLibrary(int id) {
+    User logged = (User) req.getSession().getAttribute(K.LOGGED_USER);
+    if (logged == null) {
+      return;
+    }
+    Map e = em.find(Map.class, id);
+    logged.getMapCollection().add(e);
   }
 
 }

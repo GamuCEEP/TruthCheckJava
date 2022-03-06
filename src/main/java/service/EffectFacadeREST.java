@@ -80,6 +80,14 @@ public class EffectFacadeREST extends AbstractFacade<Effect> {
   public String countREST() {
     return String.valueOf(super.count());
   }
+  
+  
+  @GET
+  @Path("named/{name}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Effect findByName(@PathParam("name") String name){
+    return em.createNamedQuery("Effect.findByName", Effect.class).setParameter("name", name).getSingleResult();
+  }
 
   @Override
   protected EntityManager getEntityManager() {

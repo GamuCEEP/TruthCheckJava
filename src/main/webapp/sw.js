@@ -101,7 +101,6 @@ async function getPage(url) {
 
 
 // Rutas
-
 const routes = {
   [home]: defaultAction,
   [login]: loginHandler,
@@ -116,9 +115,7 @@ const routes = {
   [create + '?effect']: createEffectHandler,
   [create + '?map']: createMapHandler,
 }
-
 // Main
-
 async function handleRequest(f) {
 
   for (const route in routes) {

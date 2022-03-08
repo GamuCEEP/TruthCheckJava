@@ -61,10 +61,6 @@ function filterUserResources(user, relation = '', type = '', filter = '') {
   return resp
 }
 
-
-
-
-
 async function getAllResources(user, type = '', filter= ''){
   const resourceTypes = await getResourceTypes()
   const allResources = {}

@@ -65,6 +65,8 @@ main{
   padding: 5px;
   display:flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+  overflow-y: auto;
   gap: 5px;
 }
 

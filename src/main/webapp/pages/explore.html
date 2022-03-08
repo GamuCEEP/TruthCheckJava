@@ -49,6 +49,14 @@
           <input name="search" type="text">
         </div>
       </form>
+      <script>
+        const searchBarForm = $('.searchbar').parentNode
+        const searchInput = $('.searchbar input[name="search"]')
+        searchBarForm.addEventListener('submit',(e)=>{
+          e.preventDefault()
+          putResources('', searchInput.value)
+        })
+      </script>
     </div>
 
     <div id="userIcon">

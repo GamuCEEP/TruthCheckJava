@@ -86,7 +86,7 @@ public class EffectFacadeREST extends AbstractFacade<Effect> {
   @Path("named/{name}")
   @Produces(MediaType.APPLICATION_JSON)
   public Effect findByName(@PathParam("name") String name){
-    return em.createNamedQuery("Effect.findByName", Effect.class).setParameter("name", name).getSingleResult();
+    return em.createNamedQuery("Effect.findByName", Effect.class).setParameter("name", name).getResultList().get(0);
   }
 
   @Override
